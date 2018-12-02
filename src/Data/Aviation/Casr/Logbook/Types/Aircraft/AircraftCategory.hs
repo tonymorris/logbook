@@ -11,6 +11,7 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1
 import Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory
+import Data.Functor.Identity
 import GHC.Generics
 
 data AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeature airshipdesignfeature gyroplanedesignfeature helicopterdesignfeature =
@@ -32,3 +33,10 @@ data AircraftCategory cylinders displacement jettype position vtol rotors landin
   | Hangglider
   | Simulator
   deriving Generic
+
+type AircraftCategory' a =
+  AircraftCategory a a a a a a a a a a a
+  
+type AircraftCategoryI =
+  AircraftCategory' Identity
+  

@@ -4,6 +4,7 @@
 module Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory where
 
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1
+import Data.Functor.Identity
 import GHC.Generics
 import Natural
  
@@ -13,3 +14,9 @@ data RPACategory cylinders displacement jettype position vtol rotors =
   | RPAAirship (Propulsions1 cylinders displacement jettype position vtol)
   | RPAPoweredLift (Propulsions1 cylinders displacement jettype position vtol)
   deriving Generic
+
+type RPACategory' a =
+  RPACategory a a a a a
+
+type RPACategoryI =
+  RPACategory' Identity

@@ -8,6 +8,7 @@ import GHC.Generics
 import Natural
 import Prelude
 import Data.Functor.Classes(Eq1, eq1, Show1, showsPrec1, Ord1, compare1)
+import Data.Functor.Identity
 
 data PropulsionType cylinders displacement jettype =
   Piston (cylinders Natural) (displacement Natural) -- cc
@@ -15,6 +16,12 @@ data PropulsionType cylinders displacement jettype =
   | Electric
   | Rocket
   deriving Generic
+
+type PropulsionType' a =
+  PropulsionType a a a
+
+type PropulsionTypeI =
+  PropulsionType' Identity
 
 instance (Eq1 cylinders, Eq1 displacement, Eq1 jettype) => Eq (PropulsionType cylinders displacement jettype) where
   Piston x1 y1 == Piston x2 y2 =

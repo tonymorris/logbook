@@ -24,3 +24,8 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory as A
+
+import Prelude(error)
+
+testAircraft5350 :: AircraftI
+testAircraft5350 = error "todo"
