@@ -61,7 +61,7 @@ testAircraft5350 =
                 (
                   pistonPropulsionTypeI
                     (list1 # (() :| [(), (), ()]))
-                    (fromMaybe one' ((1352 :: Int) ^? _Positive))
+                    (oneOr (1352 :: Int))
                 )
                 Centreline
                 False
@@ -94,7 +94,7 @@ testAircraftAFR =
                 (
                   pistonPropulsionTypeI
                     (list1 # (() :| [(), (), ()]))
-                    (fromMaybe one' ((5920 :: Int) ^? _Positive))
+                    (oneOr (5920 :: Int))
                 )
                 Centreline
                 False
