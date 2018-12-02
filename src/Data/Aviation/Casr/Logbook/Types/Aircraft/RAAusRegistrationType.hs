@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.RAAusRegistrationType where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType where
 
 import GHC.Generics
 import Prelude

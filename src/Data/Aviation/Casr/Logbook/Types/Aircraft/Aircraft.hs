@@ -1,10 +1,10 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.Aircraft where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.Aircraft where
 
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.AircraftRegistration
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.AircraftCategory
+import Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration
+import Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory
 import GHC.Generics
 
 data Aircraft aircraftregistration otherregistration aircraftcategory raausregistration casaregistration raausregistrationtype prefix digits4 cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeature airshipdesignfeature gyroplanedesignfeature helicopterdesignfeature =

@@ -1,10 +1,10 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.AircraftRegistration where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration where
 
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.RAAusRegistration
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.CASARegistration
+import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration
+import Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration
 import GHC.Generics
 import Prelude
 

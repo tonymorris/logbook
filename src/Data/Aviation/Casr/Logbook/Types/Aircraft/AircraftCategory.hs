@@ -1,16 +1,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.AircraftCategory where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory where
 
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.AeroplaneDesignFeature
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.AirshipDesignFeature
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.GyroplaneDesignFeature
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.HelicopterDesignFeature
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.Propulsions
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.Propulsions1
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.LandingGear
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.RPACategory
+import Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeature
+import Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeature
+import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeature
+import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1
+import Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear
+import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory
 import GHC.Generics
 
 data AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeature airshipdesignfeature gyroplanedesignfeature helicopterdesignfeature =

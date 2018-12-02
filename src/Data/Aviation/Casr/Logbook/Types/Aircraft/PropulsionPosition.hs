@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.PropulsionPosition where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition where
 
 import GHC.Generics
 import Prelude

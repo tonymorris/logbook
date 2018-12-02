@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.DecDigit4 where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigit4 where
 
 import Data.Digit
 import GHC.Generics

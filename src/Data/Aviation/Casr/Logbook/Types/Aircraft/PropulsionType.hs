@@ -1,9 +1,9 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.PropulsionType where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType where
 
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.JetType
+import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
 import GHC.Generics
 import Natural
 import Prelude

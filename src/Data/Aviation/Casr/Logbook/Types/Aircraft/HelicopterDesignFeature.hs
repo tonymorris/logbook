@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.HelicopterDesignFeature where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature where
 
 import GHC.Generics
 import Prelude

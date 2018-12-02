@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.CASARegistration where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration where
 
 import Data.Char.Alpha
 import GHC.Generics

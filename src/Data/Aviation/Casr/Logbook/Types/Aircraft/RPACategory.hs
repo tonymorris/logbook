@@ -1,9 +1,9 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aeroplane.RPACategory where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory where
 
-import Data.Aviation.Casr.Logbook.Types.Aeroplane.Propulsions1
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1
 import GHC.Generics
 import Natural
  
