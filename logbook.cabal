@@ -51,6 +51,7 @@ library
 
   exposed-modules:
                     Data.Aviation.Casr.Logbook
+                    Data.Aviation.Casr.Logbook.Types.Aircraft
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeature
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Aircraft
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory
