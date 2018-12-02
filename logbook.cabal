@@ -38,6 +38,7 @@ library
                     , natural
                     , alphachar
                     , digit
+                    , containers
                     
   ghc-options:
                     -Wall
@@ -53,14 +54,18 @@ library
                     Data.Aviation.Casr.Logbook
                     Data.Aviation.Casr.Logbook.Types.Aircraft
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeature
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeatures
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Aircraft
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeature
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeatures
                     Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration
                     Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigit4
                     Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeature
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures
                     Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures
                     Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
                     Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion

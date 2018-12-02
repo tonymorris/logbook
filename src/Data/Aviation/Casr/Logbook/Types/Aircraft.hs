@@ -5,14 +5,18 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft(
 ) where
 
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeature as A
+import Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeatures as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Aircraft as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeature as A
+import Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeatures as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigit4 as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeature as A
+import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature as A
+import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion as A
