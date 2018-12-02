@@ -32,7 +32,6 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory as A
 import Control.Lens
 import Data.Int
 import Data.List.NonEmpty
-import Data.Maybe
 
 testAircraft5350 ::
   AircraftI
@@ -86,20 +85,9 @@ testAircraftAFR =
       )
     )
     (
-      aeroplaneAircraftCategoryI
-        (
-          singlePropulsions1
-            (
-              propulsionI
-                (
-                  pistonPropulsionTypeI
-                    (list1 # (() :| [(), (), ()]))
-                    (oneOr (5920 :: Int))
-                )
-                Centreline
-                False
-            )
-        )
+      singleEnginePistonCentrelineNovtolAeroplaneCategory
+        (list1 # (() :| [(), (), ()]))
+        (oneOr (5920 :: Int))
         LandingGearFixedTricycle
         mempty
     )

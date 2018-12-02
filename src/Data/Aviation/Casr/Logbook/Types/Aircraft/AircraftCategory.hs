@@ -3,12 +3,16 @@
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory where
 
+import Control.Applicative(Applicative(pure))
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeatures
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeatures
 import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures
 import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1
+import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition
+import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType
 import Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory
 import Data.Functor.Identity
@@ -68,3 +72,13 @@ airshipAircraftCategoryI ::
   -> AircraftCategoryI
 airshipAircraftCategoryI propulsions1 airshipdesignfeatures =
   Airship propulsions1 (Identity airshipdesignfeatures)
+
+singleEnginePistonCentrelineNovtolAeroplaneCategory ::
+  (Applicative cylinders, Applicative displacement, Applicative position, Applicative vtol, Applicative landinggear, Applicative aeroplanedesignfeatures) =>
+  Positive
+  -> Positive
+  -> LandingGear
+  -> AeroplaneDesignFeatures
+  -> AircraftCategory cylinders displacement jettype position vtol rotos landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
+singleEnginePistonCentrelineNovtolAeroplaneCategory cylinders displacement landinggear aeroplanedesignfeatures =
+  Aeroplane (singlePropulsions1 (Propulsion (Piston (pure cylinders) (pure displacement)) (pure Centreline) (pure False))) (pure landinggear) (pure aeroplanedesignfeatures)

@@ -14,7 +14,6 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType
 import Data.Functor.Identity
 import GHC.Generics
 import Data.Bool as Bool(Bool(False, True))
-import Prelude
 
 data Propulsion cylinders displacement jettype position vtol =
   Propulsion
