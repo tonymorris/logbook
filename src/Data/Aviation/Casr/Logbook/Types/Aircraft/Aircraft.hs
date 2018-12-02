@@ -20,3 +20,9 @@ type Aircraft' a =
 type AircraftI =
   Aircraft' Identity
   
+aircraftI ::
+  AircraftRegistrationI
+  -> AircraftCategoryI
+  -> AircraftI
+aircraftI aircraftregistration aircraftcategory =
+  Aircraft (Identity aircraftregistration) (Identity aircraftcategory)

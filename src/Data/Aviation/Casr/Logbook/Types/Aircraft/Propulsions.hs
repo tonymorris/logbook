@@ -18,3 +18,9 @@ type Propulsions' a =
 type PropulsionsI =
   Propulsions' Identity
   
+singlePropulsions ::
+  Propulsion cylinders displacement jettype position vtol
+  -> Propulsions cylinders displacement jettype position vtol
+singlePropulsions propulsion =
+  Propulsions [propulsion]
+  

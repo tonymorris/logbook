@@ -40,3 +40,31 @@ type AircraftCategory' a =
 type AircraftCategoryI =
   AircraftCategory' Identity
   
+aeroplaneAircraftCategoryI ::
+  Propulsions1I
+  -> LandingGear
+  -> AeroplaneDesignFeatures
+  -> AircraftCategoryI
+aeroplaneAircraftCategoryI propulsions1 landinggear aeroplanedesignfeatures =
+  Aeroplane propulsions1 (Identity landinggear) (Identity aeroplanedesignfeatures)
+
+helicopterAircraftCategoryI ::
+  Propulsions1I
+  -> HelicopterDesignFeatures
+  -> AircraftCategoryI
+helicopterAircraftCategoryI propulsions1 helicopterdesignfeatures =
+  Helicopter propulsions1 (Identity helicopterdesignfeatures)
+
+gyroplaneAircraftCategoryI ::
+  Propulsions1I
+  -> GyroplaneDesignFeatures
+  -> AircraftCategoryI
+gyroplaneAircraftCategoryI propulsions1 gyroplanedesignfeatures =
+  Gyroplane propulsions1 (Identity gyroplanedesignfeatures)
+
+airshipAircraftCategoryI ::
+  Propulsions1I
+  -> AirshipDesignFeatures
+  -> AircraftCategoryI
+airshipAircraftCategoryI propulsions1 airshipdesignfeatures =
+  Airship propulsions1 (Identity airshipdesignfeatures)

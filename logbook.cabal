@@ -61,7 +61,7 @@ library
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeature
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeatures
                     Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration
-                    Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigit4
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigits4
                     Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeature
                     Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures
                     Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature

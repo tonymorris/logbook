@@ -12,7 +12,7 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeature as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeatures as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration as A
-import Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigit4 as A
+import Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigits4 as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeature as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature as A
@@ -29,7 +29,77 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory as A
 
-import Prelude(error)
+import Control.Lens
+import Data.Int
+import Data.List.NonEmpty
+import Data.Maybe
 
-testAircraft5350 :: AircraftI
-testAircraft5350 = error "todo"
+testAircraft5350 ::
+  AircraftI
+testAircraft5350 =
+  aircraftI
+    (
+      raAusAircraftRegistrationI (
+        raAusRegistrationI
+          RAAusRegistrationTypeFull
+          RAAusRegistrationPrefix24
+          (
+            DecDigits4
+              DecDigit5
+              DecDigit3
+              DecDigit5
+              DecDigit0
+          )
+      )
+    )
+    (
+      aeroplaneAircraftCategoryI
+        (
+          singlePropulsions1
+            (
+              propulsionI
+                (
+                  pistonPropulsionTypeI
+                    (list1 # (() :| [(), (), ()]))
+                    (fromMaybe one' ((1352 :: Int) ^? _Positive))
+                )
+                Centreline
+                False
+            )
+        )
+        LandingGearFixedTricycle
+        mempty
+    )
+
+testAircraftAFR ::
+  AircraftI
+testAircraftAFR =
+  aircraftI
+    (
+      casaAircraftRegistrationI (
+        (
+          CASARegistration
+            Upper_A
+            Upper_F
+            Upper_R
+        )
+      )
+    )
+    (
+      aeroplaneAircraftCategoryI
+        (
+          singlePropulsions1
+            (
+              propulsionI
+                (
+                  pistonPropulsionTypeI
+                    (list1 # (() :| [(), (), ()]))
+                    (fromMaybe one' ((5920 :: Int) ^? _Positive))
+                )
+                Centreline
+                False
+            )
+        )
+        LandingGearFixedTricycle
+        mempty
+    )

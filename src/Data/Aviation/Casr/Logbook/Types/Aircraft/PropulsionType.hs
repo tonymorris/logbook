@@ -1,17 +1,25 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType(
+  module Natural
+, PropulsionType(..)
+, PropulsionType'
+, PropulsionTypeI
+, pistonPropulsionTypeI
+, jetPropulsionTypeI
+) where
 
 import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
 import GHC.Generics
-import Natural
+import Natural as Natural
+import Data.Bool
 import Prelude
 import Data.Functor.Classes(Eq1, eq1, Show1, showsPrec1, Ord1, compare1)
 import Data.Functor.Identity
 
 data PropulsionType cylinders displacement jettype =
-  Piston (cylinders Natural) (displacement Natural) -- cc
+  Piston (cylinders Positive) (displacement Positive) -- cc
   | Jet (jettype JetType)
   | Electric
   | Rocket
@@ -22,6 +30,19 @@ type PropulsionType' a =
 
 type PropulsionTypeI =
   PropulsionType' Identity
+
+pistonPropulsionTypeI ::
+  Positive
+  -> Positive
+  -> PropulsionTypeI
+pistonPropulsionTypeI cylinders displacement =
+  Piston (Identity cylinders) (Identity displacement)
+
+jetPropulsionTypeI ::
+  JetType
+  -> PropulsionTypeI
+jetPropulsionTypeI jettype =
+  Jet (Identity jettype)
 
 instance (Eq1 cylinders, Eq1 displacement, Eq1 jettype) => Eq (PropulsionType cylinders displacement jettype) where
   Piston x1 y1 == Piston x2 y2 =

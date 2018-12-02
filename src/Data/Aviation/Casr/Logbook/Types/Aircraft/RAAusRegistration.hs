@@ -3,7 +3,7 @@
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration where
 
-import Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigit4
+import Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigits4
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType
 import Data.Functor.Identity
@@ -13,7 +13,7 @@ data RAAusRegistration raausregistrationtype prefix digits4 =
   RAAusRegistration
     (raausregistrationtype RAAusRegistrationType)
     (prefix RAAusRegistrationPrefix)
-    (digits4 DecDigit4)
+    (digits4 DecDigits4)
   deriving Generic
 
 type RAAusRegistration' a =
@@ -21,3 +21,11 @@ type RAAusRegistration' a =
 
 type RAAusRegistrationI =
   RAAusRegistration' Identity
+
+raAusRegistrationI ::
+  RAAusRegistrationType
+  -> RAAusRegistrationPrefix
+  -> DecDigits4
+  -> RAAusRegistrationI
+raAusRegistrationI raausregistrationtype prefix digits4 =
+  RAAusRegistration (Identity raausregistrationtype) (Identity prefix) (Identity digits4)

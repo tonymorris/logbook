@@ -16,7 +16,7 @@ data RPACategory cylinders displacement jettype position vtol rotors =
   deriving Generic
 
 type RPACategory' a =
-  RPACategory a a a a a
+  RPACategory a a a a a a
 
 type RPACategoryI =
   RPACategory' Identity

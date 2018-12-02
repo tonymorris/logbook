@@ -20,3 +20,21 @@ type AircraftRegistration' a =
   
 type AircraftRegistrationI =
   AircraftRegistration' Identity
+
+raAusAircraftRegistrationI ::
+  RAAusRegistrationI
+  -> AircraftRegistrationI
+raAusAircraftRegistrationI raausregistration =
+  RAAusAircraftRegistration (Identity raausregistration)
+
+casaAircraftRegistrationI ::
+  CASARegistration
+  -> AircraftRegistrationI
+casaAircraftRegistrationI casaregistration =
+  CASAAircraftRegistration (Identity casaregistration)
+
+otherAircraftRegistrationI ::
+  String
+  -> AircraftRegistrationI
+otherAircraftRegistrationI otherregistration =
+  OtherAircraftRegistration (Identity otherregistration)
