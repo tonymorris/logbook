@@ -9,6 +9,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion(
 , propulsionI
 ) where
 
+import Control.Applicative(Applicative(pure))
 import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition
 import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType
 import Data.Functor.Identity
@@ -29,9 +30,10 @@ type PropulsionI =
   Propulsion' Identity
 
 propulsionI ::
-  PropulsionTypeI
+  (Applicative position, Applicative vtol) =>
+  PropulsionType cylinders displacement jettype
   -> PropulsionPosition
   -> Bool
-  -> PropulsionI
+  -> Propulsion cylinders displacement jettype position vtol
 propulsionI propulsiontype propulsionposition vtol =
-  Propulsion propulsiontype (Identity propulsionposition) (Identity vtol)
+  Propulsion propulsiontype (pure propulsionposition) (pure vtol)

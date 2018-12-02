@@ -45,33 +45,37 @@ type AircraftCategoryI =
   AircraftCategory' Identity
   
 aeroplaneAircraftCategoryI ::
-  Propulsions1I
+  (Applicative landinggear, Applicative aeroplanedesignfeatures) =>
+  Propulsions1 cylinders displacement jettype position vtol
   -> LandingGear
   -> AeroplaneDesignFeatures
-  -> AircraftCategoryI
+  -> AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
 aeroplaneAircraftCategoryI propulsions1 landinggear aeroplanedesignfeatures =
-  Aeroplane propulsions1 (Identity landinggear) (Identity aeroplanedesignfeatures)
+  Aeroplane propulsions1 (pure landinggear) (pure aeroplanedesignfeatures)
 
 helicopterAircraftCategoryI ::
-  Propulsions1I
+  Applicative helicopterdesignfeatures =>
+  Propulsions1 cylinders displacement jettype position vtol
   -> HelicopterDesignFeatures
-  -> AircraftCategoryI
+  -> AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
 helicopterAircraftCategoryI propulsions1 helicopterdesignfeatures =
-  Helicopter propulsions1 (Identity helicopterdesignfeatures)
+  Helicopter propulsions1 (pure helicopterdesignfeatures)
 
 gyroplaneAircraftCategoryI ::
-  Propulsions1I
+  Applicative gyroplanedesignfeatures =>
+  Propulsions1 cylinders displacement jettype position vtol
   -> GyroplaneDesignFeatures
-  -> AircraftCategoryI
+  -> AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
 gyroplaneAircraftCategoryI propulsions1 gyroplanedesignfeatures =
-  Gyroplane propulsions1 (Identity gyroplanedesignfeatures)
+  Gyroplane propulsions1 (pure gyroplanedesignfeatures)
 
 airshipAircraftCategoryI ::
-  Propulsions1I
+  Applicative airshipdesignfeatures =>
+  Propulsions1 cylinders displacement jettype position vtol
   -> AirshipDesignFeatures
-  -> AircraftCategoryI
+  -> AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
 airshipAircraftCategoryI propulsions1 airshipdesignfeatures =
-  Airship propulsions1 (Identity airshipdesignfeatures)
+  Airship propulsions1 (pure airshipdesignfeatures)
 
 singleEnginePistonCentrelineNovtolAeroplaneCategory ::
   (Applicative cylinders, Applicative displacement, Applicative position, Applicative vtol, Applicative landinggear, Applicative aeroplanedesignfeatures) =>

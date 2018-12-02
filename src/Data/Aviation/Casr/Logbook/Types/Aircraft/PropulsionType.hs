@@ -32,17 +32,19 @@ type PropulsionTypeI =
   PropulsionType' Identity
 
 pistonPropulsionTypeI ::
+  (Applicative cylinders, Applicative displacement) =>
   Positive
   -> Positive
-  -> PropulsionTypeI
+  -> PropulsionType cylinders displacement jettype
 pistonPropulsionTypeI cylinders displacement =
-  Piston (Identity cylinders) (Identity displacement)
+  Piston (pure cylinders) (pure displacement)
 
 jetPropulsionTypeI ::
+  (Applicative jettype) =>
   JetType
-  -> PropulsionTypeI
+  -> PropulsionType cylinders displacement jettype
 jetPropulsionTypeI jettype =
-  Jet (Identity jettype)
+  Jet (pure jettype)
 
 instance (Eq1 cylinders, Eq1 displacement, Eq1 jettype) => Eq (PropulsionType cylinders displacement jettype) where
   Piston x1 y1 == Piston x2 y2 =

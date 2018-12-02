@@ -3,6 +3,7 @@
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration where
 
+import Control.Applicative(Applicative(pure))
 import Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigits4
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType
@@ -23,9 +24,10 @@ type RAAusRegistrationI =
   RAAusRegistration' Identity
 
 raAusRegistrationI ::
+  (Applicative raausregistrationtype, Applicative prefix, Applicative digits4) =>
   RAAusRegistrationType
   -> RAAusRegistrationPrefix
   -> DecDigits4
-  -> RAAusRegistrationI
+  -> RAAusRegistration raausregistrationtype prefix digits4
 raAusRegistrationI raausregistrationtype prefix digits4 =
-  RAAusRegistration (Identity raausregistrationtype) (Identity prefix) (Identity digits4)
+  RAAusRegistration (pure raausregistrationtype) (pure prefix) (pure digits4)

@@ -22,19 +22,22 @@ type AircraftRegistrationI =
   AircraftRegistration' Identity
 
 raAusAircraftRegistrationI ::
-  RAAusRegistrationI
-  -> AircraftRegistrationI
+  Applicative raausregistration =>
+  RAAusRegistration raausregistrationtype prefix digits4
+  -> AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4
 raAusAircraftRegistrationI raausregistration =
-  RAAusAircraftRegistration (Identity raausregistration)
+  RAAusAircraftRegistration (pure raausregistration)
 
 casaAircraftRegistrationI ::
+  Applicative casaregistration =>
   CASARegistration
-  -> AircraftRegistrationI
+  -> AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4
 casaAircraftRegistrationI casaregistration =
-  CASAAircraftRegistration (Identity casaregistration)
+  CASAAircraftRegistration (pure casaregistration)
 
 otherAircraftRegistrationI ::
+  Applicative otherregistration =>
   String
-  -> AircraftRegistrationI
+  -> AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4
 otherAircraftRegistrationI otherregistration =
-  OtherAircraftRegistration (Identity otherregistration)
+  OtherAircraftRegistration (pure otherregistration)

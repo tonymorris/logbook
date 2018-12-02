@@ -3,6 +3,7 @@
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Aircraft where
 
+import Control.Applicative(Applicative(pure))
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory
 import Data.Functor.Identity
@@ -21,8 +22,9 @@ type AircraftI =
   Aircraft' Identity
   
 aircraftI ::
-  AircraftRegistrationI
-  -> AircraftCategoryI
-  -> AircraftI
+  (Applicative aircraftregistration, Applicative aircraftcategory) =>
+  AircraftRegistration otherregistration raausregistration casaregistration raausregistrationtype prefix digits4
+  -> AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
+  -> Aircraft aircraftregistration otherregistration aircraftcategory raausregistration casaregistration raausregistrationtype prefix digits4 cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
 aircraftI aircraftregistration aircraftcategory =
-  Aircraft (Identity aircraftregistration) (Identity aircraftcategory)
+  Aircraft (pure aircraftregistration) (pure aircraftcategory)
