@@ -36,6 +36,8 @@ library
                     , transformers >= 0.5 && < 0.6
                     , deriving-compat >= 0.5 && < 0.6
                     , natural
+                    , alphachar
+                    , digit
                     
   ghc-options:
                     -Wall
@@ -49,9 +51,26 @@ library
 
   exposed-modules:
                     Data.Aviation.Casr.Logbook
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.AeroplaneDesignFeature
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.Aircraft
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.AircraftCategory
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.AircraftRegistration
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.AirshipDesignFeature
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.CASARegistration
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.DecDigit4
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.GyroplaneDesignFeature
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.HelicopterDesignFeature
                     Data.Aviation.Casr.Logbook.Types.Aeroplane.JetType
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.LandingGear
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.Propulsion
                     Data.Aviation.Casr.Logbook.Types.Aeroplane.PropulsionPosition
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.Propulsions
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.Propulsions1
                     Data.Aviation.Casr.Logbook.Types.Aeroplane.PropulsionType
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.RAAusRegistration
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.RAAusRegistrationPrefix
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.RAAusRegistrationType
+                    Data.Aviation.Casr.Logbook.Types.Aeroplane.RPACategory
                     
 executable          logbook
   main-is:
