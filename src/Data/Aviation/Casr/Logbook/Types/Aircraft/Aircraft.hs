@@ -8,10 +8,10 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory
 import Data.Functor.Identity
 import GHC.Generics
 
-data Aircraft aircraftregistration otherregistration aircraftcategory raausregistration casaregistration raausregistrationtype prefix digits4 cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeature airshipdesignfeature gyroplanedesignfeature helicopterdesignfeature =
+data Aircraft aircraftregistration otherregistration aircraftcategory raausregistration casaregistration raausregistrationtype prefix digits4 cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures =
   Aircraft
     (aircraftregistration (AircraftRegistration otherregistration raausregistration casaregistration raausregistrationtype prefix digits4))
-    (aircraftcategory (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeature airshipdesignfeature gyroplanedesignfeature helicopterdesignfeature))
+    (aircraftcategory (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures))
   deriving Generic
 
 type Aircraft' a =
