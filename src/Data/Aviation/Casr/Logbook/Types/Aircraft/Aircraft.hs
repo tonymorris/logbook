@@ -20,21 +20,47 @@ type Aircraft' a =
 
 type AircraftI =
   Aircraft' Identity
-  
-
 
 aircraftI ::
   (Applicative aircraftcategory, Applicative aircraftregistration) =>
-  AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4
-  -> AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
-  -> Aircraft aircraftregistration otherregistration aircraftcategory raausregistration casaregistration raausregistrationtype prefix digits4 cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
-
-  {-
-aircraftI ::
-  (Applicative aircraftregistration, Applicative aircraftcategory) =>
-  AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4
-  -> AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
-  -> Aircraft aircraftregistration otherregistration aircraftcategory raausregistration casaregistration raausregistrationtype prefix digits4 cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures
-  -}
+      AircraftRegistration
+        raausregistration
+        casaregistration
+        otherregistration
+        raausregistrationtype
+        prefix
+        digits4
+  ->  AircraftCategory
+        cylinders
+        displacement
+        jettype
+        position
+        vtol
+        rotors
+        landinggear
+        aeroplanedesignfeatures
+        airshipdesignfeatures
+        gyroplanedesignfeatures
+        helicopterdesignfeatures
+  ->  Aircraft
+        aircraftregistration
+        otherregistration
+        aircraftcategory
+        raausregistration
+        casaregistration
+        raausregistrationtype
+        prefix
+        digits4
+        cylinders
+        displacement
+        jettype
+        position
+        vtol
+        rotors
+        landinggear
+        aeroplanedesignfeatures
+        airshipdesignfeatures
+        gyroplanedesignfeatures
+        helicopterdesignfeatures
 aircraftI aircraftregistration aircraftcategory =
   Aircraft (pure aircraftregistration) (pure aircraftcategory)
