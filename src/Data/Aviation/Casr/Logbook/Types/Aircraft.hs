@@ -2,6 +2,8 @@
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft(
   module A
+, testAircraft5350
+, testAircraftAFR
 ) where
 
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeature as A

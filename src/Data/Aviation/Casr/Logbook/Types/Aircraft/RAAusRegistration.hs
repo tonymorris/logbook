@@ -1,5 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration where
 
@@ -9,6 +10,7 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType
 import Data.Functor.Identity
 import GHC.Generics
+import Prelude
 
 data RAAusRegistration raausregistrationtype prefix digits4 =
   RAAusRegistration
@@ -16,6 +18,12 @@ data RAAusRegistration raausregistrationtype prefix digits4 =
     (prefix RAAusRegistrationPrefix)
     (digits4 DecDigits4)
   deriving Generic
+
+deriving instance (Eq (raausregistrationtype RAAusRegistrationType), Eq (prefix RAAusRegistrationPrefix), Eq (digits4 DecDigits4)) => Eq (RAAusRegistration raausregistrationtype prefix digits4)
+
+deriving instance (Ord (raausregistrationtype RAAusRegistrationType), Ord (prefix RAAusRegistrationPrefix), Ord (digits4 DecDigits4)) => Ord (RAAusRegistration raausregistrationtype prefix digits4)
+
+deriving instance (Show (raausregistrationtype RAAusRegistrationType), Show (prefix RAAusRegistrationPrefix), Show (digits4 DecDigits4)) => Show (RAAusRegistration raausregistrationtype prefix digits4)
 
 type RAAusRegistration' a =
   RAAusRegistration a a a

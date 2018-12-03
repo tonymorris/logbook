@@ -1,5 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory where
 
@@ -8,6 +9,7 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeatures
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeatures
 import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures
 import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures
+import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1
@@ -17,6 +19,7 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory
 import Data.Functor.Identity
 import GHC.Generics
+import Prelude
 
 data AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures =
   Aeroplane
@@ -43,7 +46,13 @@ type AircraftCategory' a =
   
 type AircraftCategoryI =
   AircraftCategory' Identity
-  
+
+deriving instance (Eq (cylinders Positive), Eq (displacement Positive), Eq (jettype JetType), Eq (position PropulsionPosition), Eq (vtol Bool), Eq (landinggear LandingGear), Eq (aeroplanedesignfeatures AeroplaneDesignFeatures), Eq (helicopterdesignfeatures HelicopterDesignFeatures), Eq (gyroplanedesignfeatures GyroplaneDesignFeatures), Eq (airshipdesignfeatures AirshipDesignFeatures), Eq (rotors Positive)) => Eq (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures)
+
+deriving instance (Ord (cylinders Positive), Ord (displacement Positive), Ord (jettype JetType), Ord (position PropulsionPosition), Ord (vtol Bool), Ord (landinggear LandingGear), Ord (aeroplanedesignfeatures AeroplaneDesignFeatures), Ord (helicopterdesignfeatures HelicopterDesignFeatures), Ord (gyroplanedesignfeatures GyroplaneDesignFeatures), Ord (airshipdesignfeatures AirshipDesignFeatures), Ord (rotors Positive)) => Ord (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures)
+
+deriving instance (Show (cylinders Positive), Show (displacement Positive), Show (jettype JetType), Show (position PropulsionPosition), Show (vtol Bool), Show (landinggear LandingGear), Show (aeroplanedesignfeatures AeroplaneDesignFeatures), Show (helicopterdesignfeatures HelicopterDesignFeatures), Show (gyroplanedesignfeatures GyroplaneDesignFeatures), Show (airshipdesignfeatures AirshipDesignFeatures), Show (rotors Positive)) => Show (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures)
+
 aeroplaneAircraftCategoryI ::
   (Applicative landinggear, Applicative aeroplanedesignfeatures) =>
   Propulsions1 cylinders displacement jettype position vtol

@@ -1,5 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration where
 
@@ -14,6 +15,12 @@ data AircraftRegistration raausregistration casaregistration otherregistration r
   | CASAAircraftRegistration (casaregistration CASARegistration)
   | OtherAircraftRegistration (otherregistration String)
   deriving Generic
+
+deriving instance (Eq (raausregistration (RAAusRegistration raausregistrationtype prefix digits4)), Eq (casaregistration CASARegistration), Eq (otherregistration String)) => Eq (AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4)
+
+deriving instance (Ord (raausregistration (RAAusRegistration raausregistrationtype prefix digits4)), Ord (casaregistration CASARegistration), Ord (otherregistration String)) => Ord (AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4)
+
+deriving instance (Show (raausregistration (RAAusRegistration raausregistrationtype prefix digits4)), Show (casaregistration CASARegistration), Show (otherregistration String)) => Show (AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4)
 
 type AircraftRegistration' a =
   AircraftRegistration a a a a a a
