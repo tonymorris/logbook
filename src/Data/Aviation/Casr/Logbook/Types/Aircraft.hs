@@ -29,12 +29,48 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory as A
 
+import Control.Applicative
 import Control.Lens
 import Data.Int
 import Data.List.NonEmpty
 
 testAircraft5350 ::
-  AircraftI
+  (
+    Applicative aircraftregistration
+  , Applicative aircraftcategory
+  , Applicative raausregistration
+  , Applicative cylinders
+  , Applicative displacement
+  , Applicative position
+  , Applicative vtol
+  , Applicative landinggear
+  , Applicative aeroplanedesignfeatures
+  , Applicative otherregistration
+  , Applicative raausregistration
+  , Applicative raausregistrationtype
+  , Applicative prefix
+  , Applicative digits4
+  ) =>
+  Aircraft
+    aircraftregistration
+    otherregistration
+    aircraftcategory
+    raausregistration
+    casaregistration
+    raausregistrationtype
+    prefix
+    digits4
+    cylinders
+    displacement
+    jettype
+    position
+    vtol
+    rotors
+    landinggear
+    aeroplanedesignfeatures
+    airshipdesignfeatures
+    gyroplanedesignfeatures
+    helicopterdesignfeatures
 testAircraft5350 =
   aircraftI
     (
@@ -71,7 +107,37 @@ testAircraft5350 =
     )
 
 testAircraftAFR ::
-  AircraftI
+  (
+    Applicative aircraftcategory
+  , Applicative aircraftregistration
+  , Applicative casaregistration
+  , Applicative cylinders
+  , Applicative displacement
+  , Applicative position
+  , Applicative vtol
+  , Applicative landinggear
+  , Applicative aeroplanedesignfeatures
+  ) =>
+  Aircraft
+    aircraftregistration
+    otherregistration
+    aircraftcategory
+    raausregistration
+    casaregistration
+    raausregistrationtype
+    prefix
+    digits4
+    cylinders
+    displacement
+    jettype
+    position
+    vtol
+    rotors
+    landinggear
+    aeroplanedesignfeatures
+    airshipdesignfeatures
+    gyroplanedesignfeatures
+    helicopterdesignfeatures
 testAircraftAFR =
   aircraftI
     (
