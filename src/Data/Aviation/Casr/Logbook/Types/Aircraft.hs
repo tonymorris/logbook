@@ -53,6 +53,7 @@ testAircraft5350 ::
   , Applicative raausregistrationtype
   , Applicative prefix
   , Applicative digits4
+  , Applicative mtow
   ) =>
   Aircraft
     aircraftregistration
@@ -74,6 +75,7 @@ testAircraft5350 ::
     airshipdesignfeatures
     gyroplanedesignfeatures
     helicopterdesignfeatures
+    mtow
 testAircraft5350 =
   aircraftI
     (
@@ -108,6 +110,7 @@ testAircraft5350 =
         LandingGearFixedTricycle
         mempty
     )
+    (MTOW (oneOr (560 :: Int)))
 
 testAircraftAFR ::
   (
@@ -120,6 +123,7 @@ testAircraftAFR ::
   , Applicative vtol
   , Applicative landinggear
   , Applicative aeroplanedesignfeatures
+  , Applicative mtow
   ) =>
   Aircraft
     aircraftregistration
@@ -141,6 +145,7 @@ testAircraftAFR ::
     airshipdesignfeatures
     gyroplanedesignfeatures
     helicopterdesignfeatures
+    mtow
 testAircraftAFR =
   aircraftI
     (
@@ -160,3 +165,4 @@ testAircraftAFR =
         LandingGearFixedTricycle
         mempty
     )
+    (MTOW (oneOr (1157 :: Int)))

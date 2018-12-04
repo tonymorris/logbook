@@ -38,7 +38,7 @@ data AircraftCategory cylinders displacement jettype position vtol rotors landin
   | Trike (Propulsions cylinders displacement jettype position vtol)
   | PoweredParachute (Propulsions1 cylinders displacement jettype position vtol)
   | Hangglider
-  | Simulator
+  -- | Simulator
   deriving Generic
 
 type AircraftCategory' a =
