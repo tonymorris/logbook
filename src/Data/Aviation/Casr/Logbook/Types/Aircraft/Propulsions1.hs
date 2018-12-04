@@ -2,12 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE StandaloneDeriving #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1(
-  Propulsions1(..)
-, Propulsions1'
-, Propulsions1I
-, singlePropulsions1
-) where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1 where
 
 import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion
