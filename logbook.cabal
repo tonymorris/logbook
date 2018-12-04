@@ -68,6 +68,7 @@ library
                     Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures
                     Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
                     Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.MTOW
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion
                     Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions

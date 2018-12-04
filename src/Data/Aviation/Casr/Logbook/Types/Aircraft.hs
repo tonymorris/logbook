@@ -21,6 +21,7 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear as A
+import Data.Aviation.Casr.Logbook.Types.Aircraft.MTOW as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions as A
@@ -52,6 +53,7 @@ testAircraft5350 ::
   , Applicative raausregistrationtype
   , Applicative prefix
   , Applicative digits4
+  , Applicative aeroplanemtow
   ) =>
   Aircraft
     aircraftregistration
@@ -73,6 +75,7 @@ testAircraft5350 ::
     airshipdesignfeatures
     gyroplanedesignfeatures
     helicopterdesignfeatures
+    aeroplanemtow
 testAircraft5350 =
   aircraftI
     (
@@ -106,6 +109,7 @@ testAircraft5350 =
         )
         LandingGearFixedTricycle
         mempty
+        (MTOW (oneOr (560 :: Int)))
     )
 
 testAircraftAFR ::
@@ -119,6 +123,7 @@ testAircraftAFR ::
   , Applicative vtol
   , Applicative landinggear
   , Applicative aeroplanedesignfeatures
+  , Applicative aeroplanemtow
   ) =>
   Aircraft
     aircraftregistration
@@ -140,6 +145,7 @@ testAircraftAFR ::
     airshipdesignfeatures
     gyroplanedesignfeatures
     helicopterdesignfeatures
+    aeroplanemtow
 testAircraftAFR =
   aircraftI
     (
@@ -158,4 +164,5 @@ testAircraftAFR =
         (oneOr (5920 :: Int))
         LandingGearFixedTricycle
         mempty
+        (MTOW (oneOr (1157 :: Int)))
     )
