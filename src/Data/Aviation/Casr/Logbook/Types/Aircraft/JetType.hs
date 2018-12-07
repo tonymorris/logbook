@@ -1,8 +1,10 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE LambdaCase #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.JetType where
 
+import Control.Lens
 import GHC.Generics
 import Prelude
 
@@ -13,3 +15,61 @@ data JetType =
   | Ramjet
   | Scramjet
   deriving (Eq, Ord, Show, Generic)
+
+class AsJetType a where
+  _JetType ::
+    Prism' a JetType
+  _Turbojet ::
+    Prism' a ()
+  _Turbofan ::
+    Prism' a ()
+  _Turboprop ::
+    Prism' a ()
+  _Ramjet ::
+    Prism' a ()
+  _Scramjet ::
+    Prism' a ()
+  
+instance AsJetType JetType where
+  _JetType =
+    id
+  _Turbojet =
+    prism'
+      (\() -> Turbojet)
+      (\case
+        Turbojet ->
+          Just ()
+        _ ->
+          Nothing)
+  _Turbofan =
+    prism'
+      (\() -> Turbofan)
+      (\case
+        Turbofan ->
+          Just ()
+        _ ->
+          Nothing)
+  _Turboprop =
+    prism'
+      (\() -> Turboprop)
+      (\case
+        Turboprop ->
+          Just ()
+        _ ->
+          Nothing)
+  _Ramjet =
+    prism'
+      (\() -> Ramjet)
+      (\case
+        Ramjet ->
+          Just ()
+        _ ->
+          Nothing)
+  _Scramjet =
+    prism'
+      (\() -> Scramjet)
+      (\case
+        Scramjet ->
+          Just ()
+        _ ->
+          Nothing)

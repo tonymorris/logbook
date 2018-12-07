@@ -11,11 +11,10 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures(
 import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature
 import Data.Semigroup as Semigroup(Semigroup((<>)))
 import Data.Monoid as Monoid(Monoid(mappend, mempty))
-import Data.Set
 import GHC.Generics
 import Prelude
 
 newtype HelicopterDesignFeatures =
   HelicopterDesignFeatures
-    (Set HelicopterDesignFeature)
+    [HelicopterDesignFeature]
   deriving (Eq, Ord, Show, Generic, Semigroup, Monoid)

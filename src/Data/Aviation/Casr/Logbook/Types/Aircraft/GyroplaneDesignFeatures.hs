@@ -11,11 +11,10 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures(
 import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeature
 import Data.Semigroup as Semigroup(Semigroup((<>)))
 import Data.Monoid as Monoid(Monoid(mappend, mempty))
-import Data.Set
 import GHC.Generics
 import Prelude
 
 newtype GyroplaneDesignFeatures =
   GyroplaneDesignFeatures
-    (Set GyroplaneDesignFeature)
+    [GyroplaneDesignFeature]
   deriving (Eq, Ord, Show, Generic, Semigroup, Monoid)

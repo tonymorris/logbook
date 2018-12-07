@@ -42,6 +42,7 @@ library
                     
   ghc-options:
                     -Wall
+                    -ddump-splices
                     
   default-extensions:
   
