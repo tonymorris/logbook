@@ -14,7 +14,23 @@ data GyroplaneDesignFeature =
   | RetractableGearGyroplaneDesignFeature
   deriving (Eq, Ord, Show, Generic)
 
-class AsGyroplaneDesignFeature a where
+class ManyGyroplaneDesignFeature a where
+  _GyroplaneDesignFeature_ ::
+    Traversal' a GyroplaneDesignFeature
+
+instance ManyGyroplaneDesignFeature GyroplaneDesignFeature where
+  _GyroplaneDesignFeature_ =
+    id
+    
+class ManyGyroplaneDesignFeature a => HasGyroplaneDesignFeature a where
+  gyroplaneDesignFeature ::
+    Lens' a GyroplaneDesignFeature
+
+instance HasGyroplaneDesignFeature GyroplaneDesignFeature where
+  gyroplaneDesignFeature =
+    id
+
+class ManyGyroplaneDesignFeature a => AsGyroplaneDesignFeature a where
   _GyroplaneDesignFeature ::
     Prism' a GyroplaneDesignFeature
   _PressurisedGyroplaneDesignFeature ::

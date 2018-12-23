@@ -15,7 +15,23 @@ data RAAusRegistrationType =
   | RAAusRegistrationTypeDeregistered
   deriving (Eq, Ord, Show, Generic)
 
-class AsRAAusRegistrationType a where
+class ManyRAAusRegistrationType a where
+  _RAAusRegistrationType_ ::
+    Traversal' a RAAusRegistrationType
+
+instance ManyRAAusRegistrationType RAAusRegistrationType where
+  _RAAusRegistrationType_ =
+    id
+
+class ManyRAAusRegistrationType a => HasRAAusRegistrationType a where
+  rAAusRegistrationType ::
+    Lens' a RAAusRegistrationType
+
+instance HasRAAusRegistrationType RAAusRegistrationType where
+  rAAusRegistrationType =
+    id
+
+class ManyRAAusRegistrationType a => AsRAAusRegistrationType a where
   _RAAusRegistrationType ::
     Prism' a RAAusRegistrationType
   _RAAusRegistrationTypeProvisional ::

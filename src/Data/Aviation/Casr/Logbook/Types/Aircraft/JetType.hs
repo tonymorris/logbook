@@ -16,7 +16,23 @@ data JetType =
   | Scramjet
   deriving (Eq, Ord, Show, Generic)
 
-class AsJetType a where
+class ManyJetType a where
+  _JetType_ :: 
+    Traversal' a JetType
+
+instance ManyJetType JetType where
+  _JetType_ =
+    id
+    
+class ManyJetType a => HasJetType a where
+  jetType :: 
+    Lens' a JetType
+
+instance HasJetType JetType where
+  jetType =
+    id
+
+class ManyJetType a => AsJetType a where
   _JetType ::
     Prism' a JetType
   _Turbojet ::

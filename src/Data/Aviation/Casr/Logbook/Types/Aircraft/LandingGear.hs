@@ -15,7 +15,23 @@ data LandingGear =
   | LandingGearRetractableTailWheel
   deriving (Eq, Ord, Show, Generic)
  
-class AsLandingGear a where
+class ManyLandingGear a where
+  _LandingGear_ ::
+    Traversal' a LandingGear
+
+instance ManyLandingGear LandingGear where
+  _LandingGear_ =
+    id
+    
+class ManyLandingGear a => HasLandingGear a where
+  landingGear ::
+    Lens' a LandingGear
+
+instance HasLandingGear LandingGear where
+  landingGear =
+    id
+
+class ManyLandingGear a => AsLandingGear a where
   _LandingGear ::
     Prism' a LandingGear
   _LandingGearFixedTricycle ::

@@ -18,20 +18,20 @@ data AeroplaneDesignFeature =
   | SkiGearAeroplaneDesignFeature
   deriving (Eq, Ord, Show, Generic)
 
-class ManyAeroplaneDesignFeature a => HasAeroplaneDesignFeature a where
-  aeroplaneDesignFeature ::
-    Lens' a AeroplaneDesignFeature
-
-instance HasAeroplaneDesignFeature AeroplaneDesignFeature where
-  aeroplaneDesignFeature =
-    id
-
 class ManyAeroplaneDesignFeature a where
   _AeroplaneDesignFeature_ ::
     Traversal' a AeroplaneDesignFeature
 
 instance ManyAeroplaneDesignFeature AeroplaneDesignFeature where
   _AeroplaneDesignFeature_ =
+    id
+
+class ManyAeroplaneDesignFeature a => HasAeroplaneDesignFeature a where
+  aeroplaneDesignFeature ::
+    Lens' a AeroplaneDesignFeature
+
+instance HasAeroplaneDesignFeature AeroplaneDesignFeature where
+  aeroplaneDesignFeature =
     id
 
 class ManyAeroplaneDesignFeature a => AsAeroplaneDesignFeature a where

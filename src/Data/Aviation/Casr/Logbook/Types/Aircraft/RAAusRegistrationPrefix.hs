@@ -17,7 +17,23 @@ data RAAusRegistrationPrefix =
   | RAAusRegistrationPrefix55
   deriving (Eq, Ord, Show, Generic)
 
-class AsRAAusRegistrationPrefix a where
+class ManyRAAusRegistrationPrefix a where
+  _RAAusRegistrationPrefix_ ::
+    Traversal' a RAAusRegistrationPrefix
+
+instance ManyRAAusRegistrationPrefix RAAusRegistrationPrefix where
+  _RAAusRegistrationPrefix_ =
+    id
+    
+class ManyRAAusRegistrationPrefix a => HasRAAusRegistrationPrefix a where
+  rAAusRegistrationPrefix ::
+    Lens' a RAAusRegistrationPrefix
+
+instance HasRAAusRegistrationPrefix RAAusRegistrationPrefix where
+  rAAusRegistrationPrefix =
+    id
+
+class ManyRAAusRegistrationPrefix a => AsRAAusRegistrationPrefix a where
   _RAAusRegistrationPrefix ::
     Prism' a RAAusRegistrationPrefix
   _RAAusRegistrationPrefix10 ::

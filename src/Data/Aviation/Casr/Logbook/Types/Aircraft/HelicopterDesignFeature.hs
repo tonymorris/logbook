@@ -14,7 +14,23 @@ data HelicopterDesignFeature =
   | RetractableGearHelicopterDesignFeature
   deriving (Eq, Ord, Show, Generic)
 
-class AsHelicopterDesignFeature a where
+class ManyHelicopterDesignFeature a where
+  _HelicopterDesignFeature_ ::
+    Traversal' a HelicopterDesignFeature
+
+instance ManyHelicopterDesignFeature HelicopterDesignFeature where
+  _HelicopterDesignFeature_ =
+    id
+    
+class ManyHelicopterDesignFeature a => HasHelicopterDesignFeature a where
+  helicopterDesignFeature ::
+    Lens' a HelicopterDesignFeature
+
+instance HasHelicopterDesignFeature HelicopterDesignFeature where
+  helicopterDesignFeature =
+    id
+
+class ManyHelicopterDesignFeature a => AsHelicopterDesignFeature a where
   _HelicopterDesignFeature ::
     Prism' a HelicopterDesignFeature
   _FloatAlightingGearHelicopterDesignFeature ::

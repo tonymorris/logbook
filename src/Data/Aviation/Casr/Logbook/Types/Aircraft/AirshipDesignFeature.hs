@@ -13,7 +13,23 @@ data AirshipDesignFeature =
   PressurisedAirshipDesignFeature
   deriving (Eq, Ord, Show, Generic)
 
-class AsAirshipDesignFeature a where
+class ManyAirshipDesignFeature a where
+  _AirshipDesignFeature_ ::
+    Traversal' a AirshipDesignFeature
+
+instance ManyAirshipDesignFeature AirshipDesignFeature where
+  _AirshipDesignFeature_ =
+    id
+    
+class ManyAirshipDesignFeature a => HasAirshipDesignFeature a where
+  airshipDesignFeature ::
+    Lens' a AirshipDesignFeature
+
+instance HasAirshipDesignFeature AirshipDesignFeature where
+  airshipDesignFeature =
+    id
+
+class ManyAirshipDesignFeature a => AsAirshipDesignFeature a where
   _AirshipDesignFeature ::
     Prism' a AirshipDesignFeature
   _PressurisedAirshipDesignFeature ::

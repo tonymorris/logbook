@@ -74,5 +74,5 @@ aircraftI ::
         gyroplanedesignfeatures
         helicopterdesignfeatures
         mtow
-aircraftI aircraftregistration aircraftcategory mtow =
-  Aircraft (pure aircraftregistration) (pure aircraftcategory) (pure mtow)
+aircraftI aircraftregistration aircraftcategory mtow_ =
+  Aircraft (pure aircraftregistration) (pure aircraftcategory) (pure mtow_)

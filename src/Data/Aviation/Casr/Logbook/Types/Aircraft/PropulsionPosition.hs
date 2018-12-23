@@ -14,7 +14,23 @@ data PropulsionPosition =
   | RightPropulsion
   deriving (Eq, Ord, Show, Generic)
 
-class AsPropulsionPosition a where
+class ManyPropulsionPosition a where
+  _PropulsionPosition_ ::
+    Traversal' a PropulsionPosition
+
+instance ManyPropulsionPosition PropulsionPosition where
+  _PropulsionPosition_ =
+    id
+    
+class ManyPropulsionPosition a => HasPropulsionPosition a where
+  propulsionPosition ::
+    Lens' a PropulsionPosition
+
+instance HasPropulsionPosition PropulsionPosition where
+  propulsionPosition =
+    id
+
+class ManyPropulsionPosition a => AsPropulsionPosition a where
   _PropulsionPosition ::
     Prism' a PropulsionPosition
   _Centreline ::
