@@ -11,10 +11,10 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion(
 ) where
 
 import Control.Applicative(Applicative(pure))
+import Control.Lens
 import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
 import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition
 import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType
-import Data.Functor.Identity
 import GHC.Generics
 import Data.Bool as Bool(Bool(False, True))
 import Prelude
