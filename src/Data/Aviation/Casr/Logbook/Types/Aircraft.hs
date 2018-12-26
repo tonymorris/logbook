@@ -57,13 +57,13 @@ testAircraft5350 ::
   ) =>
   Aircraft
     aircraftregistration
-    otherregistration
-    aircraftcategory
     raausregistration
     casaregistration
+    otherregistration    
     raausregistrationtype
     prefix
     digits4
+    aircraftcategory
     cylinders
     displacement
     jettype
@@ -127,13 +127,13 @@ testAircraftAFR ::
   ) =>
   Aircraft
     aircraftregistration
-    otherregistration
-    aircraftcategory
     raausregistration
     casaregistration
+    otherregistration    
     raausregistrationtype
     prefix
     digits4
+    aircraftcategory
     cylinders
     displacement
     jettype

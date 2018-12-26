@@ -4,6 +4,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory where
@@ -37,3 +38,14 @@ deriving instance (Eq (cylinders Positive), Eq (displacement (Positive)), Eq (je
 deriving instance (Ord (cylinders Positive), Ord (displacement (Positive)), Ord (jettype JetType), Ord (position PropulsionPosition), Ord (vtol Bool), Ord (rotors Positive)) => Ord (RPACategory cylinders displacement jettype position vtol rotors)
 
 deriving instance (Show (cylinders Positive), Show (displacement (Positive)), Show (jettype JetType), Show (position PropulsionPosition), Show (vtol Bool), Show (rotors Positive)) => Show (RPACategory cylinders displacement jettype position vtol rotors)
+
+__RPACopter ::
+  Prism (RPACategory cylinders displacement jettype position vtol rotors) (RPACategory cylinders displacement jettype position vtol rotors') (Propulsions1 cylinders displacement jettype position vtol, rotors Positive) (Propulsions1 cylinders displacement jettype position vtol, rotors' Positive)
+__RPACopter =
+  prism
+    (\(p, r) -> RPACopter p r)
+    (\case
+      RPACopter p r -> Right (p, r)
+      RPAAeroplane p -> Left (RPAAeroplane p)
+      RPAAirship p -> Left (RPAAirship p)
+      RPAPoweredLift p -> Left (RPAPoweredLift p))

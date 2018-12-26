@@ -4,6 +4,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration where
@@ -22,6 +23,51 @@ data AircraftRegistration raausregistration casaregistration otherregistration r
 
 makeClassy ''AircraftRegistration
 makeClassyPrisms ''AircraftRegistration
+
+__RAAusAircraftRegistration ::
+  Prism (AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4) (AircraftRegistration raausregistration' casaregistration otherregistration raausregistrationtype' prefix' digits4') (raausregistration (RAAusRegistration raausregistrationtype prefix digits4)) (raausregistration' (RAAusRegistration raausregistrationtype' prefix' digits4'))
+__RAAusAircraftRegistration =
+  prism
+    RAAusAircraftRegistration
+    (
+      \case
+        RAAusAircraftRegistration r ->
+          Right r
+        CASAAircraftRegistration r ->
+          Left (CASAAircraftRegistration r)
+        OtherAircraftRegistration r ->
+          Left (OtherAircraftRegistration r)
+    )
+
+__CASAAircraftRegistration ::
+  Prism (AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4) (AircraftRegistration raausregistration casaregistration' otherregistration raausregistrationtype prefix digits4) (casaregistration CASARegistration) (casaregistration' CASARegistration)
+__CASAAircraftRegistration =
+  prism
+    CASAAircraftRegistration
+    (
+      \case
+        RAAusAircraftRegistration r ->
+          Left (RAAusAircraftRegistration r)
+        CASAAircraftRegistration r ->
+          Right r
+        OtherAircraftRegistration r ->
+          Left (OtherAircraftRegistration r)
+    )
+
+__OtherAircraftRegistration ::
+  Prism (AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4) (AircraftRegistration raausregistration casaregistration otherregistration' raausregistrationtype prefix digits4) (otherregistration String) (otherregistration' String)
+__OtherAircraftRegistration =
+  prism
+    OtherAircraftRegistration
+    (
+      \case
+        RAAusAircraftRegistration r ->
+          Left (RAAusAircraftRegistration r)
+        CASAAircraftRegistration r ->
+          Left (CASAAircraftRegistration r)
+        OtherAircraftRegistration r ->
+          Right r
+    )
 
 deriving instance (Eq (raausregistration (RAAusRegistration raausregistrationtype prefix digits4)), Eq (casaregistration CASARegistration), Eq (otherregistration String)) => Eq (AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4)
 

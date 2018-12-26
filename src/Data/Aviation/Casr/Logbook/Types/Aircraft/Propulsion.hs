@@ -35,6 +35,21 @@ data Propulsion cylinders displacement jettype position vtol =
 
 makeClassy ''Propulsion
 
+__propulsion_type ::
+  Lens (Propulsion cylinders displacement jettype position vtol) (Propulsion cylinders' displacement' jettype' position vtol) (PropulsionType cylinders displacement jettype) (PropulsionType cylinders' displacement' jettype')
+__propulsion_type f (Propulsion t p v) =
+  fmap (\t' -> Propulsion t' p v) (f t)
+
+__propulsion_position ::
+  Lens (Propulsion cylinders displacement jettype position vtol) (Propulsion cylinders displacement jettype position' vtol) (position PropulsionPosition) (position' PropulsionPosition)
+__propulsion_position f (Propulsion t p v) =
+  fmap (\p' -> Propulsion t p' v) (f p)
+
+__vtol ::
+  Lens (Propulsion cylinders displacement jettype position vtol) (Propulsion cylinders displacement jettype position vtol') (vtol Bool) (vtol' Bool)
+__vtol f (Propulsion t p v) =
+  fmap (\v' -> Propulsion t p v') (f v)
+
 class AsPropulsion a cylinders displacement jettype position vtol | a ->  cylinders displacement jettype position vtol where
   _Propulsion ::
     Prism' a (Propulsion cylinders displacement jettype position vtol)
@@ -55,8 +70,8 @@ propulsionI ::
   -> PropulsionPosition
   -> Bool
   -> Propulsion cylinders displacement jettype position vtol
-propulsionI propulsiontype propulsionposition vtol =
-  Propulsion propulsiontype (pure propulsionposition) (pure vtol)
+propulsionI propulsiontype_ propulsionposition_ vtol_ =
+  Propulsion propulsiontype_ (pure propulsionposition_) (pure vtol_)
 
 deriving instance (Eq (cylinders Positive), Eq (displacement Positive), Eq (jettype JetType), Eq (position PropulsionPosition), Eq (vtol Bool)) => Eq (Propulsion cylinders displacement jettype position vtol)
 

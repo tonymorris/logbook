@@ -13,7 +13,6 @@ import Control.Lens
 import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion
 import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition
-import Data.Functor.Identity
 import Data.List.NonEmpty
 import GHC.Generics
 import Prelude
@@ -26,6 +25,13 @@ newtype Propulsions1 cylinders displacement jettype position vtol =
 
 makeWrapped ''Propulsions1
 makeClassy ''Propulsions1
+
+__Propulsions1 ::
+  Iso (Propulsions1 cylinders displacement jettype position vtol) (Propulsions1 cylinders' displacement' jettype' position' vtol') (NonEmpty (Propulsion cylinders displacement jettype position vtol)) (NonEmpty (Propulsion cylinders' displacement' jettype' position' vtol'))
+__Propulsions1 =
+  iso
+    (\(Propulsions1 p) -> p)
+    Propulsions1
 
 class AsPropulsions1 a cylinders displacement jettype position vtol | a ->  cylinders displacement jettype position vtol where
   _Propulsions1 ::

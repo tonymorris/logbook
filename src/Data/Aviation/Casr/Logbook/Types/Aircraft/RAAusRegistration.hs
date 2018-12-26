@@ -27,6 +27,21 @@ data RAAusRegistration raausregistrationtype prefix digits4 =
   } deriving Generic
 
 makeClassy ''RAAusRegistration
+  
+__raaus_registration_type ::
+  Lens (RAAusRegistration raausregistrationtype prefix digits4) (RAAusRegistration raausregistrationtype' prefix digits4) (raausregistrationtype RAAusRegistrationType) (raausregistrationtype' RAAusRegistrationType)
+__raaus_registration_type f (RAAusRegistration t p d) =
+  fmap (\t' -> RAAusRegistration t' p d) (f t)
+
+__raaus_registration_prefix ::
+  Lens (RAAusRegistration raausregistrationtype prefix digits4) (RAAusRegistration raausregistrationtype prefix' digits4) (prefix RAAusRegistrationPrefix) (prefix' RAAusRegistrationPrefix)
+__raaus_registration_prefix f (RAAusRegistration t p d) =
+  fmap (\p' -> RAAusRegistration t p' d) (f p)
+
+__raaus_registration_digits4 ::
+  Lens (RAAusRegistration raausregistrationtype prefix digits4) (RAAusRegistration raausregistrationtype prefix digits4') (digits4 DecDigits4) (digits4' DecDigits4)
+__raaus_registration_digits4 f (RAAusRegistration t p d) =
+  fmap (\d' -> RAAusRegistration t p d') (f d)
 
 class AsRAAusRegistration a raausregistrationtype prefix digits4 | a -> raausregistrationtype prefix digits4 where
   _RAAusRegistration ::

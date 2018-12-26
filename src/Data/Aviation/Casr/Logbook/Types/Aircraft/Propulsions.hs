@@ -32,7 +32,14 @@ class AsPropulsions a cylinders displacement jettype position vtol | a ->  cylin
 instance AsPropulsions (Propulsions cylinders displacement jettype position vtol) cylinders displacement jettype position vtol where
   _Propulsions =
     id
-    
+
+__Propulsions ::
+  Iso (Propulsions cylinders displacement jettype position vtol) (Propulsions cylinders' displacement' jettype' position' vtol') [Propulsion cylinders displacement jettype position vtol] [Propulsion cylinders' displacement' jettype' position' vtol']
+__Propulsions =
+  iso
+    (\(Propulsions p) -> p)
+    Propulsions
+
 type Propulsions' a =
   Propulsions a a a a a
 

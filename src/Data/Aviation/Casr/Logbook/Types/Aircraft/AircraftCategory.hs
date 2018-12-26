@@ -4,6 +4,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory where
@@ -47,6 +48,116 @@ data AircraftCategory cylinders displacement jettype position vtol rotors landin
 
 makeClassy ''AircraftCategory
 makeClassyPrisms ''AircraftCategory
+
+__Aeroplane ::
+  Prism (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures) (AircraftCategory cylinders displacement jettype position vtol rotors landinggear' aeroplanedesignfeatures' airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures) (Propulsions1 cylinders displacement jettype position vtol, landinggear LandingGear, aeroplanedesignfeatures AeroplaneDesignFeatures) (Propulsions1 cylinders displacement jettype position vtol, landinggear' LandingGear, aeroplanedesignfeatures' AeroplaneDesignFeatures)
+__Aeroplane =
+  prism
+    (\(p, g, f) -> Aeroplane p g f)
+    (
+      \case
+        Aeroplane p g f -> Right (p, g, f)
+        Helicopter p f -> Left (Helicopter p f)
+        PoweredLift p -> Left (PoweredLift p)
+        Gyroplane p f -> Left (Gyroplane p f)
+        Airship p f -> Left (Airship p f)
+        Balloon -> Left Balloon
+        RPA p -> Left (RPA p)
+        Glider p -> Left (Glider p)
+        Paraglider -> Left Paraglider
+        Paramotor p -> Left (Paramotor p)
+        Trike p -> Left (Trike p)
+        PoweredParachute p -> Left (PoweredParachute p)
+        Hangglider -> Left Hangglider
+    )
+
+__Helicopter ::
+  Prism (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures) (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures') (Propulsions1 cylinders displacement jettype position vtol, helicopterdesignfeatures HelicopterDesignFeatures) (Propulsions1 cylinders displacement jettype position vtol, helicopterdesignfeatures' HelicopterDesignFeatures)
+__Helicopter =
+  prism
+    (\(p, f) -> Helicopter p f)
+    (
+      \case
+        Aeroplane p g f -> Left (Aeroplane p g f)
+        Helicopter p f -> Right (p, f)
+        PoweredLift p -> Left (PoweredLift p)
+        Gyroplane p f -> Left (Gyroplane p f)
+        Airship p f -> Left (Airship p f)
+        Balloon -> Left Balloon
+        RPA p -> Left (RPA p)
+        Glider p -> Left (Glider p)
+        Paraglider -> Left Paraglider
+        Paramotor p -> Left (Paramotor p)
+        Trike p -> Left (Trike p)
+        PoweredParachute p -> Left (PoweredParachute p)
+        Hangglider -> Left Hangglider
+    )
+
+__Gyroplane ::
+  Prism (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures) (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures' helicopterdesignfeatures) (Propulsions1 cylinders displacement jettype position vtol, gyroplanedesignfeatures GyroplaneDesignFeatures) (Propulsions1 cylinders displacement jettype position vtol, gyroplanedesignfeatures' GyroplaneDesignFeatures)
+__Gyroplane =
+  prism
+    (\(p, f) -> Gyroplane p f)
+    (
+      \case
+        Aeroplane p g f -> Left (Aeroplane p g f)
+        Helicopter p f -> Left (Helicopter p f)
+        PoweredLift p -> Left (PoweredLift p)
+        Gyroplane p f -> Right (p, f)
+        Airship p f -> Left (Airship p f)
+        Balloon -> Left Balloon
+        RPA p -> Left (RPA p)
+        Glider p -> Left (Glider p)
+        Paraglider -> Left Paraglider
+        Paramotor p -> Left (Paramotor p)
+        Trike p -> Left (Trike p)
+        PoweredParachute p -> Left (PoweredParachute p)
+        Hangglider -> Left Hangglider
+    )
+
+__Airship ::
+  Prism (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures) (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures' gyroplanedesignfeatures helicopterdesignfeatures) (Propulsions1 cylinders displacement jettype position vtol, airshipdesignfeatures AirshipDesignFeatures) (Propulsions1 cylinders displacement jettype position vtol, airshipdesignfeatures' AirshipDesignFeatures)
+__Airship =
+  prism
+    (\(p, f) -> Airship p f)
+    (
+      \case
+        Aeroplane p g f -> Left (Aeroplane p g f)
+        Helicopter p f -> Left (Helicopter p f)
+        PoweredLift p -> Left (PoweredLift p)
+        Gyroplane p f -> Left (Gyroplane p f)
+        Airship p f -> Right (p, f)
+        Balloon -> Left Balloon
+        RPA p -> Left (RPA p)
+        Glider p -> Left (Glider p)
+        Paraglider -> Left Paraglider
+        Paramotor p -> Left (Paramotor p)
+        Trike p -> Left (Trike p)
+        PoweredParachute p -> Left (PoweredParachute p)
+        Hangglider -> Left Hangglider
+    )
+
+__RPA ::
+  Prism (AircraftCategory cylinders displacement jettype position vtol rotors landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures) (AircraftCategory cylinders displacement jettype position vtol rotors' landinggear aeroplanedesignfeatures airshipdesignfeatures gyroplanedesignfeatures helicopterdesignfeatures) (RPACategory cylinders displacement jettype position vtol rotors) (RPACategory cylinders displacement jettype position vtol rotors')
+__RPA =
+  prism
+    RPA
+    (
+      \case
+        Aeroplane p g f -> Left (Aeroplane p g f)
+        Helicopter p f -> Left (Helicopter p f)
+        PoweredLift p -> Left (PoweredLift p)
+        Gyroplane p f -> Left (Gyroplane p f)
+        Airship p f -> Left (Airship p f)
+        Balloon -> Left Balloon
+        RPA p -> Right p
+        Glider p -> Left (Glider p)
+        Paraglider -> Left Paraglider
+        Paramotor p -> Left (Paramotor p)
+        Trike p -> Left (Trike p)
+        PoweredParachute p -> Left (PoweredParachute p)
+        Hangglider -> Left Hangglider
+    )
 
 type AircraftCategory' a =
   AircraftCategory a a a a a a a a a a a
