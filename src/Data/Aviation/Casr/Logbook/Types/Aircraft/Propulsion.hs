@@ -1,6 +1,10 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion(
   module Bool
@@ -20,11 +24,24 @@ import Data.Bool as Bool(Bool(False, True))
 import Prelude
 
 data Propulsion cylinders displacement jettype position vtol =
-  Propulsion
-    (PropulsionType cylinders displacement jettype)
-    (position PropulsionPosition)
-    (vtol Bool)
-  deriving Generic
+  Propulsion {
+    _propulsion_type ::
+      PropulsionType cylinders displacement jettype
+  , _propulsion_position ::
+      position PropulsionPosition
+  , _vtol ::
+      vtol Bool
+  } deriving Generic
+
+makeClassy ''Propulsion
+
+class AsPropulsion a cylinders displacement jettype position vtol | a ->  cylinders displacement jettype position vtol where
+  _Propulsion ::
+    Prism' a (Propulsion cylinders displacement jettype position vtol)
+
+instance AsPropulsion (Propulsion cylinders displacement jettype position vtol) cylinders displacement jettype position vtol where
+  _Propulsion =
+    id
 
 type Propulsion' a =
   Propulsion a a a a a

@@ -4,14 +4,12 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures(
   module Semigroup
 , module Monoid
 , HelicopterDesignFeatures(..)
-, ManyHelicopterDesignFeatures(..)
-, HasHelicopterDesignFeatures(..)
-, AsHelicopterDesignFeatures(..)
 ) where
 
 import Control.Lens
@@ -26,32 +24,10 @@ newtype HelicopterDesignFeatures =
     [HelicopterDesignFeature]
   deriving (Eq, Ord, Show, Generic, Semigroup, Monoid)
 
-instance HelicopterDesignFeatures ~ a =>
-  Rewrapped HelicopterDesignFeatures a
+makeWrapped ''HelicopterDesignFeatures
+makeClassy ''HelicopterDesignFeatures
 
-instance Wrapped HelicopterDesignFeatures where
-  type Unwrapped HelicopterDesignFeatures =
-    [HelicopterDesignFeature]
-  _Wrapped' =
-    iso (\ (HelicopterDesignFeatures x) -> x) HelicopterDesignFeatures
-
-class ManyHelicopterDesignFeatures a where
-  _HelicopterDesignFeatures_ ::
-    Traversal' a HelicopterDesignFeatures
-
-instance ManyHelicopterDesignFeatures HelicopterDesignFeatures where
-  _HelicopterDesignFeatures_ =
-    id
-
-class ManyHelicopterDesignFeatures a => HasHelicopterDesignFeatures a where
-  helicopterDesignFeatures ::
-    Lens' a HelicopterDesignFeatures
-
-instance HasHelicopterDesignFeatures HelicopterDesignFeatures where
-  helicopterDesignFeatures =
-    id
-
-class ManyHelicopterDesignFeatures a => AsHelicopterDesignFeatures a where
+class AsHelicopterDesignFeatures a where
   _HelicopterDesignFeatures ::
     Prism' a HelicopterDesignFeatures
 

@@ -1,6 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeature where
 
@@ -13,35 +14,5 @@ data AirshipDesignFeature =
   PressurisedAirshipDesignFeature
   deriving (Eq, Ord, Show, Generic)
 
-class ManyAirshipDesignFeature a where
-  _AirshipDesignFeature_ ::
-    Traversal' a AirshipDesignFeature
-
-instance ManyAirshipDesignFeature AirshipDesignFeature where
-  _AirshipDesignFeature_ =
-    id
-    
-class ManyAirshipDesignFeature a => HasAirshipDesignFeature a where
-  airshipDesignFeature ::
-    Lens' a AirshipDesignFeature
-
-instance HasAirshipDesignFeature AirshipDesignFeature where
-  airshipDesignFeature =
-    id
-
-class ManyAirshipDesignFeature a => AsAirshipDesignFeature a where
-  _AirshipDesignFeature ::
-    Prism' a AirshipDesignFeature
-  _PressurisedAirshipDesignFeature ::
-    Prism' a ()
-  
-instance AsAirshipDesignFeature AirshipDesignFeature where
-  _AirshipDesignFeature =
-    id
-  _PressurisedAirshipDesignFeature =
-    prism'
-      (\() -> PressurisedAirshipDesignFeature)
-      (\case
-        PressurisedAirshipDesignFeature ->
-          Just ())
-  
+makeClassy ''AirshipDesignFeature
+makeClassyPrisms ''AirshipDesignFeature

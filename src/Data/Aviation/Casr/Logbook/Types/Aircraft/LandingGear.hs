@@ -1,6 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear where
 
@@ -15,66 +16,5 @@ data LandingGear =
   | LandingGearRetractableTailWheel
   deriving (Eq, Ord, Show, Generic)
  
-class ManyLandingGear a where
-  _LandingGear_ ::
-    Traversal' a LandingGear
-
-instance ManyLandingGear LandingGear where
-  _LandingGear_ =
-    id
-    
-class ManyLandingGear a => HasLandingGear a where
-  landingGear ::
-    Lens' a LandingGear
-
-instance HasLandingGear LandingGear where
-  landingGear =
-    id
-
-class ManyLandingGear a => AsLandingGear a where
-  _LandingGear ::
-    Prism' a LandingGear
-  _LandingGearFixedTricycle ::
-    Prism' a ()
-  _LandingGearFixedTailWheel ::
-    Prism' a ()
-  _LandingGearRetractableTricycle ::
-    Prism' a ()
-  _LandingGearRetractableTailWheel ::
-    Prism' a ()
-  
-instance AsLandingGear LandingGear where
-  _LandingGear =
-    id
-  _LandingGearFixedTricycle =
-    prism'
-      (\() -> LandingGearFixedTricycle)
-      (\case
-        LandingGearFixedTricycle ->
-          Just ()
-        _ ->
-          Nothing)
-  _LandingGearFixedTailWheel =
-    prism'
-      (\() -> LandingGearFixedTailWheel)
-      (\case
-        LandingGearFixedTailWheel ->
-          Just ()
-        _ ->
-          Nothing)
-  _LandingGearRetractableTricycle =
-    prism'
-      (\() -> LandingGearRetractableTricycle)
-      (\case
-        LandingGearRetractableTricycle ->
-          Just ()
-        _ ->
-          Nothing)
-  _LandingGearRetractableTailWheel =
-    prism'
-      (\() -> LandingGearRetractableTailWheel)
-      (\case
-        LandingGearRetractableTailWheel ->
-          Just ()
-        _ ->
-          Nothing)
+makeClassy ''LandingGear
+makeClassyPrisms ''LandingGear

@@ -2,12 +2,20 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType(
   module Natural
 , PropulsionType(..)
 , PropulsionType'
 , PropulsionTypeI
+, __Piston
+, __Jet
+, __Electric
+, __Rocket
 , pistonPropulsionTypeI
 , jetPropulsionTypeI
 ) where
@@ -24,6 +32,9 @@ data PropulsionType cylinders displacement jettype =
   | Electric
   | Rocket
   deriving Generic
+
+makeClassy ''PropulsionType
+makeClassyPrisms ''PropulsionType
 
 type PropulsionType' a =
   PropulsionType a a a

@@ -4,14 +4,12 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures(
   module Semigroup
 , module Monoid
 , GyroplaneDesignFeatures(..)
-, ManyGyroplaneDesignFeatures(..)
-, HasGyroplaneDesignFeatures(..)
-, AsGyroplaneDesignFeatures(..)
 ) where
 
 import Control.Lens
@@ -26,32 +24,10 @@ newtype GyroplaneDesignFeatures =
     [GyroplaneDesignFeature]
   deriving (Eq, Ord, Show, Generic, Semigroup, Monoid)
 
-instance GyroplaneDesignFeatures ~ a =>
-  Rewrapped GyroplaneDesignFeatures a
+makeWrapped ''GyroplaneDesignFeatures
+makeClassy ''GyroplaneDesignFeatures
 
-instance Wrapped GyroplaneDesignFeatures where
-  type Unwrapped GyroplaneDesignFeatures =
-    [GyroplaneDesignFeature]
-  _Wrapped' =
-    iso (\ (GyroplaneDesignFeatures x) -> x) GyroplaneDesignFeatures
-
-class ManyGyroplaneDesignFeatures a where
-  _GyroplaneDesignFeatures_ ::
-    Traversal' a GyroplaneDesignFeatures
-
-instance ManyGyroplaneDesignFeatures GyroplaneDesignFeatures where
-  _GyroplaneDesignFeatures_ =
-    id
-
-class ManyGyroplaneDesignFeatures a => HasGyroplaneDesignFeatures a where
-  gyroplaneDesignFeatures ::
-    Lens' a GyroplaneDesignFeatures
-
-instance HasGyroplaneDesignFeatures GyroplaneDesignFeatures where
-  gyroplaneDesignFeatures =
-    id
-
-class ManyGyroplaneDesignFeatures a => AsGyroplaneDesignFeatures a where
+class AsGyroplaneDesignFeatures a where
   _GyroplaneDesignFeatures ::
     Prism' a GyroplaneDesignFeatures
 

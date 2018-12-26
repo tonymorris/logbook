@@ -4,14 +4,12 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeatures(
   module Semigroup
 , module Monoid
 , AirshipDesignFeatures(..)
-, ManyAirshipDesignFeatures(..)
-, HasAirshipDesignFeatures(..)
-, AsAirshipDesignFeatures(..)
 ) where
 
 import Control.Lens
@@ -26,32 +24,10 @@ newtype AirshipDesignFeatures =
     [AirshipDesignFeature]
   deriving (Eq, Ord, Show, Generic, Semigroup, Monoid)
 
-instance AirshipDesignFeatures ~ a =>
-  Rewrapped AirshipDesignFeatures a
+makeWrapped ''AirshipDesignFeatures
+makeClassy ''AirshipDesignFeatures
 
-instance Wrapped AirshipDesignFeatures where
-  type Unwrapped AirshipDesignFeatures =
-    [AirshipDesignFeature]
-  _Wrapped' =
-    iso (\ (AirshipDesignFeatures x) -> x) AirshipDesignFeatures
-
-class ManyAirshipDesignFeatures a where
-  _AirshipDesignFeatures_ ::
-    Traversal' a AirshipDesignFeatures
-
-instance ManyAirshipDesignFeatures AirshipDesignFeatures where
-  _AirshipDesignFeatures_ =
-    id
-
-class ManyAirshipDesignFeatures a => HasAirshipDesignFeatures a where
-  airshipDesignFeatures ::
-    Lens' a AirshipDesignFeatures
-
-instance HasAirshipDesignFeatures AirshipDesignFeatures where
-  airshipDesignFeatures =
-    id
-
-class ManyAirshipDesignFeatures a => AsAirshipDesignFeatures a where
+class AsAirshipDesignFeatures a where
   _AirshipDesignFeatures ::
     Prism' a AirshipDesignFeatures
 

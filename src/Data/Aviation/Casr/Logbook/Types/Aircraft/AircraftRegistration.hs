@@ -1,12 +1,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftRegistration where
 
+import Control.Lens
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration
 import Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration
-import Data.Functor.Identity
 import GHC.Generics
 import Prelude
 
@@ -15,6 +19,9 @@ data AircraftRegistration raausregistration casaregistration otherregistration r
   | CASAAircraftRegistration (casaregistration CASARegistration)
   | OtherAircraftRegistration (otherregistration String)
   deriving Generic
+
+makeClassy ''AircraftRegistration
+makeClassyPrisms ''AircraftRegistration
 
 deriving instance (Eq (raausregistration (RAAusRegistration raausregistrationtype prefix digits4)), Eq (casaregistration CASARegistration), Eq (otherregistration String)) => Eq (AircraftRegistration raausregistration casaregistration otherregistration raausregistrationtype prefix digits4)
 

@@ -1,10 +1,15 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.AircraftCategory where
 
 import Control.Applicative(Applicative(pure))
+import Control.Lens
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeatures
 import Data.Aviation.Casr.Logbook.Types.Aircraft.AirshipDesignFeatures
 import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures
@@ -40,6 +45,9 @@ data AircraftCategory cylinders displacement jettype position vtol rotors landin
   | Hangglider
   -- | Simulator
   deriving Generic
+
+makeClassy ''AircraftCategory
+makeClassyPrisms ''AircraftCategory
 
 type AircraftCategory' a =
   AircraftCategory a a a a a a a a a a a
