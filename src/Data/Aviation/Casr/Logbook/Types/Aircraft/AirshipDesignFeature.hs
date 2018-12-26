@@ -15,4 +15,11 @@ data AirshipDesignFeature =
   deriving (Eq, Ord, Show, Generic)
 
 makeClassy ''AirshipDesignFeature
-makeClassyPrisms ''AirshipDesignFeature
+
+class AsAirshipDesignFeature a where
+  _AirshipDesignFeature ::
+    Prism' a AirshipDesignFeature
+
+instance AsAirshipDesignFeature AirshipDesignFeature where
+  _AirshipDesignFeature =
+    id

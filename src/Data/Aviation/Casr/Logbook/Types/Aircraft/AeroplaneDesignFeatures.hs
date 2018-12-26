@@ -10,6 +10,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeatures(
   module Semigroup
 , module Monoid
 , AeroplaneDesignFeatures(..)
+, HasAeroplaneDesignFeatures(..)
 ) where
 
 import Control.Lens

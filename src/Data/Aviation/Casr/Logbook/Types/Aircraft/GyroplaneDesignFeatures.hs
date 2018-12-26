@@ -10,6 +10,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures(
   module Semigroup
 , module Monoid
 , GyroplaneDesignFeatures(..)
+, HasGyroplaneDesignFeatures(..)
 ) where
 
 import Control.Lens

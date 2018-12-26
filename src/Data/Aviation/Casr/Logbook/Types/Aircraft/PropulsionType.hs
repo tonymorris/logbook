@@ -10,6 +10,8 @@
 module Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType(
   module Natural
 , PropulsionType(..)
+, HasPropulsionType(..)
+, AsPropulsionType(..)
 , PropulsionType'
 , PropulsionTypeI
 , __Piston

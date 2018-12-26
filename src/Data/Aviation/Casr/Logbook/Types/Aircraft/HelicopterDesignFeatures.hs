@@ -10,6 +10,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures(
   module Semigroup
 , module Monoid
 , HelicopterDesignFeatures(..)
+, HasHelicopterDesignFeatures(..)
 ) where
 
 import Control.Lens

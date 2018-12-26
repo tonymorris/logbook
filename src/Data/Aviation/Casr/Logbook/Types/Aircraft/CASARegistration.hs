@@ -5,6 +5,8 @@
 module Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration(
   module Alpha
 , CASARegistration(..)
+, HasCASARegistration(..)
+, upperCASARegistration
 ) where
 
 import Control.Lens
