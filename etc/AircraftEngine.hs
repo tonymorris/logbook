@@ -61,10 +61,14 @@ data ElectricType =
   | DirectDrive
   | Linear
 
+data PropellorControl =
+  FixedPitch
+  | ConstantSpeedUnit
+
 data EngineType =
-  _ InternalCombustionEngine
+  _ InternalCombustionEngine PropellorControl
+  | _ ElectricType PropellorControl
   | _ JetType
-  | Electric
   | Rocket
 
 data Engine =
