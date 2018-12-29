@@ -5,6 +5,7 @@
 module Data.Aviation.Casr.Logbook.Types.Aircraft.CASARegistration(
   module Alpha
 , CASARegistration(..)
+, AsCASARegistration(..)
 , HasCASARegistration(..)
 , upperCASARegistration
 ) where
@@ -16,9 +17,12 @@ import Prelude
 
 data CASARegistration =
   CASARegistration {
-    upper1CASARegistration :: Upper
-  , upper2CASARegistration :: Upper
-  , upper3CASARegistration :: Upper
+    upper1CASARegistration ::
+      Upper
+  , upper2CASARegistration ::
+      Upper
+  , upper3CASARegistration ::
+      Upper
   } deriving (Eq, Ord, Show, Generic)
 
 makeClassy ''CASARegistration

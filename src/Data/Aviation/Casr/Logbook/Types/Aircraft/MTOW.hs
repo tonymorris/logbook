@@ -28,4 +28,3 @@ class AsMTOW a where
 instance AsMTOW MTOW where
   _MTOW =
     id
-

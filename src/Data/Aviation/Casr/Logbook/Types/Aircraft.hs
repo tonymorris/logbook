@@ -32,55 +32,17 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory as A
 
-import Control.Applicative
 import Control.Lens
 import Data.Int
 import Data.List.NonEmpty
 
 testAircraft5350 ::
-  (
-    Applicative aircraftregistration
-  , Applicative aircraftcategory
-  , Applicative raausregistration
-  , Applicative cylinders
-  , Applicative displacement
-  , Applicative position
-  , Applicative vtol
-  , Applicative landinggear
-  , Applicative aeroplanedesignfeatures
-  , Applicative otherregistration
-  , Applicative raausregistration
-  , Applicative raausregistrationtype
-  , Applicative prefix
-  , Applicative digits4
-  , Applicative mtow
-  ) =>
   Aircraft
-    aircraftregistration
-    raausregistration
-    casaregistration
-    otherregistration    
-    raausregistrationtype
-    prefix
-    digits4
-    aircraftcategory
-    cylinders
-    displacement
-    jettype
-    position
-    vtol
-    rotors
-    landinggear
-    aeroplanedesignfeatures
-    airshipdesignfeatures
-    gyroplanedesignfeatures
-    helicopterdesignfeatures
-    mtow
 testAircraft5350 =
-  aircraftI
+  Aircraft
     (
-      raAusAircraftRegistrationI (
-        raAusRegistrationI
+      RAAusAircraftRegistration (
+        RAAusRegistration
           RAAusRegistrationTypeFull
           RAAusRegistrationPrefix24
           (
@@ -93,63 +55,22 @@ testAircraft5350 =
       )
     )
     (
-      aeroplaneAircraftCategoryI
-        (
-          singlePropulsions1
-            (
-              propulsionI
-                (
-                  pistonPropulsionTypeI
-                    (list1 # (() :| [(), (), ()]))
-                    (oneOr (1352 :: Int))
-                )
-                Centreline
-                False
-            )
-        )
+      singleEnginePistonCentrelineNovtolAeroplaneCategory
+        (list1 # (() :| [(), (), ()]))
+        (oneOr (1352 :: Int))
         LandingGearFixedTricycle
         mempty
     )
-    (MTOW (oneOr (560 :: Int)))
+    (
+      MTOW (oneOr (560 :: Int))
+    )
 
 testAircraftAFR ::
-  (
-    Applicative aircraftcategory
-  , Applicative aircraftregistration
-  , Applicative casaregistration
-  , Applicative cylinders
-  , Applicative displacement
-  , Applicative position
-  , Applicative vtol
-  , Applicative landinggear
-  , Applicative aeroplanedesignfeatures
-  , Applicative mtow
-  ) =>
   Aircraft
-    aircraftregistration
-    raausregistration
-    casaregistration
-    otherregistration    
-    raausregistrationtype
-    prefix
-    digits4
-    aircraftcategory
-    cylinders
-    displacement
-    jettype
-    position
-    vtol
-    rotors
-    landinggear
-    aeroplanedesignfeatures
-    airshipdesignfeatures
-    gyroplanedesignfeatures
-    helicopterdesignfeatures
-    mtow
 testAircraftAFR =
-  aircraftI
+  Aircraft
     (
-      casaAircraftRegistrationI (
+      CASAAircraftRegistration (
         (
           CASARegistration
             Upper_A
@@ -165,4 +86,6 @@ testAircraftAFR =
         LandingGearFixedTricycle
         mempty
     )
-    (MTOW (oneOr (1157 :: Int)))
+    (
+      MTOW (oneOr (1157 :: Int))
+    )

@@ -5,6 +5,8 @@
 module Data.Aviation.Casr.Logbook.Types.Aircraft.DecDigits4(
   module Digit
 , DecDigits4(..)
+, HasDecDigits4(..)
+, AsDecDigits4(..)
 , digitDecDigits4
 ) where
 

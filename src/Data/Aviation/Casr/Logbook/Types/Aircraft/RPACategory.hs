@@ -10,42 +10,17 @@
 module Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory where
 
 import Control.Lens
-import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1
-import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition
 import GHC.Generics
 import Natural
 import Prelude
  
-data RPACategory cylinders displacement jettype position vtol rotors =
-  RPAAeroplane (Propulsions1 cylinders displacement jettype position vtol)
-  | RPACopter (Propulsions1 cylinders displacement jettype position vtol) (rotors Positive)
-  | RPAAirship (Propulsions1 cylinders displacement jettype position vtol)
-  | RPAPoweredLift (Propulsions1 cylinders displacement jettype position vtol)
-  deriving Generic
+data RPACategory =
+  RPAAeroplane Propulsions1
+  | RPACopter Propulsions1 Positive
+  | RPAAirship Propulsions1
+  | RPAPoweredLift Propulsions1
+  deriving (Eq, Ord, Show, Generic)
 
 makeClassy ''RPACategory
 makeClassyPrisms ''RPACategory
-
-type RPACategory' a =
-  RPACategory a a a a a a
-
-type RPACategoryI =
-  RPACategory' Identity
-
-deriving instance (Eq (cylinders Positive), Eq (displacement (Positive)), Eq (jettype JetType), Eq (position PropulsionPosition), Eq (vtol Bool), Eq (rotors Positive)) => Eq (RPACategory cylinders displacement jettype position vtol rotors)
-
-deriving instance (Ord (cylinders Positive), Ord (displacement (Positive)), Ord (jettype JetType), Ord (position PropulsionPosition), Ord (vtol Bool), Ord (rotors Positive)) => Ord (RPACategory cylinders displacement jettype position vtol rotors)
-
-deriving instance (Show (cylinders Positive), Show (displacement (Positive)), Show (jettype JetType), Show (position PropulsionPosition), Show (vtol Bool), Show (rotors Positive)) => Show (RPACategory cylinders displacement jettype position vtol rotors)
-
-__RPACopter ::
-  Prism (RPACategory cylinders displacement jettype position vtol rotors) (RPACategory cylinders displacement jettype position vtol rotors') (Propulsions1 cylinders displacement jettype position vtol, rotors Positive) (Propulsions1 cylinders displacement jettype position vtol, rotors' Positive)
-__RPACopter =
-  prism
-    (\(p, r) -> RPACopter p r)
-    (\case
-      RPACopter p r -> Right (p, r)
-      RPAAeroplane p -> Left (RPAAeroplane p)
-      RPAAirship p -> Left (RPAAirship p)
-      RPAPoweredLift p -> Left (RPAPoweredLift p))

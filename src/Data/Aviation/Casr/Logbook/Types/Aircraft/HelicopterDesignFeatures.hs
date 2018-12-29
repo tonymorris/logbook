@@ -11,6 +11,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures(
 , module Monoid
 , HelicopterDesignFeatures(..)
 , HasHelicopterDesignFeatures(..)
+, AsHelicopterDesignFeatures(..)
 ) where
 
 import Control.Lens
