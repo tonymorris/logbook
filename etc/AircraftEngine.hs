@@ -62,7 +62,7 @@ data ElectricType =
   | Linear
 
 data EngineType =
-  InternalCombustionEngine
+  _ InternalCombustionEngine
   | _ JetType
   | Electric
   | Rocket
