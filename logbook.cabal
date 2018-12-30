@@ -52,6 +52,7 @@ library
 
   exposed-modules:
                     Data.Aviation.Casr.Logbook
+                    Data.Aviation.Casr.Logbook.Types
                     Data.Aviation.Casr.Logbook.Types.Aircraft
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeature
                     Data.Aviation.Casr.Logbook.Types.Aircraft.AeroplaneDesignFeatures
@@ -84,9 +85,8 @@ library
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsion
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions1
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PropulsionPosition
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine
-
-
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType
