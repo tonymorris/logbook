@@ -56,7 +56,7 @@ testAircraft5350 =
           single_naturallyinduced_ice_fourstroke
             "Rotax"
             "912ULS"
-            Carburetor
+            Carburettor
             (list1 # (() :| [(), (), ()]))
             (oneOr (1352 :: Int))
         )

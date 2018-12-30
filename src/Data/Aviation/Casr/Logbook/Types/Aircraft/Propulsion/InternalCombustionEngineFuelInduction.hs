@@ -13,7 +13,7 @@ import GHC.Generics
 import Prelude
 
 data InternalCombustionEngineFuelInduction =
-  Carburetor
+  Carburettor
   | FuelInjection
   deriving (Eq, Ord, Show, Generic)
 
