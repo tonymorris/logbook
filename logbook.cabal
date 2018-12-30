@@ -91,6 +91,7 @@ library
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory
+                    Data.Aviation.Casr.Logbook.Types.Media
                     
 executable          logbook
   main-is:

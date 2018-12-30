@@ -1,3 +1,5 @@
+{-# LANGUAGE NoImplicitPrelude #-}
+
 module Data.Aviation.Casr.Logbook(
   module L
 ) where
