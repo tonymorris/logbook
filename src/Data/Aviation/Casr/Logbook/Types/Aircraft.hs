@@ -53,7 +53,7 @@ testAircraft5350 =
     (
       Aeroplane
         (
-          single_naturallyinduce_dice_fourstroke
+          single_naturallyinduced_ice_fourstroke
             "Rotax"
             "912ULS"
             Carburetor
@@ -84,7 +84,7 @@ testAircraftAFR =
     (
       Aeroplane
         (
-          single_naturallyinduce_dice_fourstroke
+          single_naturallyinduced_ice_fourstroke
             "Textron Lycoming"
             "IO-360-L2A"
             FuelInjection

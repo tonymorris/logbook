@@ -42,14 +42,14 @@ instance AsPropulsions1 Propulsions1 where
   _Propulsions1 =
     id
 
-single_naturallyinduce_dice_fourstroke ::
+single_naturallyinduced_ice_fourstroke ::
   String
   -> String
   -> InternalCombustionEngineFuelInduction
   -> Positive
   -> Positive
   -> Propulsions1
-single_naturallyinduce_dice_fourstroke enginemanufacturer enginedesgination fuelinduction cylinders displacement =
+single_naturallyinduced_ice_fourstroke enginemanufacturer enginedesgination fuelinduction cylinders displacement =
   Propulsions1
     ( 
       pure
