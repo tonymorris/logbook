@@ -6,6 +6,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion(
 
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.ElectricType as P
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Engine as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement as P
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineType as P
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngine as P
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineAirInduction as P
@@ -21,3 +22,4 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions as P
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions1 as P
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PropulsionPosition as P
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Rotors as P

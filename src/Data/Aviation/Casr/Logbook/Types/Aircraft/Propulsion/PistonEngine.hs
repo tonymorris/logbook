@@ -9,6 +9,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngine(
 ) where
 
 import Control.Lens
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineConfiguration
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineCycle
 import GHC.Generics
@@ -20,7 +21,7 @@ data PistonEngine =
     PistonEngineConfiguration
     PistonEngineCycle
     Positive -- cylinders
-    Positive -- capacity
+    EngineDisplacement
     deriving (Eq, Ord, Show, Generic)
 
 makeClassy ''PistonEngine

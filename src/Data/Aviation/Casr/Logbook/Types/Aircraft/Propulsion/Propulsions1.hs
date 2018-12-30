@@ -10,6 +10,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions1 where
 
 import Control.Lens
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Engine
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineConfiguration
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineCycle
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineType
@@ -73,7 +74,7 @@ single_naturallyinduced_ice_fourstroke enginemanufacturer enginedesgination fuel
                                 Opposed
                                 FourStroke
                                 cylinders
-                                displacement
+                                (EngineDisplacement displacement)
                             )
                         )
                     )

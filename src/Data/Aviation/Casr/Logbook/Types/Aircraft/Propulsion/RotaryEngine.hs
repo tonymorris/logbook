@@ -9,14 +9,15 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine(
 ) where
 
 import Control.Lens
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Rotors
 import GHC.Generics
-import Natural
 import Prelude
 
 data RotaryEngine =
   RotaryEngine
-    Positive -- rotors
-    Positive -- capacity
+    Rotors
+    EngineDisplacement
   deriving (Eq, Ord, Show, Generic)
 
 makeClassy ''RotaryEngine

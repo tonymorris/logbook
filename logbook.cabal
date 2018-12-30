@@ -72,6 +72,7 @@ library
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.ElectricType
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Engine
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineType
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngine
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineAirInduction
@@ -87,6 +88,7 @@ library
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions1
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PropulsionPosition
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Rotors
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType
