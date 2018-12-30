@@ -1,9 +1,8 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aircraft.JetType where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.JetType where
 
 import Control.Lens
 import GHC.Generics

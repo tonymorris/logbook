@@ -19,14 +19,9 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeature as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures as A
-import Data.Aviation.Casr.Logbook.Types.Aircraft.JetType as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.MTOW as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion as A
-import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition as A
-import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions as A
-import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1 as A
-import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix as A
 import Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType as A
@@ -35,6 +30,7 @@ import Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory as A
 import Control.Lens
 import Data.Int
 import Data.List.NonEmpty
+import Natural
 
 testAircraft5350 ::
   Aircraft
@@ -55,9 +51,15 @@ testAircraft5350 =
       )
     )
     (
-      singleEnginePistonCentrelineNovtolAeroplaneCategory
-        (list1 # (() :| [(), (), ()]))
-        (oneOr (1352 :: Int))
+      Aeroplane
+        (
+          single_naturallyinduce_dice_fourstroke
+            "Rotax"
+            "912ULS"
+            Carburetor
+            (list1 # (() :| [(), (), ()]))
+            (oneOr (1352 :: Int))
+        )
         LandingGearFixedTricycle
         mempty
     )
@@ -80,9 +82,15 @@ testAircraftAFR =
       )
     )
     (
-      singleEnginePistonCentrelineNovtolAeroplaneCategory
-        (list1 # (() :| [(), (), ()]))
-        (oneOr (5920 :: Int))
+      Aeroplane
+        (
+          single_naturallyinduce_dice_fourstroke
+            "Textron Lycoming"
+            "IO-360-L2A"
+            FuelInjection
+            (list1 # (() :| [(), (), ()]))
+            (oneOr (5920 :: Int))
+        )
         LandingGearFixedTricycle
         mempty
     )

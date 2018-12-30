@@ -1,41 +1,23 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE TemplateHaskell #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion(
-  module Bool
-, Propulsion(..)
-, AsPropulsion(..)
-, HasPropulsion(..)
+  module P
 ) where
 
-import Control.Lens
-import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition
-import Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType
-import GHC.Generics
-import Data.Bool as Bool(Bool(False, True))
-import Prelude
-
-data Propulsion =
-  Propulsion {
-    _propulsion_type ::
-      PropulsionType
-  , _propulsion_position ::
-      PropulsionPosition
-  , _vtol ::
-      Bool
-  } deriving (Eq, Ord, Show, Generic)
-
-makeClassy ''Propulsion
-
-class AsPropulsion a where
-  _Propulsion ::
-    Prism' a Propulsion
-
-instance AsPropulsion Propulsion where
-  _Propulsion =
-    id
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.ElectricType as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Engine as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineType as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineAirInduction as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineFuelInduction as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineIgnition as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineType as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngine as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.JetType as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineConfiguration as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineCycle as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngine as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsion as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions1 as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PropulsionPosition as P
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine as P

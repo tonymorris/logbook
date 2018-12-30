@@ -66,14 +66,27 @@ library
                     Data.Aviation.Casr.Logbook.Types.Aircraft.GyroplaneDesignFeatures
                     Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeature
                     Data.Aviation.Casr.Logbook.Types.Aircraft.HelicopterDesignFeatures
-                    Data.Aviation.Casr.Logbook.Types.Aircraft.JetType
                     Data.Aviation.Casr.Logbook.Types.Aircraft.LandingGear
                     Data.Aviation.Casr.Logbook.Types.Aircraft.MTOW
                     Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion
-                    Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionPosition
-                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions
-                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions1
-                    Data.Aviation.Casr.Logbook.Types.Aircraft.PropulsionType
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.ElectricType
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Engine
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineType
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngine
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineAirInduction
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineFuelInduction
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineIgnition
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineType
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.JetType
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngine
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineConfiguration
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineCycle
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsion
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions1
+                    Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine
+
+
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistration
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationPrefix
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RAAusRegistrationType

@@ -1,16 +1,15 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsions where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions where
 
 import Control.Lens
-import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsion
 import GHC.Generics
 import Prelude
 
