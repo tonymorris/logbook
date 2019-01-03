@@ -2,11 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineType(
-  InternalCombustionEngineType(..)
-, HasInternalCombustionEngineType(..)
-, AsInternalCombustionEngineType(..)
-) where
+module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineType where
 
 import Control.Lens
 import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngine

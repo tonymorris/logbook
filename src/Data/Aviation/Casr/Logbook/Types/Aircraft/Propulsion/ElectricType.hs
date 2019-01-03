@@ -1,7 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE BangPatterns #-}
@@ -11,6 +10,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.ElectricType where
 
@@ -42,11 +42,11 @@ data ElectricType_ x =
   deriving Generic
 
 deriving instance (Eq (XBrushlessAC x), Eq (XBrushedAC x), Eq (XBrushlessDC x), Eq (XBrushedDC x), Eq (XUniversalACDC x), Eq (XSwitchedReluctance x), Eq (XDirectDrive x), Eq (XLinear x), Eq (XElectricType x)) =>
-    Eq (ElectricType_ x)
+  Eq (ElectricType_ x)
 deriving instance (Ord (XBrushlessAC x), Ord (XBrushedAC x), Ord (XBrushlessDC x), Ord (XBrushedDC x), Ord (XUniversalACDC x), Ord (XSwitchedReluctance x), Ord (XDirectDrive x), Ord (XLinear x), Ord (XElectricType x)) =>
-    Ord (ElectricType_ x)
+  Ord (ElectricType_ x)
 deriving instance (Show (XBrushlessAC x), Show (XBrushedAC x), Show (XBrushlessDC x), Show (XBrushedDC x), Show (XUniversalACDC x), Show (XSwitchedReluctance x), Show (XDirectDrive x), Show (XLinear x), Show (XElectricType x)) =>
-    Show (ElectricType_ x)
+  Show (ElectricType_ x)
 
 class HasElectricType a e | a -> e where
   electricType ::
@@ -64,6 +64,21 @@ class HasElectricType a e | a -> e where
     , XElectricType e ~ Void
     ) =>
     Lens' a x
+  default xElectricType ::
+    (
+      XBrushlessAC () ~ x
+    , XBrushedAC () ~ x
+    , XBrushlessDC () ~ x
+    , XBrushedDC () ~ x
+    , XUniversalACDC () ~ x
+    , XSwitchedReluctance () ~ x
+    , XDirectDrive () ~ x
+    , XLinear () ~ x
+    , XElectricType e ~ Void
+    ) =>
+    Lens' a x
+  xElectricType f a =
+    fmap (\() -> a) (f ())
 
 instance HasElectricType (ElectricType_ e) e where
   electricType =
