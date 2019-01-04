@@ -14,7 +14,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement w
 
 import Control.Lens
 import GHC.Generics(Generic)
-import Natural(Positive)
+import Natural(Positive, HasPositive(positive))
 import Prelude
 
 type family XEngineDisplacement x
@@ -80,3 +80,9 @@ pattern EngineDisplacement ::
   -> EngineDisplacement
 pattern EngineDisplacement p <- EngineDisplacement_ _ p
   where EngineDisplacement p = EngineDisplacement_ () p
+
+----
+
+instance HasPositive (EngineDisplacement_ x) where
+  positive f (EngineDisplacement_ x p) =
+    fmap (\p' -> EngineDisplacement_ x p') (f p)

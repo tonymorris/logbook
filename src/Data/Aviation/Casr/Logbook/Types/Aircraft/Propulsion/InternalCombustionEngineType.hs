@@ -15,8 +15,8 @@
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineType where
 
 import Control.Lens(Lens', Prism', prism')
-import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngine
-import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngine(PistonEngine {-, AsPistonEngine(_PistonEngine) -})
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine(RotaryEngine, AsRotaryEngine(_RotaryEngine))
 import Data.Void(Void, absurd)
 import GHC.Generics(Generic)
 import Prelude
@@ -152,3 +152,31 @@ pattern InternalCombustionEngineType ::
   -> InternalCombustionEngineType
 pattern InternalCombustionEngineType v <- InternalCombustionEngineType_ v
   where InternalCombustionEngineType v = InternalCombustionEngineType_ v
+
+----
+
+{-
+instance AsPistonEngine InternalCombustionEngineType where
+  _PistonEngine =
+    prism'
+      PistonEngineType
+      (
+        \case
+          PistonEngineType_ _ t ->
+            Just t
+          _ ->
+            Nothing
+      )
+-}
+
+instance AsRotaryEngine InternalCombustionEngineType () where
+  _RotaryEngine =
+    prism'
+      RotaryEngineType
+      (
+        \case
+          RotaryEngineType t ->
+            Just t
+          _ ->
+            Nothing
+      )

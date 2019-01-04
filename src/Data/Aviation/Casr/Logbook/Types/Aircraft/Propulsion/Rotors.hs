@@ -14,7 +14,7 @@ module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Rotors where
 
 import Control.Lens
 import GHC.Generics(Generic)
-import Natural(Positive)
+import Natural(Positive, HasPositive(positive))
 import Prelude
 
 type family XRotors x
@@ -80,3 +80,9 @@ pattern Rotors ::
   -> Rotors
 pattern Rotors p <- Rotors_ _ p
   where Rotors p = Rotors_ () p
+
+----
+
+instance HasPositive (Rotors_ x) where
+  positive f (Rotors_ x p) =
+    fmap (\p' -> Rotors_ x p') (f p)
