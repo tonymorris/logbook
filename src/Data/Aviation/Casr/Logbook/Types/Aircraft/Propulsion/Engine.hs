@@ -48,13 +48,11 @@ class HasEngine a e | a -> e where
   engine ::
     Lens' a (Engine_ e)
   xEngine ::
-    XEngine e ~ x =>
-    Lens' a x
+    Lens' a (XEngine e)
   default xEngine ::
-    XEngine () ~ x =>
-    Lens' a x
-  xEngine f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XEngine e)
+  xEngine =
+    engine . xEngine
 
 instance HasEngine (Engine_ e) e where
   engine =

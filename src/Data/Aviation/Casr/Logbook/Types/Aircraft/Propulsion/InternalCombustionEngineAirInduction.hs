@@ -46,40 +46,35 @@ class HasInternalCombustionEngineAirInduction a e | a -> e where
   internalCombustionEngineAirInduction ::
     Lens' a (InternalCombustionEngineAirInduction_ e)
   xInternalCombustionEngineAirInduction ::
-    (
-      XSupercharged e ~ x
-    , XTurbocharged e ~ x
-    , XSuperTurbocharged e ~ x
-    , XNaturalInduction e ~ x
-    , XInternalCombustionEngineAirInduction e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XInternalCombustionEngineAirInduction e)
   default xInternalCombustionEngineAirInduction ::
-    (
-
-      XSupercharged () ~ x
-    , XTurbocharged () ~ x
-    , XSuperTurbocharged () ~ x
-    , XNaturalInduction () ~ x
-    , XInternalCombustionEngineAirInduction e ~ Void
-    ) =>
-    Lens' a x
-  xInternalCombustionEngineAirInduction f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XInternalCombustionEngineAirInduction e)
+  xInternalCombustionEngineAirInduction =
+    internalCombustionEngineAirInduction . xInternalCombustionEngineAirInduction
 
 instance HasInternalCombustionEngineAirInduction (InternalCombustionEngineAirInduction_ e) e where
   internalCombustionEngineAirInduction =
     id
-  xInternalCombustionEngineAirInduction f (Supercharged_ x) =
-    fmap Supercharged_ (f x)
-  xInternalCombustionEngineAirInduction f (Turbocharged_ x) =
-    fmap Turbocharged_ (f x)
-  xInternalCombustionEngineAirInduction f (SuperTurbocharged_ x) =
-    fmap SuperTurbocharged_ (f x)
-  xInternalCombustionEngineAirInduction f (NaturalInduction_ x) =
-    fmap NaturalInduction_ (f x)
-  xInternalCombustionEngineAirInduction _ (InternalCombustionEngineAirInduction_ x) =
-    absurd x
+
+xInternalCombustionEngineAirInduction' ::
+  (
+    XSupercharged e ~ x
+  , XTurbocharged e ~ x
+  , XSuperTurbocharged e ~ x
+  , XNaturalInduction e ~ x
+  , XInternalCombustionEngineAirInduction e ~ Void
+  ) =>
+  Lens' (InternalCombustionEngineAirInduction_ e) x
+xInternalCombustionEngineAirInduction' f (Supercharged_ x) =
+  fmap Supercharged_ (f x)
+xInternalCombustionEngineAirInduction' f (Turbocharged_ x) =
+  fmap Turbocharged_ (f x)
+xInternalCombustionEngineAirInduction' f (SuperTurbocharged_ x) =
+  fmap SuperTurbocharged_ (f x)
+xInternalCombustionEngineAirInduction' f (NaturalInduction_ x) =
+  fmap NaturalInduction_ (f x)
+xInternalCombustionEngineAirInduction' _ (InternalCombustionEngineAirInduction_ x) =
+  absurd x
 
 class AsInternalCombustionEngineAirInduction a e | a -> e where
   _InternalCombustionEngineAirInduction ::

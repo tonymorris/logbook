@@ -27,8 +27,8 @@ type family XRotaryEngineType x
 type family XInternalCombustionEngineType x
 
 data InternalCombustionEngineType_ x=
-  PistonEngineType_ !(XPistonEngineType x) PistonEngine
-  | RotaryEngineType_ !(XRotaryEngineType x) RotaryEngine
+  PistonEngineType_ !(XPistonEngineType x) (PistonEngine () () ())
+  | RotaryEngineType_ !(XRotaryEngineType x) (RotaryEngine () ())
   | InternalCombustionEngineType_ !(XInternalCombustionEngineType x)
   deriving Generic
 
@@ -45,47 +45,45 @@ class HasInternalCombustionEngineType a e | a -> e where
   internalCombustionEngineType ::
     Lens' a (InternalCombustionEngineType_ e)
   xInternalCombustionEngineType ::
-    (
-      XPistonEngineType e ~ x
-    , XRotaryEngineType e ~ x
-    , XInternalCombustionEngineType e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XInternalCombustionEngineType e)
   default xInternalCombustionEngineType ::
-    (
-      XPistonEngineType () ~ x
-    , XRotaryEngineType () ~ x
-    , XInternalCombustionEngineType e ~ Void
-    ) =>
-    Lens' a x
-  xInternalCombustionEngineType f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XInternalCombustionEngineType e)
+  xInternalCombustionEngineType =
+    internalCombustionEngineType . xInternalCombustionEngineType
 
 instance HasInternalCombustionEngineType (InternalCombustionEngineType_ e) e where
   internalCombustionEngineType =
     id
-  xInternalCombustionEngineType f (PistonEngineType_ x t) =
-    fmap (\x' -> PistonEngineType_ x' t) (f x)
-  xInternalCombustionEngineType f (RotaryEngineType_ x t) =
-    fmap (\x' -> RotaryEngineType_ x' t) (f x)
-  xInternalCombustionEngineType _ (InternalCombustionEngineType_ x) =
-    absurd x
+ 
+xInternalCombustionEngineType' ::
+  (
+    XPistonEngineType e ~ x
+  , XRotaryEngineType e ~ x
+  , XInternalCombustionEngineType e ~ Void
+  ) =>
+  Lens' (InternalCombustionEngineType_ e) x 
+xInternalCombustionEngineType' f (PistonEngineType_ x t) =
+  fmap (\x' -> PistonEngineType_ x' t) (f x)
+xInternalCombustionEngineType' f (RotaryEngineType_ x t) =
+  fmap (\x' -> RotaryEngineType_ x' t) (f x)
+xInternalCombustionEngineType' _ (InternalCombustionEngineType_ x) =
+  absurd x
 
 class AsInternalCombustionEngineType a e | a -> e where
   _InternalCombustionEngineType ::
     Prism' a (InternalCombustionEngineType_ e)
   _PistonEngineType ::
-    Prism' a (XPistonEngineType e, PistonEngine)
+    Prism' a (XPistonEngineType e, (PistonEngine () () ()))
   _PistonEngineType' ::
     XPistonEngineType e ~ () =>
-    Prism' a PistonEngine
+    Prism' a (PistonEngine () () ())
   _PistonEngineType' =
     _PistonEngineType . unproduct
   _RotaryEngineType ::
-    Prism' a (XRotaryEngineType e, RotaryEngine)
+    Prism' a (XRotaryEngineType e, (RotaryEngine () ()))
   _RotaryEngineType' ::
     XRotaryEngineType e ~ () =>
-    Prism' a RotaryEngine
+    Prism' a (RotaryEngine () ())
   _RotaryEngineType' =
     _RotaryEngineType . unproduct
   _XInternalCombustionEngineType ::
@@ -136,13 +134,13 @@ type instance XInternalCombustionEngineType () =
   Void
 
 pattern PistonEngineType ::
-  PistonEngine
+  (PistonEngine () () ())
   -> InternalCombustionEngineType
 pattern PistonEngineType t <- PistonEngineType_ _ t
   where PistonEngineType t = PistonEngineType_ () t
 
 pattern RotaryEngineType ::
-  RotaryEngine
+  (RotaryEngine () ())
   -> InternalCombustionEngineType
 pattern RotaryEngineType t <- RotaryEngineType_ _ t
   where RotaryEngineType t = RotaryEngineType_ () t
@@ -155,7 +153,7 @@ pattern InternalCombustionEngineType v <- InternalCombustionEngineType_ v
 
 ----
 
-instance AsPistonEngine InternalCombustionEngineType () where
+instance AsPistonEngine InternalCombustionEngineType () () () () where
   _PistonEngine =
     prism'
       PistonEngineType
@@ -167,7 +165,7 @@ instance AsPistonEngine InternalCombustionEngineType () where
             Nothing
       )
 
-instance AsRotaryEngine InternalCombustionEngineType () where
+instance AsRotaryEngine InternalCombustionEngineType () () () where
   _RotaryEngine =
     prism'
       RotaryEngineType

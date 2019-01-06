@@ -46,13 +46,11 @@ class HasInternalCombustionEngine a e | a -> e where
   internalCombustionEngine ::
     Lens' a (InternalCombustionEngine_ e)
   xInternalCombustionEngine ::
-    XInternalCombustionEngine e ~ x =>
-    Lens' a x
+    Lens' a (XInternalCombustionEngine e)
   default xInternalCombustionEngine ::
-    XInternalCombustionEngine () ~ x =>
-    Lens' a x
-  xInternalCombustionEngine f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XInternalCombustionEngine e)
+  xInternalCombustionEngine =
+    internalCombustionEngine . xInternalCombustionEngine
 
 instance HasInternalCombustionEngine (InternalCombustionEngine_ e) e where
   internalCombustionEngine =
@@ -100,4 +98,3 @@ instance HasInternalCombustionEngineIgnition (InternalCombustionEngine_ x) () wh
 instance HasInternalCombustionEngineType (InternalCombustionEngine_ x) () where
   internalCombustionEngineType f (InternalCombustionEngine_ x a l i t) =
     fmap (\t' -> InternalCombustionEngine_ x a l i t') (f t)
-

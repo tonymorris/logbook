@@ -44,36 +44,32 @@ class HasPropulsionPosition a e | a -> e where
   propulsionPosition ::
     Lens' a (PropulsionPosition_ e)
   xPropulsionPosition ::
-    (
-      XCentreline e ~ x
-    , XLeftPropulsion e ~ x
-    , XRightPropulsion e ~ x
-    , XPropulsionPosition e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XPropulsionPosition e)
   default xPropulsionPosition ::
-    (
-
-      XCentreline () ~ x
-    , XLeftPropulsion () ~ x
-    , XRightPropulsion () ~ x
-    , XPropulsionPosition e ~ Void
-    ) =>
-    Lens' a x
-  xPropulsionPosition f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XPropulsionPosition e)
+  xPropulsionPosition =
+    propulsionPosition . xPropulsionPosition
 
 instance HasPropulsionPosition (PropulsionPosition_ e) e where
   propulsionPosition =
     id
-  xPropulsionPosition f (Centreline_ x) =
-    fmap Centreline_ (f x)
-  xPropulsionPosition f (LeftPropulsion_ x) =
-    fmap LeftPropulsion_ (f x)
-  xPropulsionPosition f (RightPropulsion_ x) =
-    fmap RightPropulsion_ (f x)
-  xPropulsionPosition _ (PropulsionPosition_ x) =
-    absurd x
+
+xPropulsionPosition' ::
+  (
+    XCentreline e ~ x
+  , XLeftPropulsion e ~ x
+  , XRightPropulsion e ~ x
+  , XPropulsionPosition e ~ Void
+  ) =>
+  Lens' (PropulsionPosition_ e) x
+xPropulsionPosition' f (Centreline_ x) =
+  fmap Centreline_ (f x)
+xPropulsionPosition' f (LeftPropulsion_ x) =
+  fmap LeftPropulsion_ (f x)
+xPropulsionPosition' f (RightPropulsion_ x) =
+  fmap RightPropulsion_ (f x)
+xPropulsionPosition' _ (PropulsionPosition_ x) =
+  absurd x
 
 class AsPropulsionPosition a e | a -> e where
   _PropulsionPosition ::

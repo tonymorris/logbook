@@ -42,32 +42,29 @@ class HasPistonEngineCycle a e | a -> e where
   pistonEngineCycle ::
     Lens' a (PistonEngineCycle_ e)
   xPistonEngineCycle ::
-    (
-      XFourStroke e ~ x
-    , XTwoStroke e ~ x
-    , XPistonEngineCycle e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XPistonEngineCycle e)
   default xPistonEngineCycle ::
-    (
-
-      XFourStroke () ~ x
-    , XTwoStroke () ~ x
-    , XPistonEngineCycle e ~ Void
-    ) =>
-    Lens' a x
-  xPistonEngineCycle f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XPistonEngineCycle e)
+  xPistonEngineCycle =
+    pistonEngineCycle . xPistonEngineCycle
 
 instance HasPistonEngineCycle (PistonEngineCycle_ e) e where
   pistonEngineCycle =
     id
-  xPistonEngineCycle f (FourStroke_ x) =
-    fmap FourStroke_ (f x)
-  xPistonEngineCycle f (TwoStroke_ x) =
-    fmap TwoStroke_ (f x)
-  xPistonEngineCycle _ (PistonEngineCycle_ x) =
-    absurd x
+
+xPistonEngineCycle' ::
+  (
+    XFourStroke e ~ x
+  , XTwoStroke e ~ x
+  , XPistonEngineCycle e ~ Void
+  ) =>
+  Lens' (PistonEngineCycle_ e) x
+xPistonEngineCycle' f (FourStroke_ x) =
+  fmap FourStroke_ (f x)
+xPistonEngineCycle' f (TwoStroke_ x) =
+  fmap TwoStroke_ (f x)
+xPistonEngineCycle' _ (PistonEngineCycle_ x) =
+  absurd x
 
 class AsPistonEngineCycle a e | a -> e where
   _PistonEngineCycle ::

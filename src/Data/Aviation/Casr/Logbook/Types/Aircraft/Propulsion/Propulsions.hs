@@ -38,13 +38,11 @@ class HasPropulsions a e | a -> e where
   propulsions ::
     Lens' a (Propulsions_ e)
   xPropulsions ::
-    XPropulsions e ~ x =>
-    Lens' a x
+    Lens' a (XPropulsions e)
   default xPropulsions ::
-    XPropulsions () ~ x =>
-    Lens' a x
-  xPropulsions f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XPropulsions e)
+  xPropulsions =
+    propulsions . xPropulsions
 
 instance HasPropulsions (Propulsions_ e) e where
   propulsions =

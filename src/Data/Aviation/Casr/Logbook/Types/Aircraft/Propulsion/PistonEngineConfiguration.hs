@@ -48,47 +48,41 @@ class HasPistonEngineConfiguration a e | a -> e where
   pistonEngineConfiguration ::
     Lens' a (PistonEngineConfiguration_ e)
   xPistonEngineConfiguration ::
-    (
-      XParallel e ~ x
-    , XVConfiguration e ~ x
-    , XWConfiguration e ~ x
-    , XXConfiguration e ~ x
-    , XOpposed e ~ x
-    , XRadial e ~ x
-    , XPistonEngineConfiguration e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XPistonEngineConfiguration e)
   default xPistonEngineConfiguration ::
-    (
-      XParallel () ~ x
-    , XVConfiguration () ~ x
-    , XWConfiguration () ~ x
-    , XXConfiguration () ~ x
-    , XOpposed () ~ x
-    , XRadial () ~ x
-    , XPistonEngineConfiguration e ~ Void
-    ) =>
-    Lens' a x
-  xPistonEngineConfiguration f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XPistonEngineConfiguration e)
+  xPistonEngineConfiguration =
+    pistonEngineConfiguration . xPistonEngineConfiguration
 
 instance HasPistonEngineConfiguration (PistonEngineConfiguration_ e) e where
   pistonEngineConfiguration =
     id
-  xPistonEngineConfiguration f (Parallel_ x) =
-    fmap Parallel_ (f x)
-  xPistonEngineConfiguration f (VConfiguration_ x) =
-    fmap VConfiguration_ (f x)
-  xPistonEngineConfiguration f (WConfiguration_ x) =
-    fmap WConfiguration_ (f x)
-  xPistonEngineConfiguration f (XConfiguration_ x) =
-    fmap XConfiguration_ (f x)
-  xPistonEngineConfiguration f (Opposed_ x) =
-    fmap Opposed_ (f x)
-  xPistonEngineConfiguration f (Radial_ x) =
-    fmap Radial_ (f x)
-  xPistonEngineConfiguration _ (PistonEngineConfiguration_ x) =
-    absurd x
+
+xPistonEngineConfiguration' ::
+  (
+    XParallel e ~ x
+  , XVConfiguration e ~ x
+  , XWConfiguration e ~ x
+  , XXConfiguration e ~ x
+  , XOpposed e ~ x
+  , XRadial e ~ x
+  , XPistonEngineConfiguration e ~ Void
+  ) =>
+  Lens' (PistonEngineConfiguration_ e) x
+xPistonEngineConfiguration' f (Parallel_ x) =
+  fmap Parallel_ (f x)
+xPistonEngineConfiguration' f (VConfiguration_ x) =
+  fmap VConfiguration_ (f x)
+xPistonEngineConfiguration' f (WConfiguration_ x) =
+  fmap WConfiguration_ (f x)
+xPistonEngineConfiguration' f (XConfiguration_ x) =
+  fmap XConfiguration_ (f x)
+xPistonEngineConfiguration' f (Opposed_ x) =
+  fmap Opposed_ (f x)
+xPistonEngineConfiguration' f (Radial_ x) =
+  fmap Radial_ (f x)
+xPistonEngineConfiguration' _ (PistonEngineConfiguration_ x) =
+  absurd x
 
 class AsPistonEngineConfiguration a e | a -> e where
   _PistonEngineConfiguration ::

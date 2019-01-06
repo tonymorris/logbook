@@ -50,39 +50,35 @@ class HasEngineType a e | a -> e where
   engineType ::
     Lens' a (EngineType_ e)
   xEngineType ::
-    (
-      XInternalCombustionEngineEngineType e ~ x
-    , XElectric e ~ x
-    , XRocket e ~ x
-    , XJet e ~ x
-    , XEngineType e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XInternalCombustionEngineEngineType e)
   default xEngineType ::
-    (
-      XInternalCombustionEngineEngineType () ~ x
-    , XElectric () ~ x
-    , XRocket () ~ x
-    , XJet () ~ x
-    , XEngineType e ~ Void
-    ) =>
-    Lens' a x
-  xEngineType f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XInternalCombustionEngineEngineType e)
+  xEngineType =
+    engineType . xEngineType
 
 instance HasEngineType (EngineType_ e) e where
   engineType =
     id
-  xEngineType f (InternalCombustionEngineEngineType_ x t) =
-    fmap (\x' -> InternalCombustionEngineEngineType_ x' t) (f x)
-  xEngineType f (Electric_ x t) =
-    fmap (\x' -> Electric_ x' t) (f x)
-  xEngineType f (Rocket_ x) =
-    fmap (\x' -> Rocket_ x') (f x)
-  xEngineType f (Jet_ x t) =
-    fmap (\x' -> Jet_ x' t) (f x)
-  xEngineType _ (EngineType_ x) =
-    absurd x
+
+xEngineType' ::
+  (
+    XInternalCombustionEngineEngineType e ~ x
+  , XElectric e ~ x
+  , XRocket e ~ x
+  , XJet e ~ x
+  , XEngineType e ~ Void
+  ) =>
+  Lens' (EngineType_ e) x
+xEngineType' f (InternalCombustionEngineEngineType_ x t) =
+  fmap (\x' -> InternalCombustionEngineEngineType_ x' t) (f x)
+xEngineType' f (Electric_ x t) =
+  fmap (\x' -> Electric_ x' t) (f x)
+xEngineType' f (Rocket_ x) =
+  fmap (\x' -> Rocket_ x') (f x)
+xEngineType' f (Jet_ x t) =
+  fmap (\x' -> Jet_ x' t) (f x)
+xEngineType' _ (EngineType_ x) =
+  absurd x
 
 class AsEngineType a e | a -> e where
   _EngineType ::

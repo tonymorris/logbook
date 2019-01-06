@@ -42,32 +42,29 @@ class HasInternalCombustionEngineFuelInduction a e | a -> e where
   internalCombustionEngineFuelInduction ::
     Lens' a (InternalCombustionEngineFuelInduction_ e)
   xInternalCombustionEngineFuelInduction ::
-    (
-      XCarburettor e ~ x
-    , XFuelInjection e ~ x
-    , XInternalCombustionEngineFuelInduction e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XInternalCombustionEngineFuelInduction e)
   default xInternalCombustionEngineFuelInduction ::
-    (
-
-      XCarburettor () ~ x
-    , XFuelInjection () ~ x
-    , XInternalCombustionEngineFuelInduction e ~ Void
-    ) =>
-    Lens' a x
-  xInternalCombustionEngineFuelInduction f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XInternalCombustionEngineFuelInduction e)
+  xInternalCombustionEngineFuelInduction =
+    internalCombustionEngineFuelInduction . xInternalCombustionEngineFuelInduction
 
 instance HasInternalCombustionEngineFuelInduction (InternalCombustionEngineFuelInduction_ e) e where
   internalCombustionEngineFuelInduction =
     id
-  xInternalCombustionEngineFuelInduction f (Carburettor_ x) =
-    fmap Carburettor_ (f x)
-  xInternalCombustionEngineFuelInduction f (FuelInjection_ x) =
-    fmap FuelInjection_ (f x)
-  xInternalCombustionEngineFuelInduction _ (InternalCombustionEngineFuelInduction_ x) =
-    absurd x
+
+xInternalCombustionEngineFuelInduction' ::
+  (
+    XCarburettor e ~ x
+  , XFuelInjection e ~ x
+  , XInternalCombustionEngineFuelInduction e ~ Void
+  ) =>
+  Lens' (InternalCombustionEngineFuelInduction_ e) x 
+xInternalCombustionEngineFuelInduction' f (Carburettor_ x) =
+  fmap Carburettor_ (f x)
+xInternalCombustionEngineFuelInduction' f (FuelInjection_ x) =
+  fmap FuelInjection_ (f x)
+xInternalCombustionEngineFuelInduction' _ (InternalCombustionEngineFuelInduction_ x) =
+  absurd x
 
 class AsInternalCombustionEngineFuelInduction a e | a -> e where
   _InternalCombustionEngineFuelInduction ::

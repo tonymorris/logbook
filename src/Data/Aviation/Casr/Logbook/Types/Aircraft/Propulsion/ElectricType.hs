@@ -52,55 +52,47 @@ class HasElectricType a e | a -> e where
   electricType ::
     Lens' a (ElectricType_ e)
   xElectricType ::
-    (
-      XBrushlessAC e ~ x
-    , XBrushedAC e ~ x
-    , XBrushlessDC e ~ x
-    , XBrushedDC e ~ x
-    , XUniversalACDC e ~ x
-    , XSwitchedReluctance e ~ x
-    , XDirectDrive e ~ x
-    , XLinear e ~ x
-    , XElectricType e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XElectricType e)
   default xElectricType ::
-    (
-      XBrushlessAC () ~ x
-    , XBrushedAC () ~ x
-    , XBrushlessDC () ~ x
-    , XBrushedDC () ~ x
-    , XUniversalACDC () ~ x
-    , XSwitchedReluctance () ~ x
-    , XDirectDrive () ~ x
-    , XLinear () ~ x
-    , XElectricType e ~ Void
-    ) =>
-    Lens' a x
-  xElectricType f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XElectricType e)
+  xElectricType =
+    electricType . xElectricType
 
 instance HasElectricType (ElectricType_ e) e where
   electricType =
     id
-  xElectricType f (BrushlessAC_ x) =
-    fmap BrushlessAC_ (f x)
-  xElectricType f (BrushedAC_ x) =
-    fmap BrushedAC_ (f x)
-  xElectricType f (BrushlessDC_ x) =
-    fmap BrushlessDC_ (f x)
-  xElectricType f (BrushedDC_ x) =
-    fmap BrushedDC_ (f x)
-  xElectricType f (UniversalACDC_ x) =
-    fmap UniversalACDC_ (f x)
-  xElectricType f (SwitchedReluctance_ x) =
-    fmap SwitchedReluctance_ (f x)
-  xElectricType f (DirectDrive_ x) =
-    fmap DirectDrive_ (f x)
-  xElectricType f (Linear_ x) =
-    fmap Linear_ (f x)
-  xElectricType _ (ElectricType_ x) =
-    absurd x
+  
+xElectricType' ::
+  (
+    XBrushlessAC e ~ x
+  , XBrushedAC e ~ x
+  , XBrushlessDC e ~ x
+  , XBrushedDC e ~ x
+  , XUniversalACDC e ~ x
+  , XSwitchedReluctance e ~ x
+  , XDirectDrive e ~ x
+  , XLinear e ~ x
+  , XElectricType e ~ Void
+  ) =>
+  Lens' (ElectricType_ e) x
+xElectricType' f (BrushlessAC_ x) =
+  fmap BrushlessAC_ (f x)
+xElectricType' f (BrushedAC_ x) =
+  fmap BrushedAC_ (f x)
+xElectricType' f (BrushlessDC_ x) =
+  fmap BrushlessDC_ (f x)
+xElectricType' f (BrushedDC_ x) =
+  fmap BrushedDC_ (f x)
+xElectricType' f (UniversalACDC_ x) =
+  fmap UniversalACDC_ (f x)
+xElectricType' f (SwitchedReluctance_ x) =
+  fmap SwitchedReluctance_ (f x)
+xElectricType' f (DirectDrive_ x) =
+  fmap DirectDrive_ (f x)
+xElectricType' f (Linear_ x) =
+  fmap Linear_ (f x)
+xElectricType' _ (ElectricType_ x) =
+  absurd x
 
 class AsElectricType a e | a -> e where
   _ElectricType ::

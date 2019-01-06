@@ -42,14 +42,12 @@ class HasPropulsion a e | a -> e where
   propulsion ::
     Lens' a (Propulsion_ e)
   xPropulsion ::
-    XPropulsion e ~ x =>
-    Lens' a x
+    Lens' a (XPropulsion e)
   default xPropulsion ::
-    XPropulsion () ~ x =>
-    Lens' a x
-  xPropulsion f a =
-    fmap (\() -> a) (f ())
-
+    Lens' a (XPropulsion e)
+  xPropulsion =
+    propulsion . xPropulsion
+    
 instance HasPropulsion (Propulsion_ e) e where
   propulsion =
     id

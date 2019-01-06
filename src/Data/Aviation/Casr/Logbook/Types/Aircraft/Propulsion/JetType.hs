@@ -48,44 +48,38 @@ class HasJetType a e | a -> e where
   jetType ::
     Lens' a (JetType_ e)
   xJetType ::
-    (
-      XTurbojet e ~ x
-    , XTurbofan e ~ x
-    , XTurboprop e ~ x
-    , XRamjet e ~ x
-    , XScramjet e ~ x
-    , XJetType e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XJetType e)
   default xJetType ::
-    (
-
-      XTurbojet () ~ x
-    , XTurbofan () ~ x
-    , XTurboprop () ~ x
-    , XRamjet () ~ x
-    , XScramjet () ~ x
-    , XJetType e ~ Void
-    ) =>
-    Lens' a x
-  xJetType f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XJetType e)
+  xJetType =
+    jetType . xJetType
 
 instance HasJetType (JetType_ e) e where
   jetType =
     id
-  xJetType f (Turbojet_ x) =
-    fmap Turbojet_ (f x)
-  xJetType f (Turbofan_ x) =
-    fmap Turbofan_ (f x)
-  xJetType f (Turboprop_ x) =
-    fmap Turboprop_ (f x)
-  xJetType f (Ramjet_ x) =
-    fmap Ramjet_ (f x)
-  xJetType f (Scramjet_ x) =
-    fmap Scramjet_ (f x)
-  xJetType _ (JetType_ x) =
-    absurd x
+
+xJetType' ::
+  (
+    XTurbojet e ~ x
+  , XTurbofan e ~ x
+  , XTurboprop e ~ x
+  , XRamjet e ~ x
+  , XScramjet e ~ x
+  , XJetType e ~ Void
+  ) =>
+  Lens' (JetType_ e) x
+xJetType' f (Turbojet_ x) =
+  fmap Turbojet_ (f x)
+xJetType' f (Turbofan_ x) =
+  fmap Turbofan_ (f x)
+xJetType' f (Turboprop_ x) =
+  fmap Turboprop_ (f x)
+xJetType' f (Ramjet_ x) =
+  fmap Ramjet_ (f x)
+xJetType' f (Scramjet_ x) =
+  fmap Scramjet_ (f x)
+xJetType' _ (JetType_ x) =
+  absurd x
 
 class AsJetType a e | a -> e where
   _JetType ::

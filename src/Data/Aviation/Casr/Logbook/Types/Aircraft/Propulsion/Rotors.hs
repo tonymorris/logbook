@@ -38,13 +38,11 @@ class HasRotors a e | a -> e where
   rotors ::
     Lens' a (Rotors_ e)
   xRotors ::
-    XRotors e ~ x =>
-    Lens' a x
+    Lens' a (XRotors e)
   default xRotors ::
-    XRotors () ~ x =>
-    Lens' a x
-  xRotors f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XRotors e)
+  xRotors =
+    rotors . xRotors
 
 instance HasRotors (Rotors_ e) e where
   rotors =

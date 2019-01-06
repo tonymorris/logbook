@@ -42,32 +42,29 @@ class HasInternalCombustionEngineIgnition a e | a -> e where
   internalCombustionEngineIgnition ::
     Lens' a (InternalCombustionEngineIgnition_ e)
   xInternalCombustionEngineIgnition ::
-    (
-      XDiesel e ~ x
-    , XSpark e ~ x
-    , XInternalCombustionEngineIgnition e ~ Void
-    ) =>
-    Lens' a x
+    Lens' a (XInternalCombustionEngineIgnition e)
   default xInternalCombustionEngineIgnition ::
-    (
-
-      XDiesel () ~ x
-    , XSpark () ~ x
-    , XInternalCombustionEngineIgnition e ~ Void
-    ) =>
-    Lens' a x
-  xInternalCombustionEngineIgnition f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XInternalCombustionEngineIgnition e)
+  xInternalCombustionEngineIgnition =
+    internalCombustionEngineIgnition . xInternalCombustionEngineIgnition
 
 instance HasInternalCombustionEngineIgnition (InternalCombustionEngineIgnition_ e) e where
   internalCombustionEngineIgnition =
     id
-  xInternalCombustionEngineIgnition f (Diesel_ x) =
-    fmap Diesel_ (f x)
-  xInternalCombustionEngineIgnition f (Spark_ x) =
-    fmap Spark_ (f x)
-  xInternalCombustionEngineIgnition _ (InternalCombustionEngineIgnition_ x) =
-    absurd x
+    
+xInternalCombustionEngineIgnition' ::
+  (
+    XDiesel e ~ x
+  , XSpark e ~ x
+  , XInternalCombustionEngineIgnition e ~ Void
+  ) =>
+  Lens' (InternalCombustionEngineIgnition_ e) x
+xInternalCombustionEngineIgnition' f (Diesel_ x) =
+  fmap Diesel_ (f x)
+xInternalCombustionEngineIgnition' f (Spark_ x) =
+  fmap Spark_ (f x)
+xInternalCombustionEngineIgnition' _ (InternalCombustionEngineIgnition_ x) =
+  absurd x
 
 class AsInternalCombustionEngineIgnition a e | a -> e where
   _InternalCombustionEngineIgnition ::

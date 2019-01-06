@@ -38,13 +38,11 @@ class HasEngineDisplacement a e | a -> e where
   engineDisplacement ::
     Lens' a (EngineDisplacement_ e)
   xEngineDisplacement ::
-    XEngineDisplacement e ~ x =>
-    Lens' a x
+    Lens' a (XEngineDisplacement e)
   default xEngineDisplacement ::
-    XEngineDisplacement () ~ x =>
-    Lens' a x
-  xEngineDisplacement f a =
-    fmap (\() -> a) (f ())
+    Lens' a (XEngineDisplacement e)
+  xEngineDisplacement =
+    engineDisplacement . xEngineDisplacement
 
 instance HasEngineDisplacement (EngineDisplacement_ e) e where
   engineDisplacement =
