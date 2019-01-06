@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PistonEngineConfiguration where
 
@@ -48,8 +47,6 @@ class HasPistonEngineConfiguration a e | a -> e where
   pistonEngineConfiguration ::
     Lens' a (PistonEngineConfiguration_ e)
   xPistonEngineConfiguration ::
-    Lens' a (XPistonEngineConfiguration e)
-  default xPistonEngineConfiguration ::
     Lens' a (XPistonEngineConfiguration e)
   xPistonEngineConfiguration =
     pistonEngineConfiguration . xPistonEngineConfiguration

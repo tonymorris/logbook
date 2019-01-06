@@ -7,7 +7,6 @@
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine where
 
@@ -40,8 +39,6 @@ class HasRotaryEngine a e xrotors xenginedisplacement
   rotaryEngine ::
     Lens' a (RotaryEngine_ e xrotors xenginedisplacement)
   xRotaryEngine ::
-    Lens' a (XRotaryEngine e)
-  default xRotaryEngine ::
     Lens' a (XRotaryEngine e)
   xRotaryEngine =
     rotaryEngine . xRotaryEngine

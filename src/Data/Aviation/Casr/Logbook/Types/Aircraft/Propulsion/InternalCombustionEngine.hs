@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngine where
 
@@ -30,7 +29,7 @@ data InternalCombustionEngine_ x =
     InternalCombustionEngineAirInduction
     InternalCombustionEngineFuelInduction
     InternalCombustionEngineIgnition
-    InternalCombustionEngineType
+    (InternalCombustionEngineType () () () () ())
   deriving Generic
 
 deriving instance Eq (XInternalCombustionEngine x) =>
@@ -46,8 +45,6 @@ class HasInternalCombustionEngine a e | a -> e where
   internalCombustionEngine ::
     Lens' a (InternalCombustionEngine_ e)
   xInternalCombustionEngine ::
-    Lens' a (XInternalCombustionEngine e)
-  default xInternalCombustionEngine ::
     Lens' a (XInternalCombustionEngine e)
   xInternalCombustionEngine =
     internalCombustionEngine . xInternalCombustionEngine
@@ -76,7 +73,7 @@ pattern InternalCombustionEngine ::
   InternalCombustionEngineAirInduction
   -> InternalCombustionEngineFuelInduction
   -> InternalCombustionEngineIgnition
-  -> InternalCombustionEngineType
+  -> (InternalCombustionEngineType () () () () ())
   -> InternalCombustionEngine
 pattern InternalCombustionEngine a l i t <- InternalCombustionEngine_ _ a l i t
   where InternalCombustionEngine a l i t = InternalCombustionEngine_ () a l i t
@@ -95,6 +92,6 @@ instance HasInternalCombustionEngineIgnition (InternalCombustionEngine_ x) () wh
   internalCombustionEngineIgnition f (InternalCombustionEngine_ x a l i t) =
     fmap (\i' -> InternalCombustionEngine_ x a l i' t) (f i)
 
-instance HasInternalCombustionEngineType (InternalCombustionEngine_ x) () where
+instance HasInternalCombustionEngineType (InternalCombustionEngine_ x) () () () () () () where
   internalCombustionEngineType f (InternalCombustionEngine_ x a l i t) =
     fmap (\t' -> InternalCombustionEngine_ x a l i t') (f t)

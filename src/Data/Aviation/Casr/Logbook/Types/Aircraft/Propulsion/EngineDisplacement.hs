@@ -8,7 +8,6 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement where
 
@@ -38,8 +37,6 @@ class HasEngineDisplacement a e | a -> e where
   engineDisplacement ::
     Lens' a (EngineDisplacement_ e)
   xEngineDisplacement ::
-    Lens' a (XEngineDisplacement e)
-  default xEngineDisplacement ::
     Lens' a (XEngineDisplacement e)
   xEngineDisplacement =
     engineDisplacement . xEngineDisplacement

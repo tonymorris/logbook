@@ -8,7 +8,6 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions where
 
@@ -38,8 +37,6 @@ class HasPropulsions a e | a -> e where
   propulsions ::
     Lens' a (Propulsions_ e)
   xPropulsions ::
-    Lens' a (XPropulsions e)
-  default xPropulsions ::
     Lens' a (XPropulsions e)
   xPropulsions =
     propulsions . xPropulsions

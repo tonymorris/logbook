@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.PropulsionPosition where
 
@@ -44,8 +43,6 @@ class HasPropulsionPosition a e | a -> e where
   propulsionPosition ::
     Lens' a (PropulsionPosition_ e)
   xPropulsionPosition ::
-    Lens' a (XPropulsionPosition e)
-  default xPropulsionPosition ::
     Lens' a (XPropulsionPosition e)
   xPropulsionPosition =
     propulsionPosition . xPropulsionPosition

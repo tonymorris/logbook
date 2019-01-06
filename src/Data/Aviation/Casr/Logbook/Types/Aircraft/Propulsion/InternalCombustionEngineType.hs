@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineType where
 
@@ -26,32 +25,30 @@ type family XPistonEngineType x
 type family XRotaryEngineType x
 type family XInternalCombustionEngineType x
 
-data InternalCombustionEngineType_ x=
-  PistonEngineType_ !(XPistonEngineType x) (PistonEngine () () ())
-  | RotaryEngineType_ !(XRotaryEngineType x) (RotaryEngine () ())
+data InternalCombustionEngineType_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine =
+  PistonEngineType_ !(XPistonEngineType x) (PistonEngine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine)
+  | RotaryEngineType_ !(XRotaryEngineType x) (RotaryEngine xrotors xenginedisplacement_rotaryengine)
   | InternalCombustionEngineType_ !(XInternalCombustionEngineType x)
   deriving Generic
 
-deriving instance (Eq (XPistonEngineType x), Eq (XRotaryEngineType x), Eq (XInternalCombustionEngineType x)) =>
-  Eq (InternalCombustionEngineType_ x)
+deriving instance (Eq (XPistonEngineType x), Eq (PistonEngine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine), Eq (XRotaryEngineType x), Eq (RotaryEngine xrotors xenginedisplacement_rotaryengine), Eq (XInternalCombustionEngineType x)) =>
+  Eq (InternalCombustionEngineType_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine)
 
-deriving instance (Ord (XPistonEngineType x), Ord (XRotaryEngineType x), Ord (XInternalCombustionEngineType x)) =>
-  Ord (InternalCombustionEngineType_ x)
+deriving instance (Ord (XPistonEngineType x), Ord (PistonEngine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine), Ord (XRotaryEngineType x), Ord (RotaryEngine xrotors xenginedisplacement_rotaryengine), Ord (XInternalCombustionEngineType x)) =>
+  Ord (InternalCombustionEngineType_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine)
 
-deriving instance (Show (XPistonEngineType x), Show (XRotaryEngineType x), Show (XInternalCombustionEngineType x)) =>
-  Show (InternalCombustionEngineType_ x)
+deriving instance (Show (XPistonEngineType x), Show (PistonEngine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine), Show (XRotaryEngineType x), Show (RotaryEngine xrotors xenginedisplacement_rotaryengine), Show (XInternalCombustionEngineType x)) =>
+  Show (InternalCombustionEngineType_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine)
 
-class HasInternalCombustionEngineType a e | a -> e where
+class HasInternalCombustionEngineType a e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine | a -> e, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement_pistonengine, a -> xrotors, a -> xenginedisplacement_rotaryengine where
   internalCombustionEngineType ::
-    Lens' a (InternalCombustionEngineType_ e)
+    Lens' a (InternalCombustionEngineType_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine)
   xInternalCombustionEngineType ::
-    Lens' a (XInternalCombustionEngineType e)
-  default xInternalCombustionEngineType ::
     Lens' a (XInternalCombustionEngineType e)
   xInternalCombustionEngineType =
     internalCombustionEngineType . xInternalCombustionEngineType
 
-instance HasInternalCombustionEngineType (InternalCombustionEngineType_ e) e where
+instance HasInternalCombustionEngineType (InternalCombustionEngineType_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine) e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine where
   internalCombustionEngineType =
     id
  
@@ -61,7 +58,7 @@ xInternalCombustionEngineType' ::
   , XRotaryEngineType e ~ x
   , XInternalCombustionEngineType e ~ Void
   ) =>
-  Lens' (InternalCombustionEngineType_ e) x 
+  Lens' (InternalCombustionEngineType_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine) x 
 xInternalCombustionEngineType' f (PistonEngineType_ x t) =
   fmap (\x' -> PistonEngineType_ x' t) (f x)
 xInternalCombustionEngineType' f (RotaryEngineType_ x t) =
@@ -69,27 +66,27 @@ xInternalCombustionEngineType' f (RotaryEngineType_ x t) =
 xInternalCombustionEngineType' _ (InternalCombustionEngineType_ x) =
   absurd x
 
-class AsInternalCombustionEngineType a e | a -> e where
+class AsInternalCombustionEngineType a e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine | a -> e, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement_pistonengine, a -> xrotors, a -> xenginedisplacement_rotaryengine where
   _InternalCombustionEngineType ::
-    Prism' a (InternalCombustionEngineType_ e)
+    Prism' a (InternalCombustionEngineType_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine)
   _PistonEngineType ::
-    Prism' a (XPistonEngineType e, (PistonEngine () () ()))
+    Prism' a (XPistonEngineType e, (PistonEngine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine))
   _PistonEngineType' ::
     XPistonEngineType e ~ () =>
-    Prism' a (PistonEngine () () ())
+    Prism' a (PistonEngine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine)
   _PistonEngineType' =
     _PistonEngineType . unproduct
   _RotaryEngineType ::
-    Prism' a (XRotaryEngineType e, (RotaryEngine () ()))
+    Prism' a (XRotaryEngineType e, (RotaryEngine xrotors xenginedisplacement_rotaryengine))
   _RotaryEngineType' ::
     XRotaryEngineType e ~ () =>
-    Prism' a (RotaryEngine () ())
+    Prism' a (RotaryEngine xrotors xenginedisplacement_rotaryengine)
   _RotaryEngineType' =
     _RotaryEngineType . unproduct
   _XInternalCombustionEngineType ::
     Prism' a (XInternalCombustionEngineType e)
 
-instance AsInternalCombustionEngineType (InternalCombustionEngineType_ e) e where
+instance AsInternalCombustionEngineType (InternalCombustionEngineType_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine) e xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine where
   _InternalCombustionEngineType =
     id
   _PistonEngineType =
@@ -134,38 +131,38 @@ type instance XInternalCombustionEngineType () =
   Void
 
 pattern PistonEngineType ::
-  (PistonEngine () () ())
-  -> InternalCombustionEngineType
+  PistonEngine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine
+  -> InternalCombustionEngineType xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine
 pattern PistonEngineType t <- PistonEngineType_ _ t
   where PistonEngineType t = PistonEngineType_ () t
 
 pattern RotaryEngineType ::
-  (RotaryEngine () ())
-  -> InternalCombustionEngineType
+  RotaryEngine xrotors xenginedisplacement_rotaryengine
+  -> InternalCombustionEngineType xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine
 pattern RotaryEngineType t <- RotaryEngineType_ _ t
   where RotaryEngineType t = RotaryEngineType_ () t
 
 pattern InternalCombustionEngineType ::
   Void
-  -> InternalCombustionEngineType
+  -> InternalCombustionEngineType xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine
 pattern InternalCombustionEngineType v <- InternalCombustionEngineType_ v
   where InternalCombustionEngineType v = InternalCombustionEngineType_ v
 
 ----
 
-instance AsPistonEngine InternalCombustionEngineType () () () () where
+instance AsPistonEngine (InternalCombustionEngineType xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine) () xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine where
   _PistonEngine =
     prism'
       PistonEngineType
       (
         \case
-          PistonEngineType_ _ t ->
+          PistonEngineType t ->
             Just t
           _ ->
             Nothing
       )
 
-instance AsRotaryEngine InternalCombustionEngineType () () () where
+instance AsRotaryEngine (InternalCombustionEngineType xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotors xenginedisplacement_rotaryengine) () xrotors xenginedisplacement_rotaryengine where
   _RotaryEngine =
     prism'
       RotaryEngineType

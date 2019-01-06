@@ -8,7 +8,6 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Rotors where
 
@@ -38,8 +37,6 @@ class HasRotors a e | a -> e where
   rotors ::
     Lens' a (Rotors_ e)
   xRotors ::
-    Lens' a (XRotors e)
-  default xRotors ::
     Lens' a (XRotors e)
   xRotors =
     rotors . xRotors

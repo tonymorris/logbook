@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.JetType where
 
@@ -48,8 +47,6 @@ class HasJetType a e | a -> e where
   jetType ::
     Lens' a (JetType_ e)
   xJetType ::
-    Lens' a (XJetType e)
-  default xJetType ::
     Lens' a (XJetType e)
   xJetType =
     jetType . xJetType

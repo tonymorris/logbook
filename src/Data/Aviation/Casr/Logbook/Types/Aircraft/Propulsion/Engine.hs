@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Engine where
 
@@ -48,8 +47,6 @@ class HasEngine a e | a -> e where
   engine ::
     Lens' a (Engine_ e)
   xEngine ::
-    Lens' a (XEngine e)
-  default xEngine ::
     Lens' a (XEngine e)
   xEngine =
     engine . xEngine

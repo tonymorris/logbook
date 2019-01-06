@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.ElectricType where
 
@@ -52,8 +51,6 @@ class HasElectricType a e | a -> e where
   electricType ::
     Lens' a (ElectricType_ e)
   xElectricType ::
-    Lens' a (XElectricType e)
-  default xElectricType ::
     Lens' a (XElectricType e)
   xElectricType =
     electricType . xElectricType

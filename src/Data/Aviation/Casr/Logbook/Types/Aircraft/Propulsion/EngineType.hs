@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineType where
 
@@ -50,8 +49,6 @@ class HasEngineType a e | a -> e where
   engineType ::
     Lens' a (EngineType_ e)
   xEngineType ::
-    Lens' a (XInternalCombustionEngineEngineType e)
-  default xEngineType ::
     Lens' a (XInternalCombustionEngineEngineType e)
   xEngineType =
     engineType . xEngineType

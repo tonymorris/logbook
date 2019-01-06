@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineFuelInduction where
 
@@ -42,8 +41,6 @@ class HasInternalCombustionEngineFuelInduction a e | a -> e where
   internalCombustionEngineFuelInduction ::
     Lens' a (InternalCombustionEngineFuelInduction_ e)
   xInternalCombustionEngineFuelInduction ::
-    Lens' a (XInternalCombustionEngineFuelInduction e)
-  default xInternalCombustionEngineFuelInduction ::
     Lens' a (XInternalCombustionEngineFuelInduction e)
   xInternalCombustionEngineFuelInduction =
     internalCombustionEngineFuelInduction . xInternalCombustionEngineFuelInduction

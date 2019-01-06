@@ -10,7 +10,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DefaultSignatures #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsion where
 
@@ -43,11 +42,9 @@ class HasPropulsion a e | a -> e where
     Lens' a (Propulsion_ e)
   xPropulsion ::
     Lens' a (XPropulsion e)
-  default xPropulsion ::
-    Lens' a (XPropulsion e)
   xPropulsion =
     propulsion . xPropulsion
-    
+
 instance HasPropulsion (Propulsion_ e) e where
   propulsion =
     id
