@@ -18,66 +18,66 @@ import Prelude
 
 type family XEngineDisplacement x
 
-data EngineDisplacement_ x =
-  EngineDisplacement_
+data EngineDisplacement x =
+  EngineDisplacement
     !(XEngineDisplacement x)
     Positive
   deriving Generic
 
 deriving instance Eq (XEngineDisplacement x) =>
-  Eq (EngineDisplacement_ x)
+  Eq (EngineDisplacement x)
 
 deriving instance Ord (XEngineDisplacement x) =>
-  Ord (EngineDisplacement_ x)
+  Ord (EngineDisplacement x)
 
 deriving instance Show (XEngineDisplacement x) =>
-  Show (EngineDisplacement_ x)
+  Show (EngineDisplacement x)
 
 class HasEngineDisplacement a e | a -> e where
   engineDisplacement ::
-    Lens' a (EngineDisplacement_ e)
+    Lens' a (EngineDisplacement e)
   xEngineDisplacement ::
     Lens' a (XEngineDisplacement e)
   xEngineDisplacement =
     engineDisplacement . xEngineDisplacement
 
-instance HasEngineDisplacement (EngineDisplacement_ e) e where
+instance HasEngineDisplacement (EngineDisplacement e) e where
   engineDisplacement =
     id
-  xEngineDisplacement f (EngineDisplacement_ x n) =
-    fmap (\x' -> EngineDisplacement_ x' n) (f x)
+  xEngineDisplacement f (EngineDisplacement x n) =
+    fmap (\x' -> EngineDisplacement x' n) (f x)
 
 class AsEngineDisplacement a e | a -> e where
   _EngineDisplacement ::
-    Prism' a (EngineDisplacement_ e)
+    Prism' a (EngineDisplacement e)
  
-instance AsEngineDisplacement (EngineDisplacement_ e) e where
+instance AsEngineDisplacement (EngineDisplacement e) e where
   _EngineDisplacement =
     id
 
-instance EngineDisplacement ~ x => Rewrapped EngineDisplacement x
-instance Wrapped EngineDisplacement where
-  type Unwrapped EngineDisplacement =
+instance EngineDisplacement_ ~ x => Rewrapped EngineDisplacement_ x
+instance Wrapped EngineDisplacement_ where
+  type Unwrapped EngineDisplacement_ =
     Positive
   _Wrapped' =
     iso
-      (\(EngineDisplacement_ () x) -> x)
-      (EngineDisplacement_ ())
+      (\(EngineDisplacement () x) -> x)
+      (EngineDisplacement ())
 
-type EngineDisplacement =
-  EngineDisplacement_ ()
+type EngineDisplacement_ =
+  EngineDisplacement ()
 
 type instance XEngineDisplacement () =
   ()
 
-pattern EngineDisplacement ::
+pattern EngineDisplacement_ ::
   Positive
-  -> EngineDisplacement
-pattern EngineDisplacement p <- EngineDisplacement_ _ p
-  where EngineDisplacement p = EngineDisplacement_ () p
+  -> EngineDisplacement_
+pattern EngineDisplacement_ p <- EngineDisplacement _ p
+  where EngineDisplacement_ p = EngineDisplacement () p
 
 ----
 
-instance HasPositive (EngineDisplacement_ x) where
-  positive f (EngineDisplacement_ x p) =
-    fmap (\p' -> EngineDisplacement_ x p') (f p)
+instance HasPositive (EngineDisplacement x) where
+  positive f (EngineDisplacement x p) =
+    fmap (\p' -> EngineDisplacement x p') (f p)

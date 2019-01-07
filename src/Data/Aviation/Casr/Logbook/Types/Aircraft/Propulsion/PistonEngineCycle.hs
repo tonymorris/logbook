@@ -22,30 +22,30 @@ type family XFourStroke x
 type family XTwoStroke x
 type family XPistonEngineCycle x
 
-data PistonEngineCycle_ x =
-  FourStroke_ !(XFourStroke x)
-  | TwoStroke_ !(XTwoStroke x)
-  | PistonEngineCycle_ !(XPistonEngineCycle x)
+data PistonEngineCycle x =
+  FourStroke !(XFourStroke x)
+  | TwoStroke !(XTwoStroke x)
+  | PistonEngineCycle !(XPistonEngineCycle x)
   deriving Generic
 
 deriving instance (Eq (XFourStroke x), Eq (XTwoStroke x), Eq (XPistonEngineCycle x)) =>
-  Eq (PistonEngineCycle_ x)
+  Eq (PistonEngineCycle x)
 
 deriving instance (Ord (XFourStroke x), Ord (XTwoStroke x), Ord (XPistonEngineCycle x)) =>
-  Ord (PistonEngineCycle_ x)
+  Ord (PistonEngineCycle x)
 
 deriving instance (Show (XFourStroke x), Show (XTwoStroke x), Show (XPistonEngineCycle x)) =>
-  Show (PistonEngineCycle_ x)
+  Show (PistonEngineCycle x)
 
 class HasPistonEngineCycle a e | a -> e where
   pistonEngineCycle ::
-    Lens' a (PistonEngineCycle_ e)
+    Lens' a (PistonEngineCycle e)
   xPistonEngineCycle ::
     Lens' a (XPistonEngineCycle e)
   xPistonEngineCycle =
     pistonEngineCycle . xPistonEngineCycle
 
-instance HasPistonEngineCycle (PistonEngineCycle_ e) e where
+instance HasPistonEngineCycle (PistonEngineCycle e) e where
   pistonEngineCycle =
     id
 
@@ -55,17 +55,17 @@ xPistonEngineCycle' ::
   , XTwoStroke e ~ x
   , XPistonEngineCycle e ~ Void
   ) =>
-  Lens' (PistonEngineCycle_ e) x
-xPistonEngineCycle' f (FourStroke_ x) =
-  fmap FourStroke_ (f x)
-xPistonEngineCycle' f (TwoStroke_ x) =
-  fmap TwoStroke_ (f x)
-xPistonEngineCycle' _ (PistonEngineCycle_ x) =
+  Lens' (PistonEngineCycle e) x
+xPistonEngineCycle' f (FourStroke x) =
+  fmap FourStroke (f x)
+xPistonEngineCycle' f (TwoStroke x) =
+  fmap TwoStroke (f x)
+xPistonEngineCycle' _ (PistonEngineCycle x) =
   absurd x
 
 class AsPistonEngineCycle a e | a -> e where
   _PistonEngineCycle ::
-    Prism' a (PistonEngineCycle_ e)
+    Prism' a (PistonEngineCycle e)
   _XFourStroke ::
     Prism' a (XFourStroke e)
   _XTwoStroke ::
@@ -73,42 +73,42 @@ class AsPistonEngineCycle a e | a -> e where
   _XPistonEngineCycle ::
     Prism' a (XPistonEngineCycle e)
 
-instance AsPistonEngineCycle (PistonEngineCycle_ e) e where
+instance AsPistonEngineCycle (PistonEngineCycle e) e where
   _PistonEngineCycle =
     id
   _XFourStroke =
     prism'
-      FourStroke_
+      FourStroke
       (
         \case
-          FourStroke_ x ->
+          FourStroke x ->
             Just x
           _ ->
             Nothing
       )
   _XTwoStroke =
     prism'
-      TwoStroke_
+      TwoStroke
       (
         \case
-          TwoStroke_ x ->
+          TwoStroke x ->
             Just x
           _ ->
             Nothing
       )
   _XPistonEngineCycle =
     prism'
-      PistonEngineCycle_
+      PistonEngineCycle
       (
         \case
-          PistonEngineCycle_ x ->
+          PistonEngineCycle x ->
             Just x
           _ ->
             Nothing
       )
 
-type PistonEngineCycle =
-  PistonEngineCycle_ ()
+type PistonEngineCycle_ =
+  PistonEngineCycle ()
 
 type instance XFourStroke () =
   ()
@@ -117,18 +117,18 @@ type instance XTwoStroke () =
 type instance XPistonEngineCycle () =
   Void
 
-pattern FourStroke ::
-  PistonEngineCycle
-pattern FourStroke <- FourStroke_ _
-  where FourStroke = FourStroke_ ()
+pattern FourStroke_ ::
+  PistonEngineCycle_
+pattern FourStroke_ <- FourStroke _
+  where FourStroke_ = FourStroke ()
 
-pattern TwoStroke ::
-  PistonEngineCycle
-pattern TwoStroke <- TwoStroke_ _
-  where TwoStroke = TwoStroke_ ()
+pattern TwoStroke_ ::
+  PistonEngineCycle_
+pattern TwoStroke_ <- TwoStroke _
+  where TwoStroke_ = TwoStroke ()
 
-pattern PistonEngineCycle ::
+pattern PistonEngineCycle_ ::
   Void
-  -> PistonEngineCycle
-pattern PistonEngineCycle v <- PistonEngineCycle_ v
-  where PistonEngineCycle v = PistonEngineCycle_ v
+  -> PistonEngineCycle_
+pattern PistonEngineCycle_ v <- PistonEngineCycle v
+  where PistonEngineCycle_ v = PistonEngineCycle v

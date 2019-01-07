@@ -24,32 +24,32 @@ type family XSuperTurbocharged x
 type family XNaturalInduction x
 type family XInternalCombustionEngineAirInduction x
 
-data InternalCombustionEngineAirInduction_ x =
-  Supercharged_ !(XSupercharged x)
-  | Turbocharged_ !(XTurbocharged x)
-  | SuperTurbocharged_ !(XSuperTurbocharged x)
-  | NaturalInduction_ !(XNaturalInduction x)
-  | InternalCombustionEngineAirInduction_ !(XInternalCombustionEngineAirInduction x)
+data InternalCombustionEngineAirInduction x =
+  Supercharged !(XSupercharged x)
+  | Turbocharged !(XTurbocharged x)
+  | SuperTurbocharged !(XSuperTurbocharged x)
+  | NaturalInduction !(XNaturalInduction x)
+  | InternalCombustionEngineAirInduction !(XInternalCombustionEngineAirInduction x)
   deriving Generic
 
 deriving instance (Eq (XSupercharged x), Eq (XTurbocharged x), Eq (XSuperTurbocharged x), Eq (XNaturalInduction x), Eq (XInternalCombustionEngineAirInduction x)) =>
-  Eq (InternalCombustionEngineAirInduction_ x)
+  Eq (InternalCombustionEngineAirInduction x)
 
 deriving instance (Ord (XSupercharged x), Ord (XTurbocharged x), Ord (XSuperTurbocharged x), Ord (XNaturalInduction x), Ord (XInternalCombustionEngineAirInduction x)) =>
-  Ord (InternalCombustionEngineAirInduction_ x)
+  Ord (InternalCombustionEngineAirInduction x)
 
 deriving instance (Show (XSupercharged x), Show (XTurbocharged x), Show (XSuperTurbocharged x), Show (XNaturalInduction x), Show (XInternalCombustionEngineAirInduction x)) =>
-  Show (InternalCombustionEngineAirInduction_ x)
+  Show (InternalCombustionEngineAirInduction x)
 
 class HasInternalCombustionEngineAirInduction a e | a -> e where
   internalCombustionEngineAirInduction ::
-    Lens' a (InternalCombustionEngineAirInduction_ e)
+    Lens' a (InternalCombustionEngineAirInduction e)
   xInternalCombustionEngineAirInduction ::
     Lens' a (XInternalCombustionEngineAirInduction e)
   xInternalCombustionEngineAirInduction =
     internalCombustionEngineAirInduction . xInternalCombustionEngineAirInduction
 
-instance HasInternalCombustionEngineAirInduction (InternalCombustionEngineAirInduction_ e) e where
+instance HasInternalCombustionEngineAirInduction (InternalCombustionEngineAirInduction e) e where
   internalCombustionEngineAirInduction =
     id
 
@@ -61,21 +61,21 @@ xInternalCombustionEngineAirInduction' ::
   , XNaturalInduction e ~ x
   , XInternalCombustionEngineAirInduction e ~ Void
   ) =>
-  Lens' (InternalCombustionEngineAirInduction_ e) x
-xInternalCombustionEngineAirInduction' f (Supercharged_ x) =
-  fmap Supercharged_ (f x)
-xInternalCombustionEngineAirInduction' f (Turbocharged_ x) =
-  fmap Turbocharged_ (f x)
-xInternalCombustionEngineAirInduction' f (SuperTurbocharged_ x) =
-  fmap SuperTurbocharged_ (f x)
-xInternalCombustionEngineAirInduction' f (NaturalInduction_ x) =
-  fmap NaturalInduction_ (f x)
-xInternalCombustionEngineAirInduction' _ (InternalCombustionEngineAirInduction_ x) =
+  Lens' (InternalCombustionEngineAirInduction e) x
+xInternalCombustionEngineAirInduction' f (Supercharged x) =
+  fmap Supercharged (f x)
+xInternalCombustionEngineAirInduction' f (Turbocharged x) =
+  fmap Turbocharged (f x)
+xInternalCombustionEngineAirInduction' f (SuperTurbocharged x) =
+  fmap SuperTurbocharged (f x)
+xInternalCombustionEngineAirInduction' f (NaturalInduction x) =
+  fmap NaturalInduction (f x)
+xInternalCombustionEngineAirInduction' _ (InternalCombustionEngineAirInduction x) =
   absurd x
 
 class AsInternalCombustionEngineAirInduction a e | a -> e where
   _InternalCombustionEngineAirInduction ::
-    Prism' a (InternalCombustionEngineAirInduction_ e)
+    Prism' a (InternalCombustionEngineAirInduction e)
   _XSupercharged ::
     Prism' a (XSupercharged e)
   _XTurbocharged ::
@@ -87,62 +87,62 @@ class AsInternalCombustionEngineAirInduction a e | a -> e where
   _XInternalCombustionEngineAirInduction ::
     Prism' a (XInternalCombustionEngineAirInduction e)
 
-instance AsInternalCombustionEngineAirInduction (InternalCombustionEngineAirInduction_ e) e where
+instance AsInternalCombustionEngineAirInduction (InternalCombustionEngineAirInduction e) e where
   _InternalCombustionEngineAirInduction =
     id
   _XSupercharged =
     prism'
-      Supercharged_
+      Supercharged
       (
         \case
-          Supercharged_ x ->
+          Supercharged x ->
             Just x
           _ ->
             Nothing
       )
   _XTurbocharged =
     prism'
-      Turbocharged_
+      Turbocharged
       (
         \case
-          Turbocharged_ x ->
+          Turbocharged x ->
             Just x
           _ ->
             Nothing
       )
   _XSuperTurbocharged =
     prism'
-      SuperTurbocharged_
+      SuperTurbocharged
       (
         \case
-          SuperTurbocharged_ x ->
+          SuperTurbocharged x ->
             Just x
           _ ->
             Nothing
       )
   _XNaturalInduction =
     prism'
-      NaturalInduction_
+      NaturalInduction
       (
         \case
-          NaturalInduction_ x ->
+          NaturalInduction x ->
             Just x
           _ ->
             Nothing
       )
   _XInternalCombustionEngineAirInduction =
     prism'
-      InternalCombustionEngineAirInduction_
+      InternalCombustionEngineAirInduction
       (
         \case
-          InternalCombustionEngineAirInduction_ x ->
+          InternalCombustionEngineAirInduction x ->
             Just x
           _ ->
             Nothing
       )
 
-type InternalCombustionEngineAirInduction =
-  InternalCombustionEngineAirInduction_ ()
+type InternalCombustionEngineAirInduction_ =
+  InternalCombustionEngineAirInduction ()
 
 type instance XSupercharged () =
   ()
@@ -155,28 +155,28 @@ type instance XNaturalInduction () =
 type instance XInternalCombustionEngineAirInduction () =
   Void
 
-pattern Supercharged ::
-  InternalCombustionEngineAirInduction
-pattern Supercharged <- Supercharged_ _
-  where Supercharged = Supercharged_ ()
+pattern Supercharged_ ::
+  InternalCombustionEngineAirInduction_
+pattern Supercharged_ <- Supercharged _
+  where Supercharged_ = Supercharged ()
 
-pattern Turbocharged ::
-  InternalCombustionEngineAirInduction
-pattern Turbocharged <- Turbocharged_ _
-  where Turbocharged = Turbocharged_ ()
+pattern Turbocharged_ ::
+  InternalCombustionEngineAirInduction_
+pattern Turbocharged_ <- Turbocharged _
+  where Turbocharged_ = Turbocharged ()
 
-pattern SuperTurbocharged ::
-  InternalCombustionEngineAirInduction
-pattern SuperTurbocharged <- SuperTurbocharged_ _
-  where SuperTurbocharged = SuperTurbocharged_ ()
+pattern SuperTurbocharged_ ::
+  InternalCombustionEngineAirInduction_
+pattern SuperTurbocharged_ <- SuperTurbocharged _
+  where SuperTurbocharged_ = SuperTurbocharged ()
 
-pattern NaturalInduction ::
-  InternalCombustionEngineAirInduction
-pattern NaturalInduction <- NaturalInduction_ _
-  where NaturalInduction = NaturalInduction_ ()
+pattern NaturalInduction_ ::
+  InternalCombustionEngineAirInduction_
+pattern NaturalInduction_ <- NaturalInduction _
+  where NaturalInduction_ = NaturalInduction ()
 
-pattern InternalCombustionEngineAirInduction ::
+pattern InternalCombustionEngineAirInduction_ ::
   Void
-  -> InternalCombustionEngineAirInduction
-pattern InternalCombustionEngineAirInduction v <- InternalCombustionEngineAirInduction_ v
-  where InternalCombustionEngineAirInduction v = InternalCombustionEngineAirInduction_ v
+  -> InternalCombustionEngineAirInduction_
+pattern InternalCombustionEngineAirInduction_ v <- InternalCombustionEngineAirInduction v
+  where InternalCombustionEngineAirInduction_ v = InternalCombustionEngineAirInduction v

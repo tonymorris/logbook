@@ -23,31 +23,31 @@ type family XLeftPropulsion x
 type family XRightPropulsion x
 type family XPropulsionPosition x
 
-data PropulsionPosition_ x =
-  Centreline_ !(XCentreline x)
-  | LeftPropulsion_ !(XLeftPropulsion x)
-  | RightPropulsion_ !(XRightPropulsion x)
-  | PropulsionPosition_ !(XPropulsionPosition x)
+data PropulsionPosition x =
+  Centreline !(XCentreline x)
+  | LeftPropulsion !(XLeftPropulsion x)
+  | RightPropulsion !(XRightPropulsion x)
+  | PropulsionPosition !(XPropulsionPosition x)
   deriving Generic
 
 deriving instance (Eq (XCentreline x), Eq (XLeftPropulsion x), Eq (XRightPropulsion x), Eq (XPropulsionPosition x)) =>
-  Eq (PropulsionPosition_ x)
+  Eq (PropulsionPosition x)
 
 deriving instance (Ord (XCentreline x), Ord (XLeftPropulsion x), Ord (XRightPropulsion x), Ord (XPropulsionPosition x)) =>
-  Ord (PropulsionPosition_ x)
+  Ord (PropulsionPosition x)
 
 deriving instance (Show (XCentreline x), Show (XLeftPropulsion x), Show (XRightPropulsion x), Show (XPropulsionPosition x)) =>
-  Show (PropulsionPosition_ x)
+  Show (PropulsionPosition x)
 
 class HasPropulsionPosition a e | a -> e where
   propulsionPosition ::
-    Lens' a (PropulsionPosition_ e)
+    Lens' a (PropulsionPosition e)
   xPropulsionPosition ::
     Lens' a (XPropulsionPosition e)
   xPropulsionPosition =
     propulsionPosition . xPropulsionPosition
 
-instance HasPropulsionPosition (PropulsionPosition_ e) e where
+instance HasPropulsionPosition (PropulsionPosition e) e where
   propulsionPosition =
     id
 
@@ -58,19 +58,19 @@ xPropulsionPosition' ::
   , XRightPropulsion e ~ x
   , XPropulsionPosition e ~ Void
   ) =>
-  Lens' (PropulsionPosition_ e) x
-xPropulsionPosition' f (Centreline_ x) =
-  fmap Centreline_ (f x)
-xPropulsionPosition' f (LeftPropulsion_ x) =
-  fmap LeftPropulsion_ (f x)
-xPropulsionPosition' f (RightPropulsion_ x) =
-  fmap RightPropulsion_ (f x)
-xPropulsionPosition' _ (PropulsionPosition_ x) =
+  Lens' (PropulsionPosition e) x
+xPropulsionPosition' f (Centreline x) =
+  fmap Centreline (f x)
+xPropulsionPosition' f (LeftPropulsion x) =
+  fmap LeftPropulsion (f x)
+xPropulsionPosition' f (RightPropulsion x) =
+  fmap RightPropulsion (f x)
+xPropulsionPosition' _ (PropulsionPosition x) =
   absurd x
 
 class AsPropulsionPosition a e | a -> e where
   _PropulsionPosition ::
-    Prism' a (PropulsionPosition_ e)
+    Prism' a (PropulsionPosition e)
   _XCentreline ::
     Prism' a (XCentreline e)
   _XLeftPropulsion ::
@@ -80,52 +80,52 @@ class AsPropulsionPosition a e | a -> e where
   _XPropulsionPosition ::
     Prism' a (XPropulsionPosition e)
 
-instance AsPropulsionPosition (PropulsionPosition_ e) e where
+instance AsPropulsionPosition (PropulsionPosition e) e where
   _PropulsionPosition =
     id
   _XCentreline =
     prism'
-      Centreline_
+      Centreline
       (
         \case
-          Centreline_ x ->
+          Centreline x ->
             Just x
           _ ->
             Nothing
       )
   _XLeftPropulsion =
     prism'
-      LeftPropulsion_
+      LeftPropulsion
       (
         \case
-          LeftPropulsion_ x ->
+          LeftPropulsion x ->
             Just x
           _ ->
             Nothing
       )
   _XRightPropulsion =
     prism'
-      RightPropulsion_
+      RightPropulsion
       (
         \case
-          RightPropulsion_ x ->
+          RightPropulsion x ->
             Just x
           _ ->
             Nothing
       )
   _XPropulsionPosition =
     prism'
-      PropulsionPosition_
+      PropulsionPosition
       (
         \case
-          PropulsionPosition_ x ->
+          PropulsionPosition x ->
             Just x
           _ ->
             Nothing
       )
 
-type PropulsionPosition =
-  PropulsionPosition_ ()
+type PropulsionPosition_ =
+  PropulsionPosition ()
 
 type instance XCentreline () =
   ()
@@ -136,23 +136,23 @@ type instance XRightPropulsion () =
 type instance XPropulsionPosition () =
   Void
 
-pattern Centreline ::
-  PropulsionPosition
-pattern Centreline <- Centreline_ _
-  where Centreline = Centreline_ ()
+pattern Centreline_ ::
+  PropulsionPosition_
+pattern Centreline_ <- Centreline _
+  where Centreline_ = Centreline ()
 
-pattern LeftPropulsion ::
-  PropulsionPosition
-pattern LeftPropulsion <- LeftPropulsion_ _
-  where LeftPropulsion = LeftPropulsion_ ()
+pattern LeftPropulsion_ ::
+  PropulsionPosition_
+pattern LeftPropulsion_ <- LeftPropulsion _
+  where LeftPropulsion_ = LeftPropulsion ()
 
-pattern RightPropulsion ::
-  PropulsionPosition
-pattern RightPropulsion <- RightPropulsion_ _
-  where RightPropulsion = RightPropulsion_ ()
+pattern RightPropulsion_ ::
+  PropulsionPosition_
+pattern RightPropulsion_ <- RightPropulsion _
+  where RightPropulsion_ = RightPropulsion ()
 
-pattern PropulsionPosition ::
+pattern PropulsionPosition_ ::
   Void
-  -> PropulsionPosition
-pattern PropulsionPosition v <- PropulsionPosition_ v
-  where PropulsionPosition v = PropulsionPosition_ v
+  -> PropulsionPosition_
+pattern PropulsionPosition_ v <- PropulsionPosition v
+  where PropulsionPosition_ v = PropulsionPosition v

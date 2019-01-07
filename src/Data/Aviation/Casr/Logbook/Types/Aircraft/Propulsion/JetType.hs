@@ -25,33 +25,33 @@ type family XRamjet x
 type family XScramjet x
 type family XJetType x
 
-data JetType_ x =
-  Turbojet_ !(XTurbojet x)
-  | Turbofan_ !(XTurbofan x)
-  | Turboprop_ !(XTurboprop x)
-  | Ramjet_ !(XRamjet x)
-  | Scramjet_ !(XScramjet x)
-  | JetType_ !(XJetType x)
+data JetType x =
+  Turbojet !(XTurbojet x)
+  | Turbofan !(XTurbofan x)
+  | Turboprop !(XTurboprop x)
+  | Ramjet !(XRamjet x)
+  | Scramjet !(XScramjet x)
+  | JetType !(XJetType x)
   deriving Generic
 
 deriving instance (Eq (XTurbojet x), Eq (XTurbofan x), Eq (XTurboprop x), Eq (XRamjet x), Eq (XScramjet x), Eq (XJetType x)) =>
-  Eq (JetType_ x)
+  Eq (JetType x)
 
 deriving instance (Ord (XTurbojet x), Ord (XTurbofan x), Ord (XTurboprop x), Ord (XRamjet x), Ord (XScramjet x), Ord (XJetType x)) =>
-  Ord (JetType_ x)
+  Ord (JetType x)
 
 deriving instance (Show (XTurbojet x), Show (XTurbofan x), Show (XTurboprop x), Show (XRamjet x), Show (XScramjet x), Show (XJetType x)) =>
-  Show (JetType_ x)
+  Show (JetType x)
 
 class HasJetType a e | a -> e where
   jetType ::
-    Lens' a (JetType_ e)
+    Lens' a (JetType e)
   xJetType ::
     Lens' a (XJetType e)
   xJetType =
     jetType . xJetType
 
-instance HasJetType (JetType_ e) e where
+instance HasJetType (JetType e) e where
   jetType =
     id
 
@@ -64,102 +64,102 @@ xJetType' ::
   , XScramjet e ~ x
   , XJetType e ~ Void
   ) =>
-  Lens' (JetType_ e) x
-xJetType' f (Turbojet_ x) =
-  fmap Turbojet_ (f x)
-xJetType' f (Turbofan_ x) =
-  fmap Turbofan_ (f x)
-xJetType' f (Turboprop_ x) =
-  fmap Turboprop_ (f x)
-xJetType' f (Ramjet_ x) =
-  fmap Ramjet_ (f x)
-xJetType' f (Scramjet_ x) =
-  fmap Scramjet_ (f x)
-xJetType' _ (JetType_ x) =
+  Lens' (JetType e) x
+xJetType' f (Turbojet x) =
+  fmap Turbojet (f x)
+xJetType' f (Turbofan x) =
+  fmap Turbofan (f x)
+xJetType' f (Turboprop x) =
+  fmap Turboprop (f x)
+xJetType' f (Ramjet x) =
+  fmap Ramjet (f x)
+xJetType' f (Scramjet x) =
+  fmap Scramjet (f x)
+xJetType' _ (JetType x) =
   absurd x
 
 class AsJetType a e | a -> e where
   _JetType ::
-    Prism' a (JetType_ e)
-  _XTurbojet ::
+    Prism' a (JetType e)
+  _Turbojet ::
     Prism' a (XTurbojet e)
-  _XTurbofan ::
+  _Turbofan ::
     Prism' a (XTurbofan e)
-  _XTurboprop ::
+  _Turboprop ::
     Prism' a (XTurboprop e)
-  _XRamjet ::
+  _Ramjet ::
     Prism' a (XRamjet e)
-  _XScramjet ::
+  _Scramjet ::
     Prism' a (XScramjet e)
   _XJetType ::
     Prism' a (XJetType e)
 
-instance AsJetType (JetType_ e) e where
+instance AsJetType (JetType e) e where
   _JetType =
     id
-  _XTurbojet =
+  _Turbojet =
     prism'
-      Turbojet_
+      Turbojet
       (
         \case
-          Turbojet_ x ->
+          Turbojet x ->
             Just x
           _ ->
             Nothing
       )
-  _XTurbofan =
+  _Turbofan =
     prism'
-      Turbofan_
+      Turbofan
       (
         \case
-          Turbofan_ x ->
+          Turbofan x ->
             Just x
           _ ->
             Nothing
       )
-  _XTurboprop =
+  _Turboprop =
     prism'
-      Turboprop_
+      Turboprop
       (
         \case
-          Turboprop_ x ->
+          Turboprop x ->
             Just x
           _ ->
             Nothing
       )
-  _XRamjet =
+  _Ramjet =
     prism'
-      Ramjet_
+      Ramjet
       (
         \case
-          Ramjet_ x ->
+          Ramjet x ->
             Just x
           _ ->
             Nothing
       )
-  _XScramjet =
+  _Scramjet =
     prism'
-      Scramjet_
+      Scramjet
       (
         \case
-          Scramjet_ x ->
+          Scramjet x ->
             Just x
           _ ->
             Nothing
       )
   _XJetType =
     prism'
-      JetType_
+      JetType
       (
         \case
-          JetType_ x ->
+          JetType x ->
             Just x
           _ ->
             Nothing
       )
 
-type JetType =
-  JetType_ ()
+type JetType_ =
+  JetType ()
 
 type instance XTurbojet () =
   ()
@@ -174,33 +174,33 @@ type instance XScramjet () =
 type instance XJetType () =
   Void
 
-pattern Turbojet ::
-  JetType
-pattern Turbojet <- Turbojet_ _
-  where Turbojet = Turbojet_ ()
+pattern Turbojet_ ::
+  JetType_
+pattern Turbojet_ <- Turbojet _
+  where Turbojet_ = Turbojet ()
 
-pattern Turbofan ::
-  JetType
-pattern Turbofan <- Turbofan_ _
-  where Turbofan = Turbofan_ ()
+pattern Turbofan_ ::
+  JetType_
+pattern Turbofan_ <- Turbofan _
+  where Turbofan_ = Turbofan ()
 
-pattern Turboprop ::
-  JetType
-pattern Turboprop <- Turboprop_ _
-  where Turboprop = Turboprop_ ()
+pattern Turboprop_ ::
+  JetType_
+pattern Turboprop_ <- Turboprop _
+  where Turboprop_ = Turboprop ()
 
-pattern Ramjet ::
-  JetType
-pattern Ramjet <- Ramjet_ _
-  where Ramjet = Ramjet_ ()
+pattern Ramjet_ ::
+  JetType_
+pattern Ramjet_ <- Ramjet _
+  where Ramjet_ = Ramjet ()
 
-pattern Scramjet ::
-  JetType
-pattern Scramjet <- Scramjet_ _
-  where Scramjet = Scramjet_ ()
+pattern Scramjet_ ::
+  JetType_
+pattern Scramjet_ <- Scramjet _
+  where Scramjet_ = Scramjet ()
 
-pattern JetType ::
+pattern JetType_ ::
   Void
-  -> JetType
-pattern JetType v <- JetType_ v
-  where JetType v = JetType_ v
+  -> JetType_
+pattern JetType_ v <- JetType v
+  where JetType_ v = JetType v

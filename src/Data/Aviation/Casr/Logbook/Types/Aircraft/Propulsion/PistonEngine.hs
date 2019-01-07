@@ -26,75 +26,75 @@ type family XPistonEngine x
 type Cylinders =
   Positive
 
-data PistonEngine_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement =
-  PistonEngine_
+data PistonEngine x xpistonengineconfiguration xpistonenginecycle xenginedisplacement =
+  PistonEngine
     !(XPistonEngine x)
-    (PistonEngineConfiguration_ xpistonengineconfiguration)
-    (PistonEngineCycle_ xpistonenginecycle)
+    (PistonEngineConfiguration xpistonengineconfiguration)
+    (PistonEngineCycle xpistonenginecycle)
     Cylinders
-    (EngineDisplacement_ xenginedisplacement)
+    (EngineDisplacement xenginedisplacement)
     deriving Generic
     
-deriving instance (Eq (XPistonEngine x), Eq (PistonEngineConfiguration_ xpistonengineconfiguration), Eq (PistonEngineCycle_ xpistonenginecycle), Eq (XEngineDisplacement xenginedisplacement)) =>
-  Eq (PistonEngine_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
+deriving instance (Eq (XPistonEngine x), Eq (PistonEngineConfiguration xpistonengineconfiguration), Eq (PistonEngineCycle xpistonenginecycle), Eq (XEngineDisplacement xenginedisplacement)) =>
+  Eq (PistonEngine x xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
 
-deriving instance (Ord (XPistonEngine x), Ord (PistonEngineConfiguration_ xpistonengineconfiguration), Ord (PistonEngineCycle_ xpistonenginecycle), Ord (XEngineDisplacement xenginedisplacement)) =>
-  Ord (PistonEngine_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
+deriving instance (Ord (XPistonEngine x), Ord (PistonEngineConfiguration xpistonengineconfiguration), Ord (PistonEngineCycle xpistonenginecycle), Ord (XEngineDisplacement xenginedisplacement)) =>
+  Ord (PistonEngine x xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
 
-deriving instance (Show (XPistonEngine x), Show (PistonEngineConfiguration_ xpistonengineconfiguration), Show (PistonEngineCycle_ xpistonenginecycle), Show (XEngineDisplacement xenginedisplacement)) =>
-  Show (PistonEngine_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
+deriving instance (Show (XPistonEngine x), Show (PistonEngineConfiguration xpistonengineconfiguration), Show (PistonEngineCycle xpistonenginecycle), Show (XEngineDisplacement xenginedisplacement)) =>
+  Show (PistonEngine x xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
 
 class HasPistonEngine a e xpistonengineconfiguration xpistonenginecycle xenginedisplacement | a -> e, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement where
   pistonEngine ::
-    Lens' a (PistonEngine_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
+    Lens' a (PistonEngine e xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
   xPistonEngine ::
     Lens' a (XPistonEngine e)
   xPistonEngine =
     pistonEngine . xPistonEngine
 
-instance HasPistonEngine (PistonEngine_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement) e xpistonengineconfiguration xpistonenginecycle xenginedisplacement where
+instance HasPistonEngine (PistonEngine e xpistonengineconfiguration xpistonenginecycle xenginedisplacement) e xpistonengineconfiguration xpistonenginecycle xenginedisplacement where
   pistonEngine =
     id
-  xPistonEngine f (PistonEngine_ x c y l d) =
-    fmap (\x' -> PistonEngine_ x' c y l d) (f x)
+  xPistonEngine f (PistonEngine x c y l d) =
+    fmap (\x' -> PistonEngine x' c y l d) (f x)
 
 class AsPistonEngine a e xpistonengineconfiguration xpistonenginecycle xenginedisplacement | a -> e, a ->xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement where
   _PistonEngine ::
-    Prism' a (PistonEngine_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
+    Prism' a (PistonEngine e xpistonengineconfiguration xpistonenginecycle xenginedisplacement)
 
-instance AsPistonEngine (PistonEngine_ e xpistonengineconfiguration xpistonenginecycle xenginedisplacement) e xpistonengineconfiguration xpistonenginecycle xenginedisplacement where
+instance AsPistonEngine (PistonEngine e xpistonengineconfiguration xpistonenginecycle xenginedisplacement) e xpistonengineconfiguration xpistonenginecycle xenginedisplacement where
   _PistonEngine =
     id
 
-type PistonEngine =
-  PistonEngine_ ()
+type PistonEngine_ =
+  PistonEngine ()
 
 type instance XPistonEngine () =
   ()
 
-pattern PistonEngine ::
-  PistonEngineConfiguration_ xpistonengineconfiguration
-  -> PistonEngineCycle_ xpistonenginecycle
+pattern PistonEngine_ ::
+  PistonEngineConfiguration xpistonengineconfiguration
+  -> PistonEngineCycle xpistonenginecycle
   -> Cylinders
-  -> EngineDisplacement_ xenginedisplacement
-  -> PistonEngine xpistonengineconfiguration xpistonenginecycle xenginedisplacement
-pattern PistonEngine c y l d <- PistonEngine_ _ c y l d
-  where PistonEngine c y l d = PistonEngine_ () c y l d
+  -> EngineDisplacement xenginedisplacement
+  -> PistonEngine_ xpistonengineconfiguration xpistonenginecycle xenginedisplacement
+pattern PistonEngine_ c y l d <- PistonEngine _ c y l d
+  where PistonEngine_ c y l d = PistonEngine () c y l d
 
 ----
 
-instance HasPistonEngineConfiguration (PistonEngine_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement) xpistonengineconfiguration where
-  pistonEngineConfiguration f (PistonEngine_ x c y l d) =
-    fmap (\c' -> PistonEngine_ x c' y l d) (f c)
+instance HasPistonEngineConfiguration (PistonEngine x xpistonengineconfiguration xpistonenginecycle xenginedisplacement) xpistonengineconfiguration where
+  pistonEngineConfiguration f (PistonEngine x c y l d) =
+    fmap (\c' -> PistonEngine x c' y l d) (f c)
 
-instance HasPistonEngineCycle (PistonEngine_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement) xpistonenginecycle where
-  pistonEngineCycle f (PistonEngine_ x c y l d) =
-    fmap (\y' -> PistonEngine_ x c y' l d) (f y)
+instance HasPistonEngineCycle (PistonEngine x xpistonengineconfiguration xpistonenginecycle xenginedisplacement) xpistonenginecycle where
+  pistonEngineCycle f (PistonEngine x c y l d) =
+    fmap (\y' -> PistonEngine x c y' l d) (f y)
 
-instance HasPositive (PistonEngine_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement) where
-  positive f (PistonEngine_ x c y l d) =
-    fmap (\l' -> PistonEngine_ x c y l' d) (f l)
+instance HasPositive (PistonEngine x xpistonengineconfiguration xpistonenginecycle xenginedisplacement) where
+  positive f (PistonEngine x c y l d) =
+    fmap (\l' -> PistonEngine x c y l' d) (f l)
 
-instance HasEngineDisplacement (PistonEngine_ x xpistonengineconfiguration xpistonenginecycle xenginedisplacement) xenginedisplacement where
-  engineDisplacement f (PistonEngine_ x c y l d) =
-    fmap (\d' -> PistonEngine_ x c y l d') (f d)
+instance HasEngineDisplacement (PistonEngine x xpistonengineconfiguration xpistonenginecycle xenginedisplacement) xenginedisplacement where
+  engineDisplacement f (PistonEngine x c y l d) =
+    fmap (\d' -> PistonEngine x c y l d') (f d)

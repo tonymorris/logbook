@@ -28,34 +28,36 @@ type family XDirectDrive x
 type family XLinear x
 type family XElectricType x
 
-data ElectricType_ x =
-  BrushlessAC_ !(XBrushlessAC x)
-  | BrushedAC_ !(XBrushedAC x)
-  | BrushlessDC_ !(XBrushlessDC x)
-  | BrushedDC_ !(XBrushedDC x)
-  | UniversalACDC_ !(XUniversalACDC x)
-  | SwitchedReluctance_ !(XSwitchedReluctance x)
-  | DirectDrive_ !(XDirectDrive x)
-  | Linear_ !(XLinear x)
-  | ElectricType_ !(XElectricType x)
+data ElectricType x =
+  BrushlessAC !(XBrushlessAC x)
+  | BrushedAC !(XBrushedAC x)
+  | BrushlessDC !(XBrushlessDC x)
+  | BrushedDC !(XBrushedDC x)
+  | UniversalACDC !(XUniversalACDC x)
+  | SwitchedReluctance !(XSwitchedReluctance x)
+  | DirectDrive !(XDirectDrive x)
+  | Linear !(XLinear x)
+  | ElectricType !(XElectricType x)
   deriving Generic
 
 deriving instance (Eq (XBrushlessAC x), Eq (XBrushedAC x), Eq (XBrushlessDC x), Eq (XBrushedDC x), Eq (XUniversalACDC x), Eq (XSwitchedReluctance x), Eq (XDirectDrive x), Eq (XLinear x), Eq (XElectricType x)) =>
-  Eq (ElectricType_ x)
+  Eq (ElectricType x)
+
 deriving instance (Ord (XBrushlessAC x), Ord (XBrushedAC x), Ord (XBrushlessDC x), Ord (XBrushedDC x), Ord (XUniversalACDC x), Ord (XSwitchedReluctance x), Ord (XDirectDrive x), Ord (XLinear x), Ord (XElectricType x)) =>
-  Ord (ElectricType_ x)
+  Ord (ElectricType x)
+
 deriving instance (Show (XBrushlessAC x), Show (XBrushedAC x), Show (XBrushlessDC x), Show (XBrushedDC x), Show (XUniversalACDC x), Show (XSwitchedReluctance x), Show (XDirectDrive x), Show (XLinear x), Show (XElectricType x)) =>
-  Show (ElectricType_ x)
+  Show (ElectricType x)
 
 class HasElectricType a e | a -> e where
   electricType ::
-    Lens' a (ElectricType_ e)
+    Lens' a (ElectricType e)
   xElectricType ::
     Lens' a (XElectricType e)
   xElectricType =
     electricType . xElectricType
 
-instance HasElectricType (ElectricType_ e) e where
+instance HasElectricType (ElectricType e) e where
   electricType =
     id
   
@@ -71,29 +73,29 @@ xElectricType' ::
   , XLinear e ~ x
   , XElectricType e ~ Void
   ) =>
-  Lens' (ElectricType_ e) x
-xElectricType' f (BrushlessAC_ x) =
-  fmap BrushlessAC_ (f x)
-xElectricType' f (BrushedAC_ x) =
-  fmap BrushedAC_ (f x)
-xElectricType' f (BrushlessDC_ x) =
-  fmap BrushlessDC_ (f x)
-xElectricType' f (BrushedDC_ x) =
-  fmap BrushedDC_ (f x)
-xElectricType' f (UniversalACDC_ x) =
-  fmap UniversalACDC_ (f x)
-xElectricType' f (SwitchedReluctance_ x) =
-  fmap SwitchedReluctance_ (f x)
-xElectricType' f (DirectDrive_ x) =
-  fmap DirectDrive_ (f x)
-xElectricType' f (Linear_ x) =
-  fmap Linear_ (f x)
-xElectricType' _ (ElectricType_ x) =
+  Lens' (ElectricType e) x
+xElectricType' f (BrushlessAC x) =
+  fmap BrushlessAC (f x)
+xElectricType' f (BrushedAC x) =
+  fmap BrushedAC (f x)
+xElectricType' f (BrushlessDC x) =
+  fmap BrushlessDC (f x)
+xElectricType' f (BrushedDC x) =
+  fmap BrushedDC (f x)
+xElectricType' f (UniversalACDC x) =
+  fmap UniversalACDC (f x)
+xElectricType' f (SwitchedReluctance x) =
+  fmap SwitchedReluctance (f x)
+xElectricType' f (DirectDrive x) =
+  fmap DirectDrive (f x)
+xElectricType' f (Linear x) =
+  fmap Linear (f x)
+xElectricType' _ (ElectricType x) =
   absurd x
 
 class AsElectricType a e | a -> e where
   _ElectricType ::
-    Prism' a (ElectricType_ e)
+    Prism' a (ElectricType e)
   _BrushlessAC ::
     Prism' a (XBrushlessAC e)
   _BrushedAC ::
@@ -113,102 +115,102 @@ class AsElectricType a e | a -> e where
   _XElectricType ::
     Prism' a (XElectricType e)
 
-instance AsElectricType (ElectricType_ e) e where
+instance AsElectricType (ElectricType e) e where
   _ElectricType =
     id
   _BrushlessAC =
     prism'
-      BrushlessAC_
+      BrushlessAC
       (
         \case
-          BrushlessAC_ x ->
+          BrushlessAC x ->
             Just x
           _ ->
             Nothing
       )
   _BrushedAC =
     prism'
-      BrushedAC_
+      BrushedAC
       (
         \case
-          BrushedAC_ x ->
+          BrushedAC x ->
             Just x
           _ ->
             Nothing
       )
   _BrushlessDC =
     prism'
-      BrushlessDC_
+      BrushlessDC
       (
         \case
-          BrushlessDC_ x ->
+          BrushlessDC x ->
             Just x
           _ ->
             Nothing
       )
   _BrushedDC =
     prism'
-      BrushedDC_
+      BrushedDC
       (
         \case
-          BrushedDC_ x ->
+          BrushedDC x ->
             Just x
           _ ->
             Nothing
       )
   _UniversalACDC =
     prism'
-      UniversalACDC_
+      UniversalACDC
       (
         \case
-          UniversalACDC_ x ->
+          UniversalACDC x ->
             Just x
           _ ->
             Nothing
       )
   _SwitchedReluctance =
     prism'
-      SwitchedReluctance_
+      SwitchedReluctance
       (
         \case
-          SwitchedReluctance_ x ->
+          SwitchedReluctance x ->
             Just x
           _ ->
             Nothing
       )
   _DirectDrive =
     prism'
-      DirectDrive_
+      DirectDrive
       (
         \case
-          DirectDrive_ x ->
+          DirectDrive x ->
             Just x
           _ ->
             Nothing
       )
   _Linear =
     prism'
-      Linear_
+      Linear
       (
         \case
-          Linear_ x ->
+          Linear x ->
             Just x
           _ ->
             Nothing
       )
   _XElectricType =
     prism'
-      ElectricType_
+      ElectricType
       (
         \case
-          ElectricType_ x ->
+          ElectricType x ->
             Just x
           _ ->
             Nothing
       )
 
-type ElectricType =
-  ElectricType_ ()
+type ElectricType_ =
+  ElectricType ()
 
 type instance XBrushlessAC () =
   ()
@@ -229,48 +231,48 @@ type instance XLinear () =
 type instance XElectricType () =
   Void
 
-pattern BrushlessAC ::
-  ElectricType
-pattern BrushlessAC <- BrushlessAC_ _
-  where BrushlessAC = BrushlessAC_ ()
+pattern BrushlessAC_ ::
+  ElectricType_
+pattern BrushlessAC_ <- BrushlessAC _
+  where BrushlessAC_ = BrushlessAC ()
 
-pattern BrushedAC ::
-  ElectricType
-pattern BrushedAC <- BrushedAC_ _
-  where BrushedAC = BrushedAC_ ()
+pattern BrushedAC_ ::
+  ElectricType_
+pattern BrushedAC_ <- BrushedAC _
+  where BrushedAC_ = BrushedAC ()
 
-pattern BrushlessDC ::
-  ElectricType
-pattern BrushlessDC <- BrushlessDC_ _
-  where BrushlessDC = BrushlessDC_ ()
+pattern BrushlessDC_ ::
+  ElectricType_
+pattern BrushlessDC_ <- BrushlessDC _
+  where BrushlessDC_ = BrushlessDC ()
 
-pattern BrushedDC ::
-  ElectricType
-pattern BrushedDC <- BrushedDC_ _
-  where BrushedDC = BrushedDC_ ()
+pattern BrushedDC_ ::
+  ElectricType_
+pattern BrushedDC_ <- BrushedDC _
+  where BrushedDC_ = BrushedDC ()
 
-pattern UniversalACDC ::
-  ElectricType
-pattern UniversalACDC <- UniversalACDC_ _
-  where UniversalACDC = UniversalACDC_ ()
+pattern UniversalACDC_ ::
+  ElectricType_
+pattern UniversalACDC_ <- UniversalACDC _
+  where UniversalACDC_ = UniversalACDC ()
 
-pattern SwitchedReluctance ::
-  ElectricType
-pattern SwitchedReluctance <- SwitchedReluctance_ _
-  where SwitchedReluctance = SwitchedReluctance_ ()
+pattern SwitchedReluctance_ ::
+  ElectricType_
+pattern SwitchedReluctance_ <- SwitchedReluctance _
+  where SwitchedReluctance_ = SwitchedReluctance ()
 
-pattern DirectDrive ::
-  ElectricType
-pattern DirectDrive <- DirectDrive_ _
-  where DirectDrive = DirectDrive_ ()
+pattern DirectDrive_ ::
+  ElectricType_
+pattern DirectDrive_ <- DirectDrive _
+  where DirectDrive_ = DirectDrive ()
 
-pattern Linear ::
-  ElectricType
-pattern Linear <- Linear_ _
-  where Linear = Linear_ ()
+pattern Linear_ ::
+  ElectricType_
+pattern Linear_ <- Linear _
+  where Linear_ = Linear ()
 
-pattern ElectricType ::
+pattern ElectricType_ ::
   Void
-  -> ElectricType
-pattern ElectricType v <- ElectricType_ v
-  where ElectricType v = ElectricType_ v
+  -> ElectricType_
+pattern ElectricType_ v <- ElectricType v
+  where ElectricType_ v = ElectricType v

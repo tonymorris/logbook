@@ -22,30 +22,30 @@ type family XCarburettor x
 type family XFuelInjection x
 type family XInternalCombustionEngineFuelInduction x
 
-data InternalCombustionEngineFuelInduction_ x =
-  Carburettor_ !(XCarburettor x)
-  | FuelInjection_ !(XFuelInjection x)
-  | InternalCombustionEngineFuelInduction_ !(XInternalCombustionEngineFuelInduction x)
+data InternalCombustionEngineFuelInduction x =
+  Carburettor !(XCarburettor x)
+  | FuelInjection !(XFuelInjection x)
+  | InternalCombustionEngineFuelInduction !(XInternalCombustionEngineFuelInduction x)
   deriving Generic
 
 deriving instance (Eq (XCarburettor x), Eq (XFuelInjection x), Eq (XInternalCombustionEngineFuelInduction x)) =>
-  Eq (InternalCombustionEngineFuelInduction_ x)
+  Eq (InternalCombustionEngineFuelInduction x)
 
 deriving instance (Ord (XCarburettor x), Ord (XFuelInjection x), Ord (XInternalCombustionEngineFuelInduction x)) =>
-  Ord (InternalCombustionEngineFuelInduction_ x)
+  Ord (InternalCombustionEngineFuelInduction x)
 
 deriving instance (Show (XCarburettor x), Show (XFuelInjection x), Show (XInternalCombustionEngineFuelInduction x)) =>
-  Show (InternalCombustionEngineFuelInduction_ x)
+  Show (InternalCombustionEngineFuelInduction x)
 
 class HasInternalCombustionEngineFuelInduction a e | a -> e where
   internalCombustionEngineFuelInduction ::
-    Lens' a (InternalCombustionEngineFuelInduction_ e)
+    Lens' a (InternalCombustionEngineFuelInduction e)
   xInternalCombustionEngineFuelInduction ::
     Lens' a (XInternalCombustionEngineFuelInduction e)
   xInternalCombustionEngineFuelInduction =
     internalCombustionEngineFuelInduction . xInternalCombustionEngineFuelInduction
 
-instance HasInternalCombustionEngineFuelInduction (InternalCombustionEngineFuelInduction_ e) e where
+instance HasInternalCombustionEngineFuelInduction (InternalCombustionEngineFuelInduction e) e where
   internalCombustionEngineFuelInduction =
     id
 
@@ -55,17 +55,17 @@ xInternalCombustionEngineFuelInduction' ::
   , XFuelInjection e ~ x
   , XInternalCombustionEngineFuelInduction e ~ Void
   ) =>
-  Lens' (InternalCombustionEngineFuelInduction_ e) x 
-xInternalCombustionEngineFuelInduction' f (Carburettor_ x) =
-  fmap Carburettor_ (f x)
-xInternalCombustionEngineFuelInduction' f (FuelInjection_ x) =
-  fmap FuelInjection_ (f x)
-xInternalCombustionEngineFuelInduction' _ (InternalCombustionEngineFuelInduction_ x) =
+  Lens' (InternalCombustionEngineFuelInduction e) x 
+xInternalCombustionEngineFuelInduction' f (Carburettor x) =
+  fmap Carburettor (f x)
+xInternalCombustionEngineFuelInduction' f (FuelInjection x) =
+  fmap FuelInjection (f x)
+xInternalCombustionEngineFuelInduction' _ (InternalCombustionEngineFuelInduction x) =
   absurd x
 
 class AsInternalCombustionEngineFuelInduction a e | a -> e where
   _InternalCombustionEngineFuelInduction ::
-    Prism' a (InternalCombustionEngineFuelInduction_ e)
+    Prism' a (InternalCombustionEngineFuelInduction e)
   _XCarburettor ::
     Prism' a (XCarburettor e)
   _XFuelInjection ::
@@ -73,42 +73,42 @@ class AsInternalCombustionEngineFuelInduction a e | a -> e where
   _XInternalCombustionEngineFuelInduction ::
     Prism' a (XInternalCombustionEngineFuelInduction e)
 
-instance AsInternalCombustionEngineFuelInduction (InternalCombustionEngineFuelInduction_ e) e where
+instance AsInternalCombustionEngineFuelInduction (InternalCombustionEngineFuelInduction e) e where
   _InternalCombustionEngineFuelInduction =
     id
   _XCarburettor =
     prism'
-      Carburettor_
+      Carburettor
       (
         \case
-          Carburettor_ x ->
+          Carburettor x ->
             Just x
           _ ->
             Nothing
       )
   _XFuelInjection =
     prism'
-      FuelInjection_
+      FuelInjection
       (
         \case
-          FuelInjection_ x ->
+          FuelInjection x ->
             Just x
           _ ->
             Nothing
       )
   _XInternalCombustionEngineFuelInduction =
     prism'
-      InternalCombustionEngineFuelInduction_
+      InternalCombustionEngineFuelInduction
       (
         \case
-          InternalCombustionEngineFuelInduction_ x ->
+          InternalCombustionEngineFuelInduction x ->
             Just x
           _ ->
             Nothing
       )
 
-type InternalCombustionEngineFuelInduction =
-  InternalCombustionEngineFuelInduction_ ()
+type InternalCombustionEngineFuelInduction_ =
+  InternalCombustionEngineFuelInduction ()
 
 type instance XCarburettor () =
   ()
@@ -117,18 +117,18 @@ type instance XFuelInjection () =
 type instance XInternalCombustionEngineFuelInduction () =
   Void
 
-pattern Carburettor ::
-  InternalCombustionEngineFuelInduction
-pattern Carburettor <- Carburettor_ _
-  where Carburettor = Carburettor_ ()
+pattern Carburettor_ ::
+  InternalCombustionEngineFuelInduction_
+pattern Carburettor_ <- Carburettor _
+  where Carburettor_ = Carburettor ()
 
-pattern FuelInjection ::
-  InternalCombustionEngineFuelInduction
-pattern FuelInjection <- FuelInjection_ _
-  where FuelInjection = FuelInjection_ ()
+pattern FuelInjection_ ::
+  InternalCombustionEngineFuelInduction_
+pattern FuelInjection_ <- FuelInjection _
+  where FuelInjection_ = FuelInjection ()
 
-pattern InternalCombustionEngineFuelInduction ::
+pattern InternalCombustionEngineFuelInduction_ ::
   Void
-  -> InternalCombustionEngineFuelInduction
-pattern InternalCombustionEngineFuelInduction v <- InternalCombustionEngineFuelInduction_ v
-  where InternalCombustionEngineFuelInduction v = InternalCombustionEngineFuelInduction_ v
+  -> InternalCombustionEngineFuelInduction_
+pattern InternalCombustionEngineFuelInduction_ v <- InternalCombustionEngineFuelInduction v
+  where InternalCombustionEngineFuelInduction_ v = InternalCombustionEngineFuelInduction v

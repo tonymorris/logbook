@@ -22,30 +22,30 @@ type family XDiesel x
 type family XSpark x
 type family XInternalCombustionEngineIgnition x
 
-data InternalCombustionEngineIgnition_ x =
-  Diesel_ !(XDiesel x)
-  | Spark_ !(XSpark x)
-  | InternalCombustionEngineIgnition_ !(XInternalCombustionEngineIgnition x)
+data InternalCombustionEngineIgnition x =
+  Diesel !(XDiesel x)
+  | Spark !(XSpark x)
+  | InternalCombustionEngineIgnition !(XInternalCombustionEngineIgnition x)
   deriving Generic
 
 deriving instance (Eq (XDiesel x), Eq (XSpark x), Eq (XInternalCombustionEngineIgnition x)) =>
-  Eq (InternalCombustionEngineIgnition_ x)
+  Eq (InternalCombustionEngineIgnition x)
 
 deriving instance (Ord (XDiesel x), Ord (XSpark x), Ord (XInternalCombustionEngineIgnition x)) =>
-  Ord (InternalCombustionEngineIgnition_ x)
+  Ord (InternalCombustionEngineIgnition x)
 
 deriving instance (Show (XDiesel x), Show (XSpark x), Show (XInternalCombustionEngineIgnition x)) =>
-  Show (InternalCombustionEngineIgnition_ x)
+  Show (InternalCombustionEngineIgnition x)
 
 class HasInternalCombustionEngineIgnition a e | a -> e where
   internalCombustionEngineIgnition ::
-    Lens' a (InternalCombustionEngineIgnition_ e)
+    Lens' a (InternalCombustionEngineIgnition e)
   xInternalCombustionEngineIgnition ::
     Lens' a (XInternalCombustionEngineIgnition e)
   xInternalCombustionEngineIgnition =
     internalCombustionEngineIgnition . xInternalCombustionEngineIgnition
 
-instance HasInternalCombustionEngineIgnition (InternalCombustionEngineIgnition_ e) e where
+instance HasInternalCombustionEngineIgnition (InternalCombustionEngineIgnition e) e where
   internalCombustionEngineIgnition =
     id
     
@@ -55,17 +55,17 @@ xInternalCombustionEngineIgnition' ::
   , XSpark e ~ x
   , XInternalCombustionEngineIgnition e ~ Void
   ) =>
-  Lens' (InternalCombustionEngineIgnition_ e) x
-xInternalCombustionEngineIgnition' f (Diesel_ x) =
-  fmap Diesel_ (f x)
-xInternalCombustionEngineIgnition' f (Spark_ x) =
-  fmap Spark_ (f x)
-xInternalCombustionEngineIgnition' _ (InternalCombustionEngineIgnition_ x) =
+  Lens' (InternalCombustionEngineIgnition e) x
+xInternalCombustionEngineIgnition' f (Diesel x) =
+  fmap Diesel (f x)
+xInternalCombustionEngineIgnition' f (Spark x) =
+  fmap Spark (f x)
+xInternalCombustionEngineIgnition' _ (InternalCombustionEngineIgnition x) =
   absurd x
 
 class AsInternalCombustionEngineIgnition a e | a -> e where
   _InternalCombustionEngineIgnition ::
-    Prism' a (InternalCombustionEngineIgnition_ e)
+    Prism' a (InternalCombustionEngineIgnition e)
   _XDiesel ::
     Prism' a (XDiesel e)
   _XSpark ::
@@ -73,42 +73,42 @@ class AsInternalCombustionEngineIgnition a e | a -> e where
   _XInternalCombustionEngineIgnition ::
     Prism' a (XInternalCombustionEngineIgnition e)
 
-instance AsInternalCombustionEngineIgnition (InternalCombustionEngineIgnition_ e) e where
+instance AsInternalCombustionEngineIgnition (InternalCombustionEngineIgnition e) e where
   _InternalCombustionEngineIgnition =
     id
   _XDiesel =
     prism'
-      Diesel_
+      Diesel
       (
         \case
-          Diesel_ x ->
+          Diesel x ->
             Just x
           _ ->
             Nothing
       )
   _XSpark =
     prism'
-      Spark_
+      Spark
       (
         \case
-          Spark_ x ->
+          Spark x ->
             Just x
           _ ->
             Nothing
       )
   _XInternalCombustionEngineIgnition =
     prism'
-      InternalCombustionEngineIgnition_
+      InternalCombustionEngineIgnition
       (
         \case
-          InternalCombustionEngineIgnition_ x ->
+          InternalCombustionEngineIgnition x ->
             Just x
           _ ->
             Nothing
       )
 
-type InternalCombustionEngineIgnition =
-  InternalCombustionEngineIgnition_ ()
+type InternalCombustionEngineIgnition_ =
+  InternalCombustionEngineIgnition ()
 
 type instance XDiesel () =
   ()
@@ -117,18 +117,18 @@ type instance XSpark () =
 type instance XInternalCombustionEngineIgnition () =
   Void
 
-pattern Diesel ::
-  InternalCombustionEngineIgnition
-pattern Diesel <- Diesel_ _
-  where Diesel = Diesel_ ()
+pattern Diesel_ ::
+  InternalCombustionEngineIgnition_
+pattern Diesel_ <- Diesel _
+  where Diesel_ = Diesel ()
 
-pattern Spark ::
-  InternalCombustionEngineIgnition
-pattern Spark <- Spark_ _
-  where Spark = Spark_ ()
+pattern Spark_ ::
+  InternalCombustionEngineIgnition_
+pattern Spark_ <- Spark _
+  where Spark_ = Spark ()
 
-pattern InternalCombustionEngineIgnition ::
+pattern InternalCombustionEngineIgnition_ ::
   Void
-  -> InternalCombustionEngineIgnition
-pattern InternalCombustionEngineIgnition v <- InternalCombustionEngineIgnition_ v
-  where InternalCombustionEngineIgnition v = InternalCombustionEngineIgnition_ v
+  -> InternalCombustionEngineIgnition_
+pattern InternalCombustionEngineIgnition_ v <- InternalCombustionEngineIgnition v
+  where InternalCombustionEngineIgnition_ v = InternalCombustionEngineIgnition v
