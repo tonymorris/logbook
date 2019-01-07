@@ -29,7 +29,7 @@ type family XRocket x
 type family XEngineType x
 
 data EngineType_ x =
-  InternalCombustionEngineEngineType_ !(XInternalCombustionEngineEngineType x) InternalCombustionEngine
+  InternalCombustionEngineEngineType_ !(XInternalCombustionEngineEngineType x) (InternalCombustionEngine () () () () () () () () () () ())
   | Electric_ !(XElectric x) ElectricType
   | Jet_ !(XJet x) JetType
   | Rocket_ !(XRocket x)
@@ -81,10 +81,10 @@ class AsEngineType a e | a -> e where
   _EngineType ::
     Prism' a (EngineType_ e)
   _InternalCombustionEngineEngineType ::
-    Prism' a (XInternalCombustionEngineEngineType e, InternalCombustionEngine)
+    Prism' a (XInternalCombustionEngineEngineType e, (InternalCombustionEngine () () () () () () () () () () ()))
   _InternalCombustionEngineEngineType' ::
     XInternalCombustionEngineEngineType e ~ () =>
-    Prism' a InternalCombustionEngine
+    Prism' a (InternalCombustionEngine () () () () () () () () () () ())
   _InternalCombustionEngineEngineType' =
     _InternalCombustionEngineEngineType . unproduct
   _Electric ::
@@ -175,7 +175,7 @@ type instance XEngineType () =
   Void
 
 pattern InternalCombustionEngineEngineType ::
-  InternalCombustionEngine
+  (InternalCombustionEngine () () () () () () () () () () ())
   -> EngineType
 pattern InternalCombustionEngineEngineType t <- InternalCombustionEngineEngineType_ _ t
   where InternalCombustionEngineEngineType t = InternalCombustionEngineEngineType_ () t
