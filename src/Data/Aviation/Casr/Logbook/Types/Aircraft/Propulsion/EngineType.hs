@@ -28,32 +28,32 @@ type family XJet x
 type family XRocket x
 type family XEngineType x
 
-data EngineType_ x internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine =
-  InternalCombustionEngineEngineType_ !(XInternalCombustionEngineEngineType x) (InternalCombustionEngine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
-  | Electric_ !(XElectric x) ElectricType
-  | Jet_ !(XJet x) JetType
+data EngineType_ x internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype =
+  InternalCombustionEngineEngineType_ !(XInternalCombustionEngineEngineType x) (InternalCombustionEngine_ internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
+  | Electric_ !(XElectric x) (ElectricType_ xelectrictype)
+  | Jet_ !(XJet x) (JetType_ xjettype)
   | Rocket_ !(XRocket x)
   | EngineType_ !(XEngineType x)
   deriving Generic
 
-deriving instance (Eq (XInternalCombustionEngineEngineType x), Eq (InternalCombustionEngine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine), Eq (XElectric x), Eq (XJet x), Eq (XRocket x), Eq (XEngineType x)) =>
-  Eq (EngineType_ x internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
+deriving instance (Eq (XInternalCombustionEngineEngineType x), Eq (InternalCombustionEngine_ internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine), Eq (XElectric x), Eq (ElectricType_ xelectrictype), Eq (XJet x), Eq (JetType_ xjettype), Eq (XRocket x), Eq (XEngineType x)) =>
+  Eq (EngineType_ x internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype)
 
-deriving instance (Ord (XInternalCombustionEngineEngineType x), Ord (InternalCombustionEngine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine), Ord (XElectric x), Ord (XJet x), Ord (XRocket x), Ord (XEngineType x)) =>
-  Ord (EngineType_ x internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
+deriving instance (Ord (XInternalCombustionEngineEngineType x), Ord (InternalCombustionEngine_ internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine), Ord (XElectric x), Ord (ElectricType_ xelectrictype), Ord (XJet x), Ord (JetType_ xjettype), Ord (XRocket x), Ord (XEngineType x)) =>
+  Ord (EngineType_ x internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype)
 
-deriving instance (Show (XInternalCombustionEngineEngineType x), Show (InternalCombustionEngine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine), Show (XElectric x), Show (XJet x), Show (XRocket x), Show (XEngineType x)) =>
-  Show (EngineType_ x internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
+deriving instance (Show (XInternalCombustionEngineEngineType x), Show (InternalCombustionEngine_ internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine), Show (XElectric x), Show (ElectricType_ xelectrictype), Show (XJet x), Show (JetType_ xjettype), Show (XRocket x), Show (XEngineType x)) =>
+  Show (EngineType_ x internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype)
 
-class HasEngineType a e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine | a -> e, a -> internalcombustionengineairinduction, a -> internalcombustionenginefuelinduction, a -> internalcombustionengineignition, a -> internalcombustionenginetype, a -> xpistonengine, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement_pistonengine, a -> xrotaryengine, a -> xrotors, a -> xenginedisplacement_rotaryengine where
+class HasEngineType a e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype | a -> e, a -> internalcombustionengine, a -> internalcombustionengineairinduction, a -> internalcombustionenginefuelinduction, a -> internalcombustionengineignition, a -> internalcombustionenginetype, a -> xpistonengine, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement_pistonengine, a -> xrotaryengine, a -> xrotors, a -> xenginedisplacement_rotaryengine, a -> xelectrictype, a -> xjettype where
   engineType ::
-    Lens' a (EngineType_ e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
+    Lens' a (EngineType_ e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype)
   xEngineType ::
     Lens' a (XInternalCombustionEngineEngineType e)
   xEngineType =
     engineType . xEngineType
 
-instance HasEngineType (EngineType_ e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine) e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine where
+instance HasEngineType (EngineType_ e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype) e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype where
   engineType =
     id
 
@@ -65,7 +65,7 @@ xEngineType' ::
   , XJet e ~ x
   , XEngineType e ~ Void
   ) =>
-  Lens' (EngineType_ e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine) x
+  Lens' (EngineType_ e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype) x
 xEngineType' f (InternalCombustionEngineEngineType_ x t) =
   fmap (\x' -> InternalCombustionEngineEngineType_ x' t) (f x)
 xEngineType' f (Electric_ x t) =
@@ -77,36 +77,36 @@ xEngineType' f (Jet_ x t) =
 xEngineType' _ (EngineType_ x) =
   absurd x
 
-class AsEngineType a e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine | a -> e, a -> internalcombustionengineairinduction, a -> internalcombustionenginefuelinduction, a -> internalcombustionengineignition, a -> internalcombustionenginetype, a -> xpistonengine, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement_pistonengine, a -> xrotaryengine, a -> xrotors, a -> xenginedisplacement_rotaryengine where
+class AsEngineType a e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype | a -> e, a -> internalcombustionengine, a -> internalcombustionengineairinduction, a -> internalcombustionenginefuelinduction, a -> internalcombustionengineignition, a -> internalcombustionenginetype, a -> xpistonengine, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement_pistonengine, a -> xrotaryengine, a -> xrotors, a -> xenginedisplacement_rotaryengine, a -> xelectrictype, a -> xjettype where
   _EngineType ::
-    Prism' a (EngineType_ e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
+    Prism' a (EngineType_ e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype)
   _InternalCombustionEngineEngineType ::
-    Prism' a (XInternalCombustionEngineEngineType e, InternalCombustionEngine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
+    Prism' a (XInternalCombustionEngineEngineType e, InternalCombustionEngine_ internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
   _InternalCombustionEngineEngineType' ::
     XInternalCombustionEngineEngineType e ~ () =>
-    Prism' a (InternalCombustionEngine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
+    Prism' a (InternalCombustionEngine_ internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
   _InternalCombustionEngineEngineType' =
     _InternalCombustionEngineEngineType . unproduct
   _Electric ::
-    Prism' a (XElectric e, ElectricType)
+    Prism' a (XElectric e, (ElectricType_ xelectrictype))
   _Electric' ::
     XElectric e ~ () =>
-    Prism' a ElectricType
+    Prism' a (ElectricType_ xelectrictype)
   _Electric' =
     _Electric . unproduct
   _Rocket ::
     Prism' a (XRocket e)
   _Jet ::
-    Prism' a (XJet e, JetType)
+    Prism' a (XJet e, JetType_ xjettype)
   _Jet' ::
     XJet e ~ () =>
-    Prism' a JetType
+    Prism' a (JetType_ xjettype)
   _Jet' =
     _Jet . unproduct
   _XEngineType ::
     Prism' a (XEngineType e)
     
-instance AsEngineType (EngineType_ e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine) e internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine where
+instance AsEngineType (EngineType_ e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype) e internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype where
   _EngineType =
     id
   _InternalCombustionEngineEngineType =
@@ -176,30 +176,30 @@ type instance XEngineType () =
   Void
 
 pattern InternalCombustionEngineEngineType ::
-  (InternalCombustionEngine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine)
-  -> EngineType internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine
+  InternalCombustionEngine_ internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine
+  -> EngineType internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype
 pattern InternalCombustionEngineEngineType t <- InternalCombustionEngineEngineType_ _ t
   where InternalCombustionEngineEngineType t = InternalCombustionEngineEngineType_ () t
 
 pattern Electric ::
-  ElectricType
-  -> EngineType internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine
+  ElectricType_ xelectrictype
+  -> EngineType internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype
 pattern Electric t <- Electric_ _ t
   where Electric t = Electric_ () t
 
 pattern Rocket ::
-  EngineType internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine
+  EngineType internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype
 pattern Rocket <- Rocket_ _
   where Rocket = Rocket_ ()
 
 pattern Jet ::
-  JetType
-  -> EngineType internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine
+  JetType_ xjettype
+  -> EngineType internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype
 pattern Jet t <- Jet_ _ t
   where Jet t = Jet_ () t
 
 pattern EngineType ::
   Void
-  -> EngineType internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine
+  -> EngineType internalcombustionengine internalcombustionengineairinduction internalcombustionenginefuelinduction internalcombustionengineignition internalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype
 pattern EngineType v <- EngineType_ v
   where EngineType v = EngineType_ v
