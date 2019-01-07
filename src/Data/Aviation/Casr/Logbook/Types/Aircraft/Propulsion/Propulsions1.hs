@@ -35,7 +35,7 @@ type family XPropulsions1 x
 data Propulsions1_ x =
   Propulsions1_
     !(XPropulsions1 x)
-    (NonEmpty Propulsion)
+    (NonEmpty (Propulsion () () () () () () () () () () () () () () () () ()))
   deriving Generic
 
 deriving instance Eq (XPropulsions1 x) =>
@@ -72,7 +72,7 @@ instance AsPropulsions1 (Propulsions1_ e) e where
 instance Propulsions1 ~ x => Rewrapped Propulsions1 x
 instance Wrapped Propulsions1 where
   type Unwrapped Propulsions1 =
-    NonEmpty Propulsion
+    NonEmpty (Propulsion () () () () () () () () () () () () () () () () ())
   _Wrapped' =
     iso
       (\(Propulsions1_ () x) -> x)
@@ -85,7 +85,7 @@ type instance XPropulsions1 () =
   ()
 
 pattern Propulsions1 ::
-  NonEmpty Propulsion
+  NonEmpty (Propulsion () () () () () () () () () () () () () () () () ())
   -> Propulsions1
 pattern Propulsions1 p <- Propulsions1_ _ p
   where Propulsions1 p = Propulsions1_ () p
@@ -93,13 +93,13 @@ pattern Propulsions1 p <- Propulsions1_ _ p
 ----
 
 type instance Index Propulsions1 = Int
-type instance IxValue Propulsions1 = Propulsion
+type instance IxValue Propulsions1 = (Propulsion () () () () () () () () () () () () () () () () ())
 
 instance Ixed Propulsions1 where
   ix n =
     _Wrapped . ix n
 
-instance Each Propulsions1 Propulsions1 Propulsion Propulsion where
+instance Each Propulsions1 Propulsions1 (Propulsion () () () () () () () () () () () () () () () () ()) (Propulsion () () () () () () () () () () () () () () () () ()) where
   each =
     _Wrapped . each
 

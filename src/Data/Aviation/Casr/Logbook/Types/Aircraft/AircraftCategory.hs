@@ -29,10 +29,10 @@ data AircraftCategory =
   | Airship Propulsions1 AirshipDesignFeatures
   | Balloon
   | RPA RPACategory
-  | Glider Propulsions
+  | Glider (Propulsions () () () () () () () () () () () () () () () () () ())
   | Paraglider
   | Paramotor Propulsions1
-  | Trike Propulsions
+  | Trike (Propulsions () () () () () () () () () () () () () () () () () ())
   | PoweredParachute Propulsions1
   | Hangglider
   deriving (Eq, Ord, Show, Generic)
