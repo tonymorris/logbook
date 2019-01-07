@@ -31,7 +31,7 @@ data Engine_ x =
     !(XEngine x)
     Manufacturer
     Designation
-    EngineType
+    (EngineType () () () () () () () () () () ())
   deriving Generic
 
 deriving instance Eq (XEngine x) =>
@@ -74,13 +74,13 @@ type instance XEngine () =
 pattern Engine ::
   Manufacturer
   -> Designation
-  -> EngineType
+  -> EngineType () () () () () () () () () () ()
   -> Engine
 pattern Engine m d t <- Engine_ _ m d t
   where Engine m d t = Engine_ () m d t
 
 ----
 
-instance HasEngineType (Engine_ x) () where
+instance HasEngineType (Engine_ x) () () () () () () () () () () () () where
   engineType f (Engine_ x m d t) =
     fmap (\t' -> Engine_ x m d t') (f t) 

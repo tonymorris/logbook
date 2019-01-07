@@ -153,9 +153,6 @@ pattern InternalCombustionEngineType v <- InternalCombustionEngineType_ v
 instance AsPistonEngine (InternalCombustionEngineType xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine) xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine where
   _PistonEngine =
     prism'
-      undefined
-      undefined
-      {-
       PistonEngineType
       (
         \case
@@ -164,7 +161,6 @@ instance AsPistonEngine (InternalCombustionEngineType xpistonengine xpistonengin
           _ ->
             Nothing
       )
--}
 
 instance AsRotaryEngine (InternalCombustionEngineType xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine) xrotaryengine xrotors xenginedisplacement_rotaryengine where
   _RotaryEngine =
