@@ -28,10 +28,10 @@ type family XRPAPoweredLift x
 type family XRPACategory x
 
 data RPACategory_ x =
-  RPAAeroplane_ !(XRPAAeroplane x) Propulsions1
-  | RPACopter_ !(XRPACopter x) Propulsions1 Positive
-  | RPAAirship_ !(XRPAAirship x) Propulsions1
-  | RPAPoweredLift_ !(XRPAPoweredLift x) Propulsions1
+  RPAAeroplane_ !(XRPAAeroplane x) (Propulsions1 () () () () () () () () () () () () () () () () () ())
+  | RPACopter_ !(XRPACopter x) (Propulsions1 () () () () () () () () () () () () () () () () () ()) Positive
+  | RPAAirship_ !(XRPAAirship x) (Propulsions1 () () () () () () () () () () () () () () () () () ())
+  | RPAPoweredLift_ !(XRPAPoweredLift x) (Propulsions1 () () () () () () () () () () () () () () () () () ())
   | XRPACategory_ !(XRPACategory x)
   deriving Generic
 
@@ -86,31 +86,31 @@ class AsRPACategory a e | a -> e where
   _RPACategory ::
     Prism' a (RPACategory_ e)
   _RPAAeroplane ::
-    Prism' a (XRPAAeroplane e, Propulsions1)
+    Prism' a (XRPAAeroplane e, (Propulsions1 () () () () () () () () () () () () () () () () () ()))
   _RPAAeroplane' ::
     XRPAAeroplane e ~ () =>
-    Prism' a Propulsions1
+    Prism' a (Propulsions1 () () () () () () () () () () () () () () () () () ())
   _RPAAeroplane' =
     _RPAAeroplane . unproduct
   _RPACopter ::
-    Prism' a (XRPACopter e, (Propulsions1, Positive))
+    Prism' a (XRPACopter e, ((Propulsions1 () () () () () () () () () () () () () () () () () ()), Positive))
   _RPACopter' ::
     XRPACopter e ~ () =>
-    Prism' a (Propulsions1, Positive)
+    Prism' a ((Propulsions1 () () () () () () () () () () () () () () () () () ()), Positive)
   _RPACopter' =
     _RPACopter . unproduct
   _RPAAirship ::
-    Prism' a (XRPAAirship e, Propulsions1)
+    Prism' a (XRPAAirship e, (Propulsions1 () () () () () () () () () () () () () () () () () ()))
   _RPAAirship' ::    
     XRPAAirship e ~ () =>
-    Prism' a Propulsions1
+    Prism' a (Propulsions1 () () () () () () () () () () () () () () () () () ())
   _RPAAirship' =
     _RPAAirship . unproduct
   _RPAPoweredLift ::
-    Prism' a (XRPAPoweredLift e, Propulsions1)
+    Prism' a (XRPAPoweredLift e, (Propulsions1 () () () () () () () () () () () () () () () () () ()))
   _RPAPoweredLift' ::    
     XRPAPoweredLift e ~ () =>
-    Prism' a Propulsions1
+    Prism' a (Propulsions1 () () () () () () () () () () () () () () () () () ())
   _RPAPoweredLift' =
     _RPAPoweredLift . unproduct
   _XRPACategory ::
@@ -185,26 +185,26 @@ type instance XRPACategory () =
   Void
 
 pattern RPAAeroplane ::
-  Propulsions1
+  Propulsions1 () () () () () () () () () () () () () () () () () ()
   -> RPACategory
 pattern RPAAeroplane p <- RPAAeroplane_ _ p
   where RPAAeroplane p = RPAAeroplane_ () p
 
 pattern RPACopter ::
-  Propulsions1
+  Propulsions1 () () () () () () () () () () () () () () () () () ()
   -> Positive
   -> RPACategory
 pattern RPACopter p n <- RPACopter_ _ p n
   where RPACopter p n = RPACopter_ () p n
 
 pattern RPAAirship ::
-  Propulsions1
+  Propulsions1 () () () () () () () () () () () () () () () () () ()
   -> RPACategory
 pattern RPAAirship p <- RPAAirship_ _ p
   where RPAAirship p = RPAAirship_ () p
 
 pattern RPAPoweredLift ::
-  Propulsions1
+  Propulsions1 () () () () () () () () () () () () () () () () () ()
   -> RPACategory
 pattern RPAPoweredLift p <- RPAPoweredLift_ _ p
   where RPAPoweredLift p = RPAPoweredLift_ () p
