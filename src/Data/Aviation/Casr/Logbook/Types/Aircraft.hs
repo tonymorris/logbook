@@ -56,7 +56,7 @@ testAircraft5350 =
           single_naturallyinduced_ice_fourstroke
             "Rotax"
             "912ULS"
-            Carburettor_
+            Carburettor
             (list1 # (() :| [(), (), ()]))
             (oneOr (1352 :: Int))
         )
@@ -87,7 +87,7 @@ testAircraftAFR =
           single_naturallyinduced_ice_fourstroke
             "Textron Lycoming"
             "IO-360-L2A"
-            FuelInjection_
+            FuelInjection
             (list1 # (() :| [(), (), ()]))
             (oneOr (5920 :: Int))
         )

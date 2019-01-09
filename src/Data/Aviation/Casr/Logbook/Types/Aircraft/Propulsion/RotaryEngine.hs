@@ -1,81 +1,43 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE PatternSynonyms #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.RotaryEngine where
 
 import Control.Lens
-import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement(EngineDisplacement, XEngineDisplacement, HasEngineDisplacement(engineDisplacement))
-import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Rotors(Rotors, XRotors, HasRotors(rotors))
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.EngineDisplacement(EngineDisplacement, HasEngineDisplacement(engineDisplacement))
+import Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Rotors(Rotors, HasRotors(rotors))
 import GHC.Generics(Generic)
 import Prelude
 
-type family XRotaryEngine x
-
-data RotaryEngine x xrotors xenginedisplacement =
+data RotaryEngine =
   RotaryEngine
-    !(XRotaryEngine x)
-    (Rotors xrotors)
-    (EngineDisplacement xenginedisplacement)
-  deriving Generic
+    Rotors
+    EngineDisplacement
+  deriving (Eq, Ord, Show, Generic)
 
-deriving instance (Eq (XRotaryEngine x), Eq (XRotors xrotors), Eq (XEngineDisplacement xenginedisplacement)) =>
-    Eq (RotaryEngine x xrotors xenginedisplacement)
-
-deriving instance (Ord (XRotaryEngine x), Ord (XRotors xrotors), Ord (XEngineDisplacement xenginedisplacement)) =>
-    Ord (RotaryEngine x xrotors xenginedisplacement)
-
-deriving instance (Show (XRotaryEngine x), Show (XRotors xrotors), Show (XEngineDisplacement xenginedisplacement)) =>
-    Show (RotaryEngine x xrotors xenginedisplacement)
-
-class HasRotaryEngine a e xrotors xenginedisplacement
-    | a -> e, a -> xrotors, a -> xenginedisplacement where
+class HasRotaryEngine a where
   rotaryEngine ::
-    Lens' a (RotaryEngine e xrotors xenginedisplacement)
-  xRotaryEngine ::
-    Lens' a (XRotaryEngine e)
-  xRotaryEngine =
-    rotaryEngine . xRotaryEngine
+    Lens' a RotaryEngine
 
-instance HasRotaryEngine (RotaryEngine e xrotors xenginedisplacement) e xrotors xenginedisplacement where
+instance HasRotaryEngine RotaryEngine where
   rotaryEngine =
     id
-  xRotaryEngine f (RotaryEngine x r d) =
-    fmap (\x' -> RotaryEngine x' r d) (f x)
 
-class AsRotaryEngine a e xrotors xenginedisplacement | a -> e, a -> xrotors, a -> xenginedisplacement where
+class AsRotaryEngine a where
   _RotaryEngine ::
-    Prism' a (RotaryEngine e xrotors xenginedisplacement)
+    Prism' a RotaryEngine
  
-instance AsRotaryEngine (RotaryEngine e xrotors xenginedisplacement) e xrotors xenginedisplacement where
+instance AsRotaryEngine RotaryEngine where
   _RotaryEngine =
     id
 
-type RotaryEngine_ =
-  RotaryEngine ()
-
-type instance XRotaryEngine () =
-  ()
-
-pattern RotaryEngine_ ::
-  Rotors xrotors
-  -> EngineDisplacement xenginedisplacement
-  -> RotaryEngine_ xrotors xenginedisplacement
-pattern RotaryEngine_ r d <- RotaryEngine _ r d
-  where RotaryEngine_ r d = RotaryEngine () r d
-
 ----
 
-instance HasRotors (RotaryEngine e xrotors xenginedisplacement) xrotors where
-  rotors f (RotaryEngine x r d) =
-    fmap (\r' -> RotaryEngine x r' d) (f r)
+instance HasRotors RotaryEngine where
+  rotors f (RotaryEngine r d) =
+    fmap (\r' -> RotaryEngine r' d) (f r)
 
-instance HasEngineDisplacement (RotaryEngine e xrotors xenginedisplacement) xenginedisplacement where
-  engineDisplacement f (RotaryEngine x r d) =
-    fmap (\d' -> RotaryEngine x r d') (f d)
+instance HasEngineDisplacement RotaryEngine where
+  engineDisplacement f (RotaryEngine r d) =
+    fmap (\d' -> RotaryEngine r d') (f d)

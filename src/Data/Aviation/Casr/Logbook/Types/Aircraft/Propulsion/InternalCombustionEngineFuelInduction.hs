@@ -1,134 +1,54 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE BangPatterns #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.InternalCombustionEngineFuelInduction where
 
 import Control.Lens(Lens', Prism', prism')
-import Data.Void(Void, absurd)
 import GHC.Generics(Generic)
 import Prelude
 
-type family XCarburettor x
-type family XFuelInjection x
-type family XInternalCombustionEngineFuelInduction x
+data InternalCombustionEngineFuelInduction =
+  Carburettor
+  | FuelInjection
+  deriving (Eq, Ord, Show, Generic)
 
-data InternalCombustionEngineFuelInduction x =
-  Carburettor !(XCarburettor x)
-  | FuelInjection !(XFuelInjection x)
-  | InternalCombustionEngineFuelInduction !(XInternalCombustionEngineFuelInduction x)
-  deriving Generic
-
-deriving instance (Eq (XCarburettor x), Eq (XFuelInjection x), Eq (XInternalCombustionEngineFuelInduction x)) =>
-  Eq (InternalCombustionEngineFuelInduction x)
-
-deriving instance (Ord (XCarburettor x), Ord (XFuelInjection x), Ord (XInternalCombustionEngineFuelInduction x)) =>
-  Ord (InternalCombustionEngineFuelInduction x)
-
-deriving instance (Show (XCarburettor x), Show (XFuelInjection x), Show (XInternalCombustionEngineFuelInduction x)) =>
-  Show (InternalCombustionEngineFuelInduction x)
-
-class HasInternalCombustionEngineFuelInduction a e | a -> e where
+class HasInternalCombustionEngineFuelInduction a where
   internalCombustionEngineFuelInduction ::
-    Lens' a (InternalCombustionEngineFuelInduction e)
-  xInternalCombustionEngineFuelInduction ::
-    Lens' a (XInternalCombustionEngineFuelInduction e)
-  xInternalCombustionEngineFuelInduction =
-    internalCombustionEngineFuelInduction . xInternalCombustionEngineFuelInduction
+    Lens' a InternalCombustionEngineFuelInduction
 
-instance HasInternalCombustionEngineFuelInduction (InternalCombustionEngineFuelInduction e) e where
+instance HasInternalCombustionEngineFuelInduction InternalCombustionEngineFuelInduction where
   internalCombustionEngineFuelInduction =
     id
 
-xInternalCombustionEngineFuelInduction' ::
-  (
-    XCarburettor e ~ x
-  , XFuelInjection e ~ x
-  , XInternalCombustionEngineFuelInduction e ~ Void
-  ) =>
-  Lens' (InternalCombustionEngineFuelInduction e) x 
-xInternalCombustionEngineFuelInduction' f (Carburettor x) =
-  fmap Carburettor (f x)
-xInternalCombustionEngineFuelInduction' f (FuelInjection x) =
-  fmap FuelInjection (f x)
-xInternalCombustionEngineFuelInduction' _ (InternalCombustionEngineFuelInduction x) =
-  absurd x
-
-class AsInternalCombustionEngineFuelInduction a e | a -> e where
+class AsInternalCombustionEngineFuelInduction a where
   _InternalCombustionEngineFuelInduction ::
-    Prism' a (InternalCombustionEngineFuelInduction e)
-  _XCarburettor ::
-    Prism' a (XCarburettor e)
-  _XFuelInjection ::
-    Prism' a (XFuelInjection e)
-  _XInternalCombustionEngineFuelInduction ::
-    Prism' a (XInternalCombustionEngineFuelInduction e)
+    Prism' a InternalCombustionEngineFuelInduction
+  _Carburettor ::
+    Prism' a ()
+  _FuelInjection ::
+    Prism' a ()
 
-instance AsInternalCombustionEngineFuelInduction (InternalCombustionEngineFuelInduction e) e where
+instance AsInternalCombustionEngineFuelInduction InternalCombustionEngineFuelInduction where
   _InternalCombustionEngineFuelInduction =
     id
-  _XCarburettor =
+  _Carburettor =
     prism'
-      Carburettor
+      (\() -> Carburettor)
       (
         \case
-          Carburettor x ->
-            Just x
+          Carburettor ->
+            Just ()
           _ ->
             Nothing
       )
-  _XFuelInjection =
+  _FuelInjection =
     prism'
-      FuelInjection
+      (\() -> FuelInjection)
       (
         \case
-          FuelInjection x ->
-            Just x
+          FuelInjection ->
+            Just ()
           _ ->
             Nothing
       )
-  _XInternalCombustionEngineFuelInduction =
-    prism'
-      InternalCombustionEngineFuelInduction
-      (
-        \case
-          InternalCombustionEngineFuelInduction x ->
-            Just x
-          _ ->
-            Nothing
-      )
-
-type InternalCombustionEngineFuelInduction_ =
-  InternalCombustionEngineFuelInduction ()
-
-type instance XCarburettor () =
-  ()
-type instance XFuelInjection () =
-  ()
-type instance XInternalCombustionEngineFuelInduction () =
-  Void
-
-pattern Carburettor_ ::
-  InternalCombustionEngineFuelInduction_
-pattern Carburettor_ <- Carburettor _
-  where Carburettor_ = Carburettor ()
-
-pattern FuelInjection_ ::
-  InternalCombustionEngineFuelInduction_
-pattern FuelInjection_ <- FuelInjection _
-  where FuelInjection_ = FuelInjection ()
-
-pattern InternalCombustionEngineFuelInduction_ ::
-  Void
-  -> InternalCombustionEngineFuelInduction_
-pattern InternalCombustionEngineFuelInduction_ v <- InternalCombustionEngineFuelInduction v
-  where InternalCombustionEngineFuelInduction_ v = InternalCombustionEngineFuelInduction v

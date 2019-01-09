@@ -95,7 +95,6 @@ library
                     Data.Aviation.Casr.Logbook.Types.Aircraft.RPACategory
                     Data.Aviation.Casr.Logbook.Types.Media
                     Data.Aviation.Casr.Logbook.Types.Media.MediaType
-                    Util
                     
 executable          logbook
   main-is:

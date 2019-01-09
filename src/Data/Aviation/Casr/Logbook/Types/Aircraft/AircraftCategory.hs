@@ -20,20 +20,20 @@ import Prelude
 
 data AircraftCategory =
   Aeroplane
-    (Propulsions1_ () () () () () () () () () () () () () () () () () ())
+    Propulsions1
     LandingGear
     AeroplaneDesignFeatures
-  | Helicopter (Propulsions1_ () () () () () () () () () () () () () () () () () ()) HelicopterDesignFeatures
-  | PoweredLift (Propulsions1_ () () () () () () () () () () () () () () () () () ())
-  | Gyroplane (Propulsions1_ () () () () () () () () () () () () () () () () () ()) GyroplaneDesignFeatures
-  | Airship (Propulsions1_ () () () () () () () () () () () () () () () () () ()) AirshipDesignFeatures
+  | Helicopter Propulsions1 HelicopterDesignFeatures
+  | PoweredLift Propulsions1
+  | Gyroplane Propulsions1 GyroplaneDesignFeatures
+  | Airship Propulsions1 AirshipDesignFeatures
   | Balloon
   | RPA RPACategory
-  | Glider (Propulsions_ () () () () () () () () () () () () () () () () () ())
+  | Glider Propulsions
   | Paraglider
-  | Paramotor (Propulsions1_ () () () () () () () () () () () () () () () () () ())
-  | Trike (Propulsions_ () () () () () () () () () () () () () () () () () ())
-  | PoweredParachute (Propulsions1_ () () () () () () () () () () () () () () () () () ())
+  | Paramotor Propulsions1
+  | Trike Propulsions
+  | PoweredParachute Propulsions1
   | Hangglider
   deriving (Eq, Ord, Show, Generic)
 

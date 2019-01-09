@@ -1,13 +1,8 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE BangPatterns #-}
-{-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE PatternSynonyms #-}
 
 module Data.Aviation.Casr.Logbook.Types.Aircraft.Propulsion.Propulsions1 where
 
@@ -30,121 +25,92 @@ import GHC.Generics
 import Natural
 import Prelude
 
-type family XPropulsions1 x
-
-data Propulsions1 x xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition =
+newtype Propulsions1 =
   Propulsions1
-    !(XPropulsions1 x)
-    (NonEmpty (Propulsion xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition))
-  deriving Generic
+    (NonEmpty Propulsion)
+  deriving (Eq, Ord, Show, Generic)
 
-deriving instance (Eq (XPropulsions1 x), Eq (Propulsion xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)) =>
-  Eq (Propulsions1 x xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)
-
-deriving instance (Ord (XPropulsions1 x), Ord (Propulsion xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)) =>
-  Ord (Propulsions1 x xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)
-
-deriving instance (Show (XPropulsions1 x), Show (Propulsion xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)) =>
-  Show (Propulsions1 x xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)
-
-class HasPropulsions1 a e xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition | a -> e, a -> xpropulsions1, a -> xpropulsionengine, a -> xengine, a -> xinternalcombustionengine, a -> xinternalcombustionengineairinduction, a -> xinternalcombustionenginefuelinduction, a -> xinternalcombustionengineignition, a -> xinternalcombustionenginetype, a -> xpistonengine, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement_pistonengine, a -> xrotaryengine, a -> xrotors, a -> xenginedisplacement_rotaryengine, a -> xelectrictype, a -> xjettype, a -> xpropulsionposition where
+class HasPropulsions1 a where
   propulsions1 ::
-    Lens' a (Propulsions1 e xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)
-  xPropulsions1 ::
-    Lens' a (XPropulsions1 e)
-  xPropulsions1 =
-    propulsions1 . xPropulsions1
+    Lens' a Propulsions1
 
-instance HasPropulsions1 (Propulsions1 e xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) e xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition where
+instance HasPropulsions1 Propulsions1 where
   propulsions1 =
     id
-  xPropulsions1 f (Propulsions1 x n) =
-    fmap (\x' -> Propulsions1 x' n) (f x)
 
-class AsPropulsions1 a e xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition | a -> e, a -> xpropulsions1, a -> xpropulsionengine, a -> xengine, a -> xinternalcombustionengine, a -> xinternalcombustionengineairinduction, a -> xinternalcombustionenginefuelinduction, a -> xinternalcombustionengineignition, a -> xinternalcombustionenginetype, a -> xpistonengine, a -> xpistonengineconfiguration, a -> xpistonenginecycle, a -> xenginedisplacement_pistonengine, a -> xrotaryengine, a -> xrotors, a -> xenginedisplacement_rotaryengine, a -> xelectrictype, a -> xjettype, a -> xpropulsionposition where
+class AsPropulsions1 a where
   _Propulsions1 ::
-    Prism' a (Propulsions1 e xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)
- 
-instance AsPropulsions1 (Propulsions1 e xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) e xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition where
+    Prism' a Propulsions1
+
+instance AsPropulsions1 Propulsions1 where
   _Propulsions1 =
     id
 
-instance (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) ~ x => Rewrapped (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) x
-instance Wrapped (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) where
-  type Unwrapped (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) =
-    NonEmpty (Propulsion_ xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)
+instance Propulsions1 ~ x => Rewrapped Propulsions1 x
+
+instance Wrapped Propulsions1 where
+  type Unwrapped Propulsions1 =
+    NonEmpty Propulsion
   _Wrapped' =
     iso
-      (\(Propulsions1_ x) -> x)
-      Propulsions1_
-
-type Propulsions1_ =
-  Propulsions1 ()
-
-type instance XPropulsions1 () =
-  ()
-
-pattern Propulsions1_ ::
-  NonEmpty (Propulsion xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)
-  -> Propulsions1_ xpropulsions1 xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition
-pattern Propulsions1_ p <- Propulsions1 _ p
-  where Propulsions1_ p = Propulsions1 () p
+      (\(Propulsions1 x) -> x)
+      Propulsions1
 
 ----
 
-type instance Index (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) = Int
-type instance IxValue (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) = (Propulsion_ xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition)
+type instance Index Propulsions1 = Int
+type instance IxValue Propulsions1 = Propulsion
 
-instance Ixed (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) where
+instance Ixed Propulsions1 where
   ix n =
     _Wrapped . ix n
 
-instance Each (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) (Propulsion_ xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) (Propulsion_ xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) where
+instance Each Propulsions1 Propulsions1 Propulsion Propulsion where
   each =
     _Wrapped . each
 
-instance Reversing (Propulsions1_ () xpropulsionengine xengine xinternalcombustionengine xinternalcombustionengineairinduction xinternalcombustionenginefuelinduction xinternalcombustionengineignition xinternalcombustionenginetype xpistonengine xpistonengineconfiguration xpistonenginecycle xenginedisplacement_pistonengine xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype xpropulsionposition) where
+instance Reversing Propulsions1 where
   reversing =
     _Wrapped %~ reversing
 
 single_naturallyinduced_ice_fourstroke :: 
   Manufacturer
   -> Designation
-  -> InternalCombustionEngineFuelInduction xinternalcombustionenginefuelinduction
+  -> InternalCombustionEngineFuelInduction
   -> Cylinders
   -> Positive
-  -> Propulsions1_ () () () () () xinternalcombustionenginefuelinduction () () () () () () xrotaryengine xrotors xenginedisplacement_rotaryengine xelectrictype xjettype ()
+  -> Propulsions1
 single_naturallyinduced_ice_fourstroke enginemanufacturer enginedesgination fuelinduction cylinders displacement =
-  Propulsions1_
+  Propulsions1
     ( 
       pure
         (
-          Propulsion_
+          Propulsion
             (
-              Engine_
+              Engine
                 enginemanufacturer
                 enginedesgination
                 (
-                  InternalCombustionEngineEngineType_
+                  InternalCombustionEngineEngineType
                     (
-                      InternalCombustionEngine_
-                        NaturalInduction_
+                      InternalCombustionEngine
+                        NaturalInduction
                         fuelinduction
-                        Spark_
+                        Spark
                         (
-                          PistonEngineType_
+                          PistonEngineType
                             (
-                              PistonEngine_
-                                Opposed_
-                                FourStroke_
+                              PistonEngine
+                                Opposed
+                                FourStroke
                                 cylinders
-                                (EngineDisplacement_ displacement)
+                                (EngineDisplacement displacement)
                             )
                         )
                     )
                 )
             )
-            Centreline_
+            Centreline
         )
     )
-    
+      
